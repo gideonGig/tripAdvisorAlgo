@@ -624,19 +624,19 @@ public class BasicAlgo {
         return curA;
     }
 
-    public ListNode oddEvenList(ListNode head) {
+    public ListNode reorderList(ListNode head) {
         ListNode odd = head;
         ListNode even = head.next;
         ListNode oddPtr = odd;
         ListNode evenPtr = even;
-        while (oddPtr != null) {
-            oddPtr = oddPtr.next.next;
-        }
-        while (evenPtr != null) {
-            evenPtr = evenPtr.next.next;
+
+        ListNode reorderNode = head;
+        
+        while(evenPtr != null && even.next != null) {
+
         }
 
-        return odd;
+        return reorderNode;
     }
 }
 
