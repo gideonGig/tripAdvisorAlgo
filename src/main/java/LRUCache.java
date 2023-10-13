@@ -47,5 +47,4 @@ public class LRUCache<K,V> {
             queue.remove(key);
         }
     }
-
 }

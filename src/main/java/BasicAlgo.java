@@ -44,26 +44,26 @@ public class BasicAlgo {
     }
 
     public static class MyQueue {
-        private Stack<Integer> list;
+        private Stack<Integer> list1;
         private Stack<Integer> list2;
 
         public MyQueue() {
-            list = new Stack();
+            list1 = new Stack();
             list2 = new Stack();
         }
-
+        //always append to list1 and pop from list2
         public void append(Integer value) {
-            list.add(value);
+            list1.add(value);
         }
 
         //this is an ineffcient algorithm, as for every pop operation it runs an 0(n)
         public Integer pop() {
             Integer ans = -1;
-            Integer lengthList = list.size();
+            Integer lengthList = list1.size();
             Integer newArrlength = lengthList - 1;
             Integer[] arr = new Integer[lengthList - 1];
             for (int i = 0; i < lengthList; i++) {
-                Integer value = list.pop();
+                Integer value = list1.pop();
                 if (i == lengthList - 1) {
                     ans = value;
                 } else {
@@ -71,18 +71,20 @@ public class BasicAlgo {
                 }
             }
 
-            list = new Stack();
-            Collections.addAll(list, arr);
+            list1 = new Stack();
+            Collections.addAll(list1, arr);
             return ans;
         }
 
         //efficient algorithm is using 2 stacks for Enqueue and Dequeue Operation..we wuld always pop from list2
+        //firt check that list2 is empyy, if it is empty, remove all elements from list1 to list2
+        //second always pop from list2
         public Integer dequeue() {
             Integer ans = -1;
             if (list2.isEmpty()) {
-                //move all elemets from list to list2
-                while (!list.isEmpty()) {
-                    list2.add(list.pop());
+                //move all elemets from list1 to list2
+                while (!list1.isEmpty()) {
+                    list2.add(list1.pop());
                 }
 
             }
@@ -116,12 +118,12 @@ public class BasicAlgo {
     }
 
     public static class TreeNode {
-        public int value;
+        public int val;
         public TreeNode left;
         public TreeNode right;
 
-        public TreeNode(int value, TreeNode left, TreeNode right) {
-            this.value = value;
+        public TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
             this.left = left;
             this.right = right;
         }
@@ -198,9 +200,9 @@ public class BasicAlgo {
     public static TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         TreeNode current = root;
         while (current != null) {
-            if (p.value > current.value && q.value > current.value) {
+            if (p.val > current.val && q.val > current.val) {
                 current = current.right;
-            } else if (p.value < current.value && q.value < current.value) {
+            } else if (p.val < current.val && q.val < current.val) {
                 current = current.left;
             } else {
                 return current;
@@ -271,7 +273,7 @@ public class BasicAlgo {
         queue.add(node);
         while (!queue.isEmpty()) {
             TreeNode current = queue.remove();
-            values.add(current.value);
+            values.add(current.val);
             if (current.left != null) {
                 queue.add(current.left);
             } else if (current.right != null) {
@@ -328,7 +330,6 @@ public class BasicAlgo {
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < cols; c++) {
                 if (grid[r][c] == '1' && !visited[r][c]) {
-                    int num = 0;
                     bfs(grid, r, c, visited);
                     numberIsland += 1;
 
@@ -492,7 +493,6 @@ public class BasicAlgo {
                 curB = curB.next;
             }
             ref = ref.next;
-            System.out.println(cur.getNext().stringifyNode());
         }
 
         if (curA != null) {
@@ -507,7 +507,7 @@ public class BasicAlgo {
     public static ListNode sortList(ListNode head) {
         ListNode cur = head;
         List<Integer> arr = new ArrayList();
-        //copy the list into an array, sort it and copy it back.
+        //copy the list1 into an array, sort it and copy it back.
         while (cur != null) {
             arr.add(cur.val);
             cur = cur.next;
@@ -544,6 +544,7 @@ public class BasicAlgo {
         }
     }
 
+    //solve this challenge later
     public static void rotateByOne(int[][] matrix) {
         int left = 0;
         int right = matrix.length - 1;
@@ -554,12 +555,91 @@ public class BasicAlgo {
             int i = bottom;
             while (i > top) {
             }
+        }
+    }
 
+    public int kthSmallest(TreeNode root, int k) {
+        //using depth first search inorder traversal, inorder trasversal make sure you each the end of the left subtree
+        //before
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode cur = root;
+        stack.add(cur);
+        while (true) {
+            while (cur != null) {
+                stack.add(cur);
+                cur = cur.left;
+            }
+            TreeNode node = stack.pop();
+            if (--k == 0) {
+                return node.val;
+            }
+        }
+    }
 
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> ans = new ArrayList<>();
+        if (root == null) {
+            return ans;
         }
 
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+
+        boolean leftSided = true;
+        while (!queue.isEmpty()) {
+            int levelSize = queue.size();
+            List<Integer> list = new ArrayList<>();
+            for (int i = 0; i < levelSize; i++) {
+                TreeNode cur = queue.remove();
+                if (leftSided) {
+                    list.add(cur.val);
+                } else {
+                    list.add(0, cur.val);
+                }
+
+                if (cur.left != null) {
+                    queue.add(cur.left);
+                }
+
+                if (cur.right != null) {
+                    queue.add(cur.right);
+                }
+            }
+
+            leftSided = !leftSided;
+            ans.add(list);
+        }
+
+        return ans;
+    }
+
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        ListNode curA = headA;
+        ListNode curB = headB;
+
+        while (curA != curB) {
+            curA = curA != null ? curA.next : headB;
+            curB = curB != null ? curB.next : headA;
+        }
+        return curA;
+    }
+
+    public ListNode oddEvenList(ListNode head) {
+        ListNode odd = head;
+        ListNode even = head.next;
+        ListNode oddPtr = odd;
+        ListNode evenPtr = even;
+        while (oddPtr != null) {
+            oddPtr = oddPtr.next.next;
+        }
+        while (evenPtr != null) {
+            evenPtr = evenPtr.next.next;
+        }
+
+        return odd;
     }
 }
+
 
 
 
