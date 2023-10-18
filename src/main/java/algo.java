@@ -141,11 +141,18 @@ public class algo {
         System.out.println(node.stringifyNode());
          **/
 
+        /**
         int[] arr = {1, 2};
         BasicAlgo.ListNode l1 = BasicAlgo.ListNode.convertToListNode(arr);
         BasicAlgo.ListNode node = BasicAlgo.rotateRight(l1, 2);
-        System.out.println(node.stringifyNode());
+/
+         **/
 
+
+        int[] arr = {1, 2, 3, 3, 4, 4, 5};
+        BasicAlgo.ListNode l1 = BasicAlgo.ListNode.convertToListNode(arr);
+        BasicAlgo.ListNode node = BasicAlgo.deleteDuplicates(l1);
+        System.out.println(node.stringifyNode());
 
 
 

@@ -889,6 +889,45 @@ public class BasicAlgo {
         return startNew;
     }
 
+    public static ListNode removeDuplicateNode(ListNode head) {
+        ListNode dummy = new ListNode(0, head);
+        ListNode cur = head;
+        ListNode prePtr = dummy;
+
+        cur = cur.next;
+        prePtr = prePtr.next;
+
+        while (cur != null) {
+            if (prePtr.val != cur.val) {
+                prePtr = prePtr.next;
+            } else {
+                prePtr.next = cur.next;
+            }
+            cur = cur.next;
+        }
+
+        return dummy.next;
+    }
+
+    public static ListNode deleteDuplicates(ListNode head) {
+        ListNode dummy = new ListNode(0, head);
+        ListNode prev = dummy;
+        ListNode cur = head;
+
+        if (cur.next != null && cur.next.val == cur.val) {
+            while (cur.next != null && cur.next.val == cur.val) {
+                cur = cur.next;
+            }
+            cur.next = null;
+            cur = cur.next;
+            prev.next = cur;
+        } else {
+            prev = cur;
+            cur = cur.next;
+        }
+        return dummy.next;
+    }
+
 }
 
 
