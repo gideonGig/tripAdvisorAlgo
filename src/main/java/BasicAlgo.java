@@ -41,6 +41,16 @@ public class BasicAlgo {
             return builder.toString();
         }
 
+        public static ListNode convertToListNode(int[] arr) {
+            ListNode node = new ListNode(arr[0]);
+            ListNode cur = node;
+            for (int i = 1; i < arr.length; i++) {
+                cur.next = new ListNode(arr[i]);
+                cur = cur.next;
+            }
+            return node;
+        }
+
     }
 
     public static class MyQueue {
@@ -51,6 +61,7 @@ public class BasicAlgo {
             list1 = new Stack();
             list2 = new Stack();
         }
+
         //always append to list1 and pop from list2
         public void append(Integer value) {
             list1.add(value);
@@ -258,10 +269,11 @@ public class BasicAlgo {
             temp[k++] = arr[j++];
         }
 
+
         for (i = start; i <= end; i++) {
-            //we want to exactly replace arr[i] position with values in temp such that i - start starts from 0..
             arr[i] = temp[i - start];
         }
+
     }
 
     public static List<Integer> breadthFirstSearch(TreeNode node) {
@@ -504,6 +516,7 @@ public class BasicAlgo {
         return cur;
     }
 
+    //using array is not making it memory efficient, we can use a merge sort
     public static ListNode sortList(ListNode head) {
         ListNode cur = head;
         List<Integer> arr = new ArrayList();
@@ -558,7 +571,7 @@ public class BasicAlgo {
         }
     }
 
-    public int kthSmallest(TreeNode root, int k) {
+    public static int kthSmallest(TreeNode root, int k) {
         //using depth first search inorder traversal, inorder trasversal make sure you each the end of the left subtree
         //before
         Stack<TreeNode> stack = new Stack<>();
@@ -576,7 +589,7 @@ public class BasicAlgo {
         }
     }
 
-    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+    public static List<List<Integer>> zigzagLevelOrder(TreeNode root) {
         List<List<Integer>> ans = new ArrayList<>();
         if (root == null) {
             return ans;
@@ -613,7 +626,8 @@ public class BasicAlgo {
         return ans;
     }
 
-    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+    /*** LINKED LIST QUESTION ***/
+    public static ListNode getIntersectionNode(ListNode headA, ListNode headB) {
         ListNode curA = headA;
         ListNode curB = headB;
 
@@ -624,15 +638,268 @@ public class BasicAlgo {
         return curA;
     }
 
+    public static ListNode oddEvenList(ListNode head) {
+        ListNode odd = head;
+        ListNode even = head.next;
+        ListNode oddPtr = odd;
+        ListNode evenPtr = even;
+
+        //link evenNodes and oddNodes
+        while (evenPtr != null && evenPtr.next != null) {
+            oddPtr.next = evenPtr.next;
+            oddPtr = oddPtr.next;
+            evenPtr.next = oddPtr.next;
+            evenPtr = evenPtr.next;
+        }
+        oddPtr.next = null;
+
+        //reverse the evenPtr node
+        ListNode prev = null;
+        ListNode cur = even;
+        ListNode nextNode;
+
+        while (cur != null) {
+            nextNode = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = nextNode;
+        }
+        even = prev;
+
+        //merge both oddNode and evenNode
+        ListNode mergedNode = new ListNode();
+        ListNode ptr = mergedNode;
+
+        while (even != null || odd != null) {
+            while (odd != null) {
+                ptr.next = odd;
+                odd = odd.next;
+                ptr = ptr.next;
+            }
+
+            while (even != null) {
+                ptr.next = even;
+                even = even.next;
+                ptr = ptr.next;
+            }
+
+        }
+
+        return mergedNode.next;
+    }
+
+    public static ListNode reverseList(ListNode head) {
+        if (head == null) {
+            return head;
+        }
+
+        ListNode cur = head;
+        ListNode prev = null;
+        ListNode nextNode;
+
+        while (cur != null) {
+            nextNode = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = nextNode;
+        }
+
+        return prev;
+
+    }
+
+    //could not solve this, yet.... not all test cases passed,  and code is not memory efficient, it needs to be optimized
+    public static ListNode reverseEvenLengthGroups(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode dummy = new ListNode(0, head);
+        ListNode dummyPtr = dummy;
+        ListNode cur = head;
+
+
+        return dummy.next;
+    }
+
+    public static ListNode reverseBetween(ListNode head, int left, int right) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        //set a dummy node and use a two pointer technique;
+        ListNode dummy = new ListNode(0, head);
+        ListNode cur = head;
+        ListNode dummyPtr = dummy;
+        int i = 1;
+        while (i < left) {
+            dummyPtr = cur;
+            cur = cur.next;
+            i = i + 1;
+        }
+
+        ListNode prev = null;
+        int j = 0;
+        while (j < right - left + 1) {
+            ListNode temp = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = temp;
+            j++;
+        }
+
+        dummyPtr.next.next = cur;
+        dummyPtr.next = prev;
+        return dummy.next;
+    }
+
+    public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode sum = new ListNode();
+        ListNode sumPtr = sum;
+
+        ListNode l1Ptr = l1;
+        ListNode l2Ptr = l2;
+        int carryOver = 0;
+        while (l1Ptr != null && l2Ptr != null) {
+            int val = l1Ptr.val + l2Ptr.val + carryOver;
+            carryOver = val / 10;
+            sumPtr.next = new ListNode(val % 10);
+            sumPtr = sumPtr.next;
+            l1Ptr = l1Ptr.next;
+            l2Ptr = l2Ptr.next;
+        }
+
+        while (l1Ptr != null) {
+            int val = l1Ptr.val + carryOver;
+            carryOver = val / 10;
+            sumPtr.next = new ListNode(val % 10);
+            sumPtr = sumPtr.next;
+            l1Ptr = l1Ptr.next;
+        }
+
+        while (l2Ptr != null) {
+            int val = l2Ptr.val + carryOver;
+            carryOver = val / 10;
+            sumPtr.next = new ListNode(val % 10);
+            sumPtr = sumPtr.next;
+            l2Ptr = l2Ptr.next;
+        }
+
+        if (carryOver > 0) {
+            sumPtr.next = new ListNode(carryOver);
+        }
+
+        return sum.next;
+    }
+
+    public static ListNode removeNthFromEnd(ListNode head, int n) {
+        //we can use two pointer technique for this
+        ListNode pre = new ListNode(0, head);
+        ListNode cur = head;
+        ListNode prePtr = pre;
+        int i = 0;
+        while (cur != null && i < n) {
+            cur = cur.next;
+            i++;
+        }
+
+        while (cur != null) {
+            prePtr = prePtr.next;
+            cur = cur.next;
+        }
+
+        prePtr.next = prePtr.next.next;
+        return pre.next;
+
+    }
+
+
+    //study this swap node clearly...you watched neetcode for this..
+    public static ListNode swapPairs(ListNode head) {
+        ListNode prev = new ListNode(0, head);
+        ListNode prevPtr = prev;
+        ListNode cur = head;
+
+        while (cur != null && cur.next != null) {
+            //save the initial pointers
+            ListNode secondPtr = cur.next;
+            ListNode secondNextPtr = cur.next.next;
+            //repoint the pointer
+            secondPtr.next = cur;
+            cur.next = secondNextPtr;
+            prevPtr.next = secondPtr;
+
+            //update the nodes
+            prevPtr = cur;
+            cur = cur.next;
+        }
+
+        return prev.next;
+
+    }
+
+    //you solved this yourself but took time, always look out for nulls, null should not start the beginning of a newNode,
+    //don't forget to always iterate thougha  linkedList by the pointers.
+    //avoid circular linkedlist;
+    // always changed the pointer of the linkedList to avoid circular linked list, if a points to b, b can point to a,
+    // only when a points to c and not b. if a points to b and b points to a, you have a circular linkedList,
+    //learn how to derefence yout linkedList;
+    public static ListNode rotateRight(ListNode head, int k) {
+        //alway know that the amount of rotation k is equal to the amount of rotation k % (len of ListNodes)..
+        ListNode cur = head;
+        if (head == null || head.next == null || k == 0) {
+            return head;
+        }
+        int i = 0;
+        while (cur != null) {
+            cur = cur.next;
+            i++;
+        }
+
+        k = k % i;
+
+        return rotate(head, k);
+    }
+
+    public static ListNode rotate(ListNode head, int k) {
+        ListNode pre = new ListNode(0, head);
+        ListNode prePtr = pre;
+        ListNode cur = head;
+
+        while (k > 0) {
+            cur = cur.next;
+            k--;
+        }
+
+        while (cur != null) {
+            cur = cur.next;
+            prePtr = prePtr.next;
+        }
+        ListNode startNew = prePtr.next;
+        prePtr.next = null;
+
+        ListNode startPtr = startNew;
+        if (startPtr == null) {
+            return pre.next;
+        } else {
+            while (startPtr.next != null) {
+                startPtr = startPtr.next;
+            }
+            startPtr.next = pre.next;
+        }
+
+        return startNew;
+    }
+
+    
     public static ListNode partition(ListNode head, int x) {
         if (head == null || head.next == null) {
             return head;
         }
 
         ListNode dummy = new ListNode(0, head);
+        ListNode dummy2 = new ListNode(0, head);
         ListNode cur = head;
         ListNode cur2 = head;
-        ListNode great = dummy;
+        ListNode great = dummy2;
         ListNode less = dummy;
         
         while (cur != null && cur.next != null) {
@@ -654,15 +921,15 @@ public class BasicAlgo {
         }
 
         if (great != null) {
-           return less;
+           return dummy.next;
         }
 
         if (less == null) {
-            return great;
+            return dummy2.next;
         }
 
         less.next = great;
-        return less;
+        return dummy.next;
     }
 
 }

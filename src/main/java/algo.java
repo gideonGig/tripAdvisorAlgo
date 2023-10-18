@@ -108,10 +108,63 @@ public class algo {
         BasicAlgo.rotate(arr);
         **/
 
-        StreamT.testStream();
+        /**
+        int[][] arr = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+        BasicAlgo.rotate(arr);
+         **/
 
-        BasicAlgo.ListNode nodeA = new BasicAlgo.ListNode(2, new BasicAlgo.ListNode(1, new BasicAlgo.ListNode(3)));
-        System.out.println(BasicAlgo.sortList(nodeA).stringifyNode());
+        /**
+        int[] arr = {1, 1, 0, 6, 5};
+        BasicAlgo.ListNode node = BasicAlgo.ListNode.convertToListNode(arr);
+        BasicAlgo.ListNode rev = BasicAlgo.reverseEvenLengthGroups(node);
+        System.out.println(rev.stringifyNode());
+         **/
+
+        /**
+        int[] arr = {3, 5};
+        BasicAlgo.ListNode node = BasicAlgo.ListNode.convertToListNode(arr);
+        BasicAlgo.ListNode rev = BasicAlgo.reverseBetween(node, 1, 2);
+        System.out.println(rev.stringifyNode());
+         **/
+
+        /**
+        int[] arr = {2, 4, 9};
+        BasicAlgo.ListNode l1 = BasicAlgo.ListNode.convertToListNode(arr);
+
+        int[] arr2 = {5, 6, 4, 9};
+        BasicAlgo.ListNode l2 = BasicAlgo.ListNode.convertToListNode(arr2);
+
+        BasicAlgo.ListNode node = BasicAlgo.addTwoNumbers(l1, l2);
+        System.out.println(node.stringifyNode());
+         **/
+
+        /**
+
+        int[] arr = {1, 2, 3, 4, 5};
+        BasicAlgo.ListNode l1 = BasicAlgo.ListNode.convertToListNode(arr);
+        BasicAlgo.ListNode node = BasicAlgo.removeNthFromEnd(l1, 2);
+        System.out.println(node.stringifyNode());
+         **/
+
+         /** 
+        int[] arr = {1, 2};
+        BasicAlgo.ListNode l1 = BasicAlgo.ListNode.convertToListNode(arr);
+        BasicAlgo.ListNode node = BasicAlgo.rotateRight(l1, 2);
+        System.out.println(node.stringifyNode());
+        **/
+        
+        /** 
+        StreamT.testStream();
+        */
+
+        int[] arr = {1, 4, 3, 2, 5, 2};
+        BasicAlgo.ListNode l1 = BasicAlgo.ListNode.convertToListNode(arr);
+        BasicAlgo.ListNode node = BasicAlgo.partition(l1, 3);
+        System.out.println(node.stringifyNode());
+
+
+
+
     }
 
 }
