@@ -102,9 +102,16 @@ public class algo {
         BasicAlgo.ListNode nodeA = new BasicAlgo.ListNode(2, new BasicAlgo.ListNode(1, new BasicAlgo.ListNode(3)));
         System.out.println(BasicAlgo.sortList(nodeA).stringifyNode());
          **/
-
+        
+         /** 
         int[][] arr = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
         BasicAlgo.rotate(arr);
+        **/
+
+        StreamT.testStream();
+
+        BasicAlgo.ListNode nodeA = new BasicAlgo.ListNode(2, new BasicAlgo.ListNode(1, new BasicAlgo.ListNode(3)));
+        System.out.println(BasicAlgo.sortList(nodeA).stringifyNode());
     }
 
 }

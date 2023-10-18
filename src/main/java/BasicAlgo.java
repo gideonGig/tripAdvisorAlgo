@@ -624,20 +624,47 @@ public class BasicAlgo {
         return curA;
     }
 
-    public ListNode reorderList(ListNode head) {
-        ListNode odd = head;
-        ListNode even = head.next;
-        ListNode oddPtr = odd;
-        ListNode evenPtr = even;
-
-        ListNode reorderNode = head;
-        
-        while(evenPtr != null && even.next != null) {
-
+    public static ListNode partition(ListNode head, int x) {
+        if (head == null || head.next == null) {
+            return head;
         }
 
-        return reorderNode;
+        ListNode dummy = new ListNode(0, head);
+        ListNode cur = head;
+        ListNode cur2 = head;
+        ListNode great = dummy;
+        ListNode less = dummy;
+        
+        while (cur != null && cur.next != null) {
+            if (cur.val < x) {
+                less.next = cur;
+                less = less.next;
+            }
+            
+            cur = cur.next;
+        }  
+        
+        while (cur2 != null && cur2.next != null) {
+            if (cur2.val >= x) {
+                great.next = cur2;
+                great = great.next;
+            }
+
+            cur2 = cur2.next;
+        }
+
+        if (great != null) {
+           return less;
+        }
+
+        if (less == null) {
+            return great;
+        }
+
+        less.next = great;
+        return less;
     }
+
 }
 
 
