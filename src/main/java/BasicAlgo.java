@@ -355,7 +355,6 @@ public class BasicAlgo {
         Queue<Points> queue = new LinkedList();
         queue.add(new Points(row, col));
         visited[row][col] = true;
-        Integer times = 0;
 
         while (!queue.isEmpty()) {
             Points position = queue.remove();
@@ -790,6 +789,9 @@ public class BasicAlgo {
         return sum.next;
     }
 
+    //you can use two pointer technique to solve this, the cur pointer will move in n step first,
+    //then the second pointer will move, when the cur pointer is null skip the second pointer next by setting
+    //second pointer's next to next.next
     public static ListNode removeNthFromEnd(ListNode head, int n) {
         //we can use two pointer technique for this
         ListNode pre = new ListNode(0, head);
@@ -889,50 +891,312 @@ public class BasicAlgo {
         return startNew;
     }
 
-    
+    public static ListNode removeDuplicateNode(ListNode head) {
+        ListNode dummy = new ListNode(0, head);
+        ListNode cur = head;
+        ListNode prePtr = dummy;
+
+        cur = cur.next;
+        prePtr = prePtr.next;
+
+        while (cur != null) {
+            if (prePtr.val != cur.val) {
+                prePtr = prePtr.next;
+            } else {
+                prePtr.next = cur.next;
+            }
+            cur = cur.next;
+        }
+
+        return dummy.next;
+    }
+/**
+    public static ListNode deleteDuplicates(ListNode head) {
+        ListNode dummy = new ListNode(0, head);
+        ListNode prev = dummy;
+        ListNode cur = head;
+
+        if (cur.next != null && cur.next.val == cur.val) {
+            while (cur.next != null && cur.next.val == cur.val) {
+                cur = cur.next;
+            }
+            cur.next = null;
+            cur = cur.next;
+            prev.next = cur;
+        } else {
+            prev = cur;
+            cur = cur.next;
+        }
+    }
+    **/
+
+    //you solved this yourself, have two pointers that points to the head,
+    //move the less pointer only when when the current pointer value is less than the value
+    //move the greater than pointer only when the current pointer is greater than the value,
+   //break the greater pointer at the end, because the next will always point at the lastcurrent values next
+   //set the less pointer to point to the GreaterNode's next
     public static ListNode partition(ListNode head, int x) {
         if (head == null || head.next == null) {
             return head;
         }
 
-        ListNode dummy = new ListNode(0, head);
-        ListNode dummy2 = new ListNode(0, head);
+        ListNode dummy = new ListNode(0, null);
+        ListNode dummy2 = new ListNode(0, null);
         ListNode cur = head;
-        ListNode cur2 = head;
-        ListNode great = dummy2;
         ListNode less = dummy;
-        
-        while (cur != null && cur.next != null) {
+        ListNode great = dummy2;
+
+        while (cur != null) {
             if (cur.val < x) {
                 less.next = cur;
                 less = less.next;
-            }
-            
-            cur = cur.next;
-        }  
-        
-        while (cur2 != null && cur2.next != null) {
-            if (cur2.val >= x) {
-                great.next = cur2;
+            } else {
+                great.next = cur;
                 great = great.next;
+
             }
-
-            cur2 = cur2.next;
+            cur = cur.next;
+            great.next = null;
         }
 
-        if (great != null) {
-           return dummy.next;
-        }
-
-        if (less == null) {
-            return dummy2.next;
-        }
-
-        less.next = great;
+        less.next = dummy2.next;
         return dummy.next;
     }
 
+    public static TreeNode sortedListToBST(ListNode head) {
+        //using two pointer technique
+        return null;
+
+    }
+
+    //I solved this myself, please remember this, the technique here is to save the curent and previous pointers
+    // before updatiung them
+    public static ListNode insertGreatestCommonDivisors(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        ListNode dummy = new ListNode(0, head);
+        ListNode cur = head.next;
+        ListNode prev = dummy.next;
+
+        while (cur != null) {
+            ListNode divNode = checkCommonDivior(prev, cur);
+            if (divNode != null) {
+                ListNode oldCurNext = cur.next;
+                ListNode oldPrevNext = prev.next;
+                prev.next = divNode;
+                divNode.next = cur;
+
+                cur = oldCurNext;
+                prev = oldPrevNext;
+            } else {
+                cur = cur.next;
+                prev = prev.next;
+            }
+        }
+
+        return dummy.next;
+    }
+
+    private static ListNode checkCommonDivior(ListNode prevNext, ListNode curNext) {
+        int preNo = prevNext.val;
+        int curNo = curNext.val;
+
+        int minNo = Math.min(preNo, curNo);
+        int gce = 0;
+
+        while (minNo > 0) {
+            int preGce = preNo % minNo;
+            int curGce = curNo % minNo;
+            if (preGce == 0 && curGce == 0) {
+                gce = minNo;
+                break;
+            }
+            minNo--;
+        }
+
+        if (gce > 0) {
+            return new ListNode(gce);
+        }
+
+        return null;
+    }
+
+    //I also solved this, it is very simple, just multiply every Node by 2, if it is 2 decimal places
+    //i.e greater than 9, add  1 to the prev Node before it, or set the new Node
+    public static ListNode doubleIt(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+        ListNode dummy = new ListNode(0, head);
+        ListNode cur = head;
+        ListNode prev = dummy;
+        while (cur != null) {
+            int val = cur.val * 2;
+            if (val > 9) {
+                int newVal = val % 10;
+                int remVal = val / 10;
+                cur.val = newVal;
+                prev.val = prev.val + remVal;
+            } else {
+                cur.val = val;
+            }
+            cur = cur.next;
+            prev = prev.next;
+        }
+
+        if (dummy.val == 0) {
+            return dummy.next;
+        }
+        return dummy;
+    }
+
+    public static int[][] spiralMatrix(int m, int n, ListNode head) {
+        int[][] result = new int[m][n];
+        Arrays.stream(result).forEach(arr -> Arrays.fill(arr, -1));
+
+        int left = 0;
+        int right = n;
+        int top = 0;
+        int bottom = m;
+
+        ListNode cur = head;
+        while ((left < right) && (top < bottom)) {
+            //move from left to right
+            for (int i = left; i < right; i++) {
+                if (cur != null) {
+                    result[top][i] = cur.val;
+                } else {
+                    break;
+                }
+                cur = cur.next;
+            }
+            top = top + 1;
+
+            //move from top to bottom
+            for (int i = top; i < bottom; i++) {
+                if (cur != null) {
+                    result[i][right - 1] = cur.val;
+                } else {
+                    break;
+                }
+                cur = cur.next;
+            }
+            right = right - 1;
+
+            if (!((left < right) && (top < bottom))) {
+                break;
+            }
+
+            //move from right to left
+            for (int i = right - 1; i >= left; i--) {
+                if (cur != null) {
+                    result[bottom - 1][i] = cur.val;
+                } else {
+                    break;
+                }
+                cur = cur.next;
+            }
+            bottom = bottom - 1;
+
+            //move from bottom to top
+            for (int i = bottom - 1; i >= top; i--) {
+                if (cur != null) {
+                    result[i][left] = cur.val;
+                } else {
+                    break;
+                }
+                cur = cur.next;
+            }
+            left = left + 1;
+
+        }
+
+        return result;
+    }
+
+    public int longestValidParentheses(String s) {
+        if (s.isEmpty()) return 0;
+        Stack<Integer> stack = new Stack<>();
+        stack.push(-1);
+        Integer maxLen = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '(') {
+                stack.push(i);
+            } else {
+                stack.pop();
+                if (stack.isEmpty()) {
+                    stack.push(i);
+                } else {
+                    int length = stack.peek();
+                    maxLen = Math.max(maxLen, length);
+                }
+            }
+        }
+        return maxLen;
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

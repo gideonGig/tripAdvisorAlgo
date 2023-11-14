@@ -1,6 +1,38 @@
+import neecode_150.NeetCode;
+import threadtutorials.InteruptThread;
+import threadtutorials.Thread1;
+import threadtutorials.Thread2;
+
+import java.math.BigDecimal;
+
 public class algo {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
+
+        /** Beginning of Thread1 **/
+
+        /**
+        Thread2 thread2 = new Thread2();
+        thread2.createThread2();
+
+        InteruptThread interuptThread = new InteruptThread(BigDecimal.valueOf(10), 3);
+        interuptThread.interuptThread();
+         **/
+
+
+
+
+        //Basics test = new Basics();
+        /**
+        Object c = test.check(50);
+        System.out.println(c.getClass().toString());
+
+        test.testObjecEquality();
+         **/
+
+       //test.calculateValue("*", 2.0f, 10.0f);
+        // test.testGenerics();
+
         /**
          Integer{} arr = {1,3,4,5};
          Integer coin = BasicAlgo.coinChange(arr, 7);
@@ -146,6 +178,21 @@ public class algo {
         System.out.println(node.stringifyNode());
          **/
 
+        /**
+        int[] arr = {1, 2};
+        BasicAlgo.ListNode l1 = BasicAlgo.ListNode.convertToListNode(arr);
+        BasicAlgo.ListNode node = BasicAlgo.rotateRight(l1, 2);
+/
+         **/
+
+        /**
+        int[] arr = {1, 2, 3, 3, 4, 4, 5};
+        BasicAlgo.ListNode l1 = BasicAlgo.ListNode.convertToListNode(arr);
+        BasicAlgo.ListNode node = BasicAlgo.deleteDuplicates(l1);
+        System.out.println(node.stringifyNode());
+         **/
+
+
          /** 
         int[] arr = {1, 2};
         BasicAlgo.ListNode l1 = BasicAlgo.ListNode.convertToListNode(arr);
@@ -157,14 +204,114 @@ public class algo {
         StreamT.testStream();
         */
 
+        /**
         int[] arr = {1, 4, 3, 2, 5, 2};
         BasicAlgo.ListNode l1 = BasicAlgo.ListNode.convertToListNode(arr);
         BasicAlgo.ListNode node = BasicAlgo.partition(l1, 3);
         System.out.println(node.stringifyNode());
+         **/
 
+        /**
+        int[] divisors = {18, 6, 10, 3};
+        BasicAlgo.ListNode divisorNode = BasicAlgo.ListNode.convertToListNode(divisors);
+        BasicAlgo.ListNode result = BasicAlgo.insertGreatestCommonDivisors(divisorNode);
+        System.out.println(result.stringifyNode());
+         **/
 
+        /**
+        int[] arr = {1, 8, 9};
+        BasicAlgo.ListNode l1 = BasicAlgo.ListNode.convertToListNode(arr);
+        BasicAlgo.ListNode node = BasicAlgo.doubleIt(l1);
+        System.out.println(node.stringifyNode());
+         **/
+
+        /**
+        int[] arr = {16, 2, 12, 19, 7, 20, 3, 21};
+        //int[] arr = {1, 1, 1, 1};
+        //int[] arr = {5, 2, 12, 3, 8};
+        BasicAlgo.ListNode l1 = BasicAlgo.ListNode.convertToListNode(arr);
+        BasicAlgo.ListNode node = BasicAlgo.removeNodes(l1);
+        System.out.println(node.stringifyNode());
+         **/
+
+        /**
+        int[] arr = {3, 0, 2, 6, 8, 1, 7, 9, 4, 2, 5, 5, 0};
+        BasicAlgo.ListNode l1 = BasicAlgo.ListNode.convertToListNode(arr);
+        int[][] result = BasicAlgo.spiralMatrix(3, 5, l1);
+        System.out.println(result);
+         **/
+
+       String[] ops = {"5", "-2", "4", "C", "D", "9", "+", "+"};
+       int summ = NeetCode.calPoints(ops);
+       System.out.println(summ);
 
 
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
