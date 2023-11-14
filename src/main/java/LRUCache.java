@@ -1,24 +1,21 @@
-import java.util.Deque;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
 
-public class LRUCache<K,V> {
+public class LRUCache<K, V> {
     private final int capacity;
     private final Deque<K> queue;
     private final Map<K, V> map;
 
     public LRUCache(int capacity) {
         this.capacity = capacity;
-        this.queue = new LinkedList<>();
+        this.queue = new ArrayDeque<>();
         this.map = new HashMap<K, V>();
     }
 
-    public V get(K val) {
-        if (map.containsKey(val)) {
-            V result = map.get(val);
-            queue.remove(val);
-            queue.addFirst(val);
+    public V get(K key) {
+        if (map.containsKey(key)) {
+            V result = map.get(key);
+            queue.remove(key);
+            queue.addFirst(key);
             return result;
         } else {
             return null;
