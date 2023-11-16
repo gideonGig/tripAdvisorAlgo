@@ -1,7 +1,6 @@
 import neecode_150.NeetCode;
-import threadtutorials.InteruptThread;
-import threadtutorials.Thread1;
-import threadtutorials.Thread2;
+import neecode_150.NeetCode.MyStack;
+import utilities.ListNode;
 
 import java.math.BigDecimal;
 
@@ -65,15 +64,15 @@ public class algo {
          */
 
         /**
-        BasicAlgo.ListNode nodeA = new BasicAlgo.ListNode(1,
-                new BasicAlgo.ListNode(2, new BasicAlgo.ListNode(3,
-                        new BasicAlgo.ListNode(4))));
+        ListNode nodeA = new ListNode(1,
+                new ListNode(2, new ListNode(3,
+                        new ListNode(4))));
 
 
-        BasicAlgo.ListNode nodeB = new BasicAlgo.ListNode(4,
-                new BasicAlgo.ListNode(6, new BasicAlgo.ListNode(8,
-                        new BasicAlgo.ListNode(10))));
-        BasicAlgo.ListNode node = BasicAlgo.findIntersectionBetweenNodes(nodeA, nodeB);
+        ListNode nodeB = new ListNode(4,
+                new ListNode(6, new ListNode(8,
+                        new ListNode(10))));
+        ListNode node = BasicAlgo.findIntersectionBetweenNodes(nodeA, nodeB);
 
         System.out.println(node.getVal());
          **/
@@ -124,14 +123,14 @@ public class algo {
          **/
 
         /**
-        BasicAlgo.ListNode nodeA = new BasicAlgo.ListNode(1, new BasicAlgo.ListNode(2, new BasicAlgo.ListNode(3)));
-        BasicAlgo.ListNode nodeB = new BasicAlgo.ListNode(1, new BasicAlgo.ListNode(3, new BasicAlgo.ListNode(4)));
-        BasicAlgo.ListNode merged = BasicAlgo.mergeTwoSortedList(nodeA, nodeB);
+        ListNode nodeA = new ListNode(1, new ListNode(2, new ListNode(3)));
+        ListNode nodeB = new ListNode(1, new ListNode(3, new ListNode(4)));
+        ListNode merged = BasicAlgo.mergeTwoSortedList(nodeA, nodeB);
         System.out.println(merged.getNext().stringifyNode());
          **/
 
         /**
-        BasicAlgo.ListNode nodeA = new BasicAlgo.ListNode(2, new BasicAlgo.ListNode(1, new BasicAlgo.ListNode(3)));
+        ListNode nodeA = new ListNode(2, new ListNode(1, new ListNode(3)));
         System.out.println(BasicAlgo.sortList(nodeA).stringifyNode());
          **/
         
@@ -147,56 +146,56 @@ public class algo {
 
         /**
         int[] arr = {1, 1, 0, 6, 5};
-        BasicAlgo.ListNode node = BasicAlgo.ListNode.convertToListNode(arr);
-        BasicAlgo.ListNode rev = BasicAlgo.reverseEvenLengthGroups(node);
+        ListNode node = ListNode.convertToListNode(arr);
+        ListNode rev = BasicAlgo.reverseEvenLengthGroups(node);
         System.out.println(rev.stringifyNode());
          **/
 
         /**
         int[] arr = {3, 5};
-        BasicAlgo.ListNode node = BasicAlgo.ListNode.convertToListNode(arr);
-        BasicAlgo.ListNode rev = BasicAlgo.reverseBetween(node, 1, 2);
+        ListNode node = ListNode.convertToListNode(arr);
+        ListNode rev = BasicAlgo.reverseBetween(node, 1, 2);
         System.out.println(rev.stringifyNode());
          **/
 
         /**
         int[] arr = {2, 4, 9};
-        BasicAlgo.ListNode l1 = BasicAlgo.ListNode.convertToListNode(arr);
+        ListNode l1 = ListNode.convertToListNode(arr);
 
         int[] arr2 = {5, 6, 4, 9};
-        BasicAlgo.ListNode l2 = BasicAlgo.ListNode.convertToListNode(arr2);
+        ListNode l2 = ListNode.convertToListNode(arr2);
 
-        BasicAlgo.ListNode node = BasicAlgo.addTwoNumbers(l1, l2);
+        ListNode node = BasicAlgo.addTwoNumbers(l1, l2);
         System.out.println(node.stringifyNode());
          **/
 
         /**
 
         int[] arr = {1, 2, 3, 4, 5};
-        BasicAlgo.ListNode l1 = BasicAlgo.ListNode.convertToListNode(arr);
-        BasicAlgo.ListNode node = BasicAlgo.removeNthFromEnd(l1, 2);
+        ListNode l1 = ListNode.convertToListNode(arr);
+        ListNode node = BasicAlgo.removeNthFromEnd(l1, 2);
         System.out.println(node.stringifyNode());
          **/
 
         /**
         int[] arr = {1, 2};
-        BasicAlgo.ListNode l1 = BasicAlgo.ListNode.convertToListNode(arr);
-        BasicAlgo.ListNode node = BasicAlgo.rotateRight(l1, 2);
+        ListNode l1 = ListNode.convertToListNode(arr);
+        ListNode node = BasicAlgo.rotateRight(l1, 2);
 /
          **/
 
         /**
         int[] arr = {1, 2, 3, 3, 4, 4, 5};
-        BasicAlgo.ListNode l1 = BasicAlgo.ListNode.convertToListNode(arr);
-        BasicAlgo.ListNode node = BasicAlgo.deleteDuplicates(l1);
+        ListNode l1 = ListNode.convertToListNode(arr);
+        ListNode node = BasicAlgo.deleteDuplicates(l1);
         System.out.println(node.stringifyNode());
          **/
 
 
          /** 
         int[] arr = {1, 2};
-        BasicAlgo.ListNode l1 = BasicAlgo.ListNode.convertToListNode(arr);
-        BasicAlgo.ListNode node = BasicAlgo.rotateRight(l1, 2);
+        ListNode l1 = ListNode.convertToListNode(arr);
+        ListNode node = BasicAlgo.rotateRight(l1, 2);
         System.out.println(node.stringifyNode());
         **/
         
@@ -206,22 +205,22 @@ public class algo {
 
         /**
         int[] arr = {1, 4, 3, 2, 5, 2};
-        BasicAlgo.ListNode l1 = BasicAlgo.ListNode.convertToListNode(arr);
-        BasicAlgo.ListNode node = BasicAlgo.partition(l1, 3);
+        ListNode l1 = ListNode.convertToListNode(arr);
+        ListNode node = BasicAlgo.partition(l1, 3);
         System.out.println(node.stringifyNode());
          **/
 
         /**
         int[] divisors = {18, 6, 10, 3};
-        BasicAlgo.ListNode divisorNode = BasicAlgo.ListNode.convertToListNode(divisors);
-        BasicAlgo.ListNode result = BasicAlgo.insertGreatestCommonDivisors(divisorNode);
+        ListNode divisorNode = ListNode.convertToListNode(divisors);
+        ListNode result = BasicAlgo.insertGreatestCommonDivisors(divisorNode);
         System.out.println(result.stringifyNode());
          **/
 
         /**
         int[] arr = {1, 8, 9};
-        BasicAlgo.ListNode l1 = BasicAlgo.ListNode.convertToListNode(arr);
-        BasicAlgo.ListNode node = BasicAlgo.doubleIt(l1);
+        ListNode l1 = ListNode.convertToListNode(arr);
+        ListNode node = BasicAlgo.doubleIt(l1);
         System.out.println(node.stringifyNode());
          **/
 
@@ -229,23 +228,51 @@ public class algo {
         int[] arr = {16, 2, 12, 19, 7, 20, 3, 21};
         //int[] arr = {1, 1, 1, 1};
         //int[] arr = {5, 2, 12, 3, 8};
-        BasicAlgo.ListNode l1 = BasicAlgo.ListNode.convertToListNode(arr);
-        BasicAlgo.ListNode node = BasicAlgo.removeNodes(l1);
+        ListNode l1 = ListNode.convertToListNode(arr);
+        ListNode node = BasicAlgo.removeNodes(l1);
         System.out.println(node.stringifyNode());
          **/
 
-        /**
+        /* 
         int[] arr = {3, 0, 2, 6, 8, 1, 7, 9, 4, 2, 5, 5, 0};
-        BasicAlgo.ListNode l1 = BasicAlgo.ListNode.convertToListNode(arr);
+        ListNode l1 = ListNode.convertToListNode(arr);
         int[][] result = BasicAlgo.spiralMatrix(3, 5, l1);
         System.out.println(result);
-         **/
+        */
 
+    
+
+       /* 
        String[] ops = {"5", "-2", "4", "C", "D", "9", "+", "+"};
        int summ = NeetCode.calPoints(ops);
        System.out.println(summ);
+       */
+    
+       /* 
+       MyStack myStack = new MyStack();
+       myStack.push(1);
+       myStack.push(2);
+       System.out.println(myStack.top());
+       System.out.println(myStack.pop());
+       System.out.println(myStack.pop());
+       System.out.println(myStack.empty());
+       */
+       
+       /** 
+        int[] arr = {1, 2, 3, 4, 5};
+        ListNode l1 = ListNode.convertToListNode(arr);
+        ListNode result = NeetCode.reverseListIteratively(l1);
+        System.out.println(result.stringifyNode());
+      
 
+        System.out.println(NeetCode.climbStairs(4));
+        int[] arr = new int[]{3,2,1,8, 5, 8};
+        NeetCode.quickSort(arr);
+        System.out.println(arr);
+          */
 
+        int[] arr2 = new int[]{3,2, 1, 5, 6, 4};
+        System.out.println(BasicAlgo.findKthLargest(arr2, 2));
     }
 
 }

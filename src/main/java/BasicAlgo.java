@@ -1,57 +1,8 @@
 import java.math.BigDecimal;
 import java.util.*;
+
+import utilities.ListNode;
 public class BasicAlgo {
-
-    public static class ListNode {
-        private Integer val;
-        private ListNode next;
-
-        public ListNode() {
-
-        }
-
-        public ListNode(Integer val) {
-            this.val = val;
-            this.next = null;
-        }
-
-        public ListNode(Integer val, ListNode next) {
-            this.val = val;
-            this.next = next;
-        }
-
-        public Integer getVal() {
-            return val;
-        }
-
-        public ListNode getNext() {
-            return next;
-        }
-
-        public String stringifyNode() {
-            StringBuilder builder = new StringBuilder();
-            ListNode ref = this;
-            while (ref != null) {
-                builder.append(ref.val);
-                ref = ref.next;
-                if (ref != null) {
-                    builder.append("->");
-                }
-            }
-            return builder.toString();
-        }
-
-        public static ListNode convertToListNode(int[] arr) {
-            ListNode node = new ListNode(arr[0]);
-            ListNode cur = node;
-            for (int i = 1; i < arr.length; i++) {
-                cur.next = new ListNode(arr[i]);
-                cur = cur.next;
-            }
-            return node;
-        }
-
-    }
 
     public static class MyQueue {
         private Stack<Integer> list1;
@@ -1116,6 +1067,8 @@ public class BasicAlgo {
         return result;
     }
 
+    //study thgis longestValidParenthesis again, know how it works
+
     public int longestValidParentheses(String s) {
         if (s.isEmpty()) return 0;
         Stack<Integer> stack = new Stack<>();
@@ -1135,6 +1088,37 @@ public class BasicAlgo {
             }
         }
         return maxLen;
+    }
+
+    public static int findKthLargest(int[] nums, int k) {
+        //sort the arr, using QuickSort
+        nums = quickSort(nums, 0, nums.length - 1);
+        return nums[nums.length - k];
+    }
+
+    //the wuick sort on uses an o(n*n) runtime order
+    private static int[] quickSort(int[] nums, int startIndex, int endIndex) {
+        //base case
+        if (endIndex - startIndex + 1 <= 1) return nums;
+        int pivotElement = nums[endIndex];
+        int leftPtr = startIndex;
+
+        for (int i = startIndex; i < endIndex; i++) {
+            if (nums[i] < pivotElement) {
+                int temp = nums[i];
+                nums[i] = nums[leftPtr];
+                nums[leftPtr] = temp;
+                leftPtr++;
+            }
+        }
+        
+        nums[endIndex] = nums[leftPtr];
+        nums[leftPtr] = pivotElement;
+
+        quickSort(nums, startIndex, leftPtr -1);
+        quickSort(nums, leftPtr + 1, endIndex);
+
+        return nums;
     }
 
 }
