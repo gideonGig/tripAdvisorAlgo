@@ -3,6 +3,7 @@ package neecode_150;
 import java.util.*;
 
 import utilities.ListNode;
+import utilities.TreeNode;
 
 public class NeetCode {
     private static HashMap<Integer, Integer> map = new HashMap<>();
@@ -270,10 +271,166 @@ public class NeetCode {
         //swap pivot and the element at index of left
         arr[pivotIndex] = arr[left];
         arr[left] = pivot;
-
-        quickSortHelper(arr, startIndex, left - 1);
+        //call quicksort recursive from startIndex to the index before the left
+        quickSortHelper(arr, startIndex, left - 1 );
+        //call quicksort recursive from the value after the left index to the pivotIndex which is usually
+        //for our vase the end index
         quickSortHelper(arr, left + 1, pivotIndex);
 
         return arr;
     }
-}
+    
+    /** This algorithm uses a bucket sort technique */
+    public void sortColors(int[] nums) {
+        //elements are between 0 1, 2
+        int[] colorTypes = {0, 0, 0};
+        for (int i = 0; i < nums.length; i++) {
+           colorTypes[nums[i]]++;
+        }
+
+         int i = 0;
+         for (int j = 0; j < colorTypes.length; j++) {
+            int k = 0;
+            while ( k < colorTypes[j]) {
+                nums[i] = j;
+                k++;
+                i++;
+            }
+        }   
+    }
+
+    public boolean searchMatrix(int[][] matrix, int target) {
+        int[] arr = Arrays.stream(matrix)
+                                  .flatMapToInt(x-> Arrays.stream(x)).toArray();
+        int l = 0;
+        int r = arr.length -1;
+
+        while(l <= r) {
+            int mid = l + (r -l)/2;
+            if (target > arr[mid]) {
+                l = mid+1;
+            } else if (target < arr[mid]) {
+                r = mid - 1;
+            } else {
+                return true;
+            }
+        }
+
+        return false;     
+    }
+    /**
+     * the minEatingSpeed algorithm is tricky but it uses Binary search under the hood,
+     * we are searching for the minimum number of hours less than or equal to h that will 
+     * maker us finish each pile in the banana i.e piles[i] in less than h;
+     * so the trick is simple, we set the maximum value in the array to the rightPtr,
+     * and the mininum value to 1. and  we find the minimumn value that go through each index 
+     * in less than or equal to h using binaruSearch, if you don't get this in the future please
+     * watch https://www.youtube.com/watch?v=U2SozAs9RzA
+     * @param piles
+     * @param h
+     * @return
+     */
+
+    public static int minEatingSpeed(int[] piles, int h) {
+        int maxPile = Arrays.stream(piles).max().getAsInt();
+        int l = 1;
+        int r = maxPile;
+        int minimumSpeed = maxPile;
+        while (l <= r) {
+            int mid = l + (r - l) / 2;
+            if(isMinimumSpeed(piles, mid, h)) {
+                minimumSpeed = mid;
+                r = mid - 1;
+            } else{
+                l = mid + 1;
+            }      
+        }
+        
+        return minimumSpeed;  
+    }
+
+    private static boolean isMinimumSpeed(int[] piles, int mid, int h) {
+        int rem = h;
+        for (int i = 0; i < piles.length; i++) {
+            int getWhole = 0;
+            int value = piles[i] / mid;
+            double doubleModules = piles[i] % mid;
+            if ( doubleModules > 0) {
+                getWhole = value + 1;
+            } else {
+                getWhole = value;
+            }
+            rem = rem - getWhole;
+            if (rem < 0) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public static TreeNode searchBST(TreeNode root, int val) {
+        if (root == null) {
+            return null;
+        }
+
+        if (val > root.val) {
+            root = searchBST(root.right, val);
+        } else if (val < root.val) {
+            root = searchBST(root.left, val);
+
+        } 
+
+        return root;
+    }
+
+    public static TreeNode insertIntoBST(TreeNode root, int val) {
+        if (root == null) {
+            return new TreeNode(val, null, null);
+        }
+
+        if (val < root.val) {
+            root.left = insertIntoBST(root.left, val);
+        } else if (val > root.val) {
+            root.right = insertIntoBST(root.right, val);
+        }
+
+        return root;  
+    }
+    
+    /**
+     * we will be using the minimumNode method deletion, so we would search for the minimum in the rightNode,
+     * this algorithm is very ticky, relearn it everyday until ypu are used to it
+     */
+    public static TreeNode deleteNode(TreeNode root, int key) {
+        if (root == null) {
+            return null;
+        }     
+        if (key > root.val) {
+            root.right = deleteNode(root.right, key);
+        } else if (key < root.val) {
+            root.left = deleteNode(root.left, key);
+        } else {
+            if (root.right == null) return root.left;
+            else if (root.left == null) return root.right;
+            else {
+                TreeNode minimum = findMinimumNode(root.right);
+                root.right = deleteNode(root.right, minimum.val);
+            }
+        }
+        return root;
+    }
+
+    private static TreeNode findMinimumNode(TreeNode root) {
+        if (root == null) {
+            return null;
+        }
+
+        TreeNode cur = root.left;
+        while (cur != null && cur.left != null) {
+            cur = cur.left;
+        }
+        return cur;
+    }
+        
+}  
