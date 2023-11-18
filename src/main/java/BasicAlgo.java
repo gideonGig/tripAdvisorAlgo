@@ -2,6 +2,7 @@ import java.math.BigDecimal;
 import java.util.*;
 
 import utilities.ListNode;
+import utilities.TreeNode;
 public class BasicAlgo {
 
     public static class MyQueue {
@@ -76,18 +77,6 @@ public class BasicAlgo {
         public XPoint(String val1, int val2) {
             this.val1 = val1;
             this.val2 = val2;
-        }
-    }
-
-    public static class TreeNode {
-        public int val;
-        public TreeNode left;
-        public TreeNode right;
-
-        public TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
         }
     }
 
@@ -302,7 +291,7 @@ public class BasicAlgo {
         return numberIsland;
     }
 
-    public static void bfs(char[][] grid, int row, int col, Boolean[][] visited) {
+    private static void bfs(char[][] grid, int row, int col, Boolean[][] visited) {
         Queue<Points> queue = new LinkedList();
         queue.add(new Points(row, col));
         visited[row][col] = true;
@@ -340,7 +329,7 @@ public class BasicAlgo {
 
     }
 
-    public static int bfsFish(int[][] grid, int row, int col) {
+    private static int bfsFish(int[][] grid, int row, int col) {
         int m = grid.length;
         int n = grid[0].length;
         boolean[][] visited = new boolean[m][n];

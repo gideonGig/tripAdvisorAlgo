@@ -263,16 +263,22 @@ public class algo {
         ListNode l1 = ListNode.convertToListNode(arr);
         ListNode result = NeetCode.reverseListIteratively(l1);
         System.out.println(result.stringifyNode());
+           */
       
-
+        /**
         System.out.println(NeetCode.climbStairs(4));
         int[] arr = new int[]{3,2,1,8, 5, 8};
         NeetCode.quickSort(arr);
         System.out.println(arr);
-          */
-
+         */
+       
+        /* 
         int[] arr2 = new int[]{3,2, 1, 5, 6, 4};
         System.out.println(BasicAlgo.findKthLargest(arr2, 2));
+        */
+
+        int[] piles = new int[]{30, 11, 23, 4, 20};
+        System.out.println(NeetCode.minEatingSpeed(piles, 5));
     }
 
 }
