@@ -107,7 +107,6 @@ public class NeetCode {
             if (!firstQueue.isEmpty()) {
                 while (!firstQueue.isEmpty()) {
                     secondQueue.addFirst(firstQueue.remove());
-                 
                 }
             }
 
@@ -197,44 +196,43 @@ public class NeetCode {
     }
 
     private static void helper(int[] nums, int start, int end) {
-        
-       while (start < end) {
-        int mid = start + (end  - start)/2;
-        helper(nums, start, mid);
-        helper(nums, mid + 1, end);
-        merge(nums, start, mid, end);
-       }
+
+        while (start < end) {
+            int mid = start + (end  - start)/2;
+            helper(nums, start, mid);
+            helper(nums, mid + 1, end);
+            merge(nums, start, mid, end);
+        }
 
     }
-       
+
     private static void merge(int[] nums, int start, int mid, int end ) {
         int[] temp = new int[end - start + 1];
         int i = start;
         int j = mid + 1;
         int k = 0;
 
-        while (i <=mid && j <= end )
-        {
+        while (i <= mid && j <= end) {
             if (nums[i] <= nums[j]) {
                 temp[k++] = nums[i++];
-            } else  {
+            } else {
                 temp[k++] = nums[j++];
             }
         }
 
-       while ( i <= mid) {
-        temp[k++] = nums[i++];
-       }
+        while (i <= mid) {
+            temp[k++] = nums[i++];
+        }
 
-       while (j <= end) {
-        temp[k++] = nums[j++];
-       }
+        while (j <= end) {
+            temp[k++] = nums[j++];
+        }
 
-       for (int x = start; x <= end; x++) {
-        nums[x] = temp[x - start];
-       }
+        for (int x = start; x <= end; x++) {
+            nums[x] = temp[x - start];
+        }
     }
-    
+
     public static void insertionSort(int[] arr) {
         for (int i = 1; i < arr.length; i++) {
             int j = i - 1;
@@ -249,7 +247,7 @@ public class NeetCode {
     }
 
     public static int[] quickSort(int[] arr) {
-       return quickSortHelper(arr, 0, arr.length-1);
+        return quickSortHelper(arr, 0, arr.length - 1);
 
     }
 
@@ -273,10 +271,9 @@ public class NeetCode {
         arr[pivotIndex] = arr[left];
         arr[left] = pivot;
 
-        quickSortHelper(arr, startIndex, left - 1 );
+        quickSortHelper(arr, startIndex, left - 1);
         quickSortHelper(arr, left + 1, pivotIndex);
 
         return arr;
     }
-        
 }
