@@ -1086,7 +1086,7 @@ public class BasicAlgo {
     }
 
     //the wuick sort on uses an o(n*n) runtime order
-    private static int[] quickSort(int[] nums, int startIndex, int endIndex) {
+    private static int[]  quickSort(int[] nums, int startIndex, int endIndex) {
         //base case
         if (endIndex - startIndex + 1 <= 1) return nums;
         int pivotElement = nums[endIndex];
