@@ -3,6 +3,8 @@ import neecode_150.NeetCode.MyStack;
 import utilities.ListNode;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 public class algo {
 
@@ -276,9 +278,28 @@ public class algo {
         int[] arr2 = new int[]{3,2, 1, 5, 6, 4};
         System.out.println(BasicAlgo.findKthLargest(arr2, 2));
         */
-
+        
+        /**
         int[] piles = new int[]{30, 11, 23, 4, 20};
         System.out.println(NeetCode.minEatingSpeed(piles, 5));
+         */
+        
+         /*
+        int[] preorder = {3, 9, 20, 15, 7};
+        int[] inorder = {9, 3, 15, 20, 7};
+        System.out.println(NeetCode.buildTreeIteratively(preorder, inorder));
+         */
+
+        List<Integer> ans = new ArrayList<>();
+        int[] largestElement= {};
+        NeetCode.KthLargest res = new NeetCode.KthLargest(3, largestElement);
+        ans.add(res.add(3));
+        ans.add(res.add(5));
+        ans.add(res.add(10));
+        ans.add(res.add(9));
+        ans.add(res.add(4));
+
+        System.out.println(ans.toString());
     }
 
 }
