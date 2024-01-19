@@ -3,6 +3,7 @@ import java.util.*;
 
 import utilities.ListNode;
 import utilities.TreeNode;
+
 public class BasicAlgo {
 
     public static class MyQueue {
@@ -14,12 +15,12 @@ public class BasicAlgo {
             list2 = new Stack();
         }
 
-        //always append to list1 and pop from list2
+        // always append to list1 and pop from list2
         public void append(Integer value) {
             list1.add(value);
         }
 
-        //this is an ineffcient algorithm, as for every pop operation it runs an 0(n)
+        // this is an ineffcient algorithm, as for every pop operation it runs an 0(n)
         public Integer pop() {
             Integer ans = -1;
             Integer lengthList = list1.size();
@@ -39,13 +40,15 @@ public class BasicAlgo {
             return ans;
         }
 
-        //efficient algorithm is using 2 stacks for Enqueue and Dequeue Operation..we wuld always pop from list2
-        //firt check that list2 is empyy, if it is empty, remove all elements from list1 to list2
-        //second always pop from list2
+        // efficient algorithm is using 2 stacks for Enqueue and Dequeue Operation..we
+        // wuld always pop from list2
+        // firt check that list2 is empyy, if it is empty, remove all elements from
+        // list1 to list2
+        // second always pop from list2
         public Integer dequeue() {
             Integer ans = -1;
             if (list2.isEmpty()) {
-                //move all elemets from list1 to list2
+                // move all elemets from list1 to list2
                 while (!list1.isEmpty()) {
                     list2.add(list1.pop());
                 }
@@ -209,7 +212,6 @@ public class BasicAlgo {
             temp[k++] = arr[j++];
         }
 
-
         for (i = start; i <= end; i++) {
             arr[i] = temp[i - start];
         }
@@ -300,7 +302,7 @@ public class BasicAlgo {
             Points position = queue.remove();
             Integer r = position.number1;
             Integer c = position.number2;
-            Integer[][] directions = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+            Integer[][] directions = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
             for (Integer[] points : directions) {
                 Integer rr = r + points[0];
                 Integer cc = c + points[1];
@@ -334,14 +336,14 @@ public class BasicAlgo {
         int n = grid[0].length;
         boolean[][] visited = new boolean[m][n];
         Arrays.stream(visited).forEach(arr -> Arrays.fill(arr, false));
-        Queue<Points> queue = new LinkedList();
+        Queue<Points> queue = new LinkedList<>();
         queue.add(new Points(row, col));
         visited[row][col] = true;
         int fishCash = 0;
         while (!queue.isEmpty()) {
             Points p = queue.remove();
             fishCash = grid[p.number1][p.number2] + fishCash;
-            int[][] directions = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+            int[][] directions = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
             for (int[] d : directions) {
                 int r = p.number1 + d[0];
                 int c = p.number2 + d[1];
@@ -380,10 +382,11 @@ public class BasicAlgo {
     }
 
     public static String convertIntToRoman(int number) {
-        XPoint[] maps = {new XPoint("M", 1000),
+        XPoint[] maps = { new XPoint("M", 1000),
                 new XPoint("CM", 900), new XPoint("D", 500), new XPoint("CD", 400), new XPoint("C", 100),
-                new XPoint("XC", 90), new XPoint("L", 50), new XPoint("XL", 40), new XPoint("X", 10), new XPoint("IX", 9),
-                new XPoint("V", 5), new XPoint("IV", 4), new XPoint("I", 1)};
+                new XPoint("XC", 90), new XPoint("L", 50), new XPoint("XL", 40), new XPoint("X", 10),
+                new XPoint("IX", 9),
+                new XPoint("V", 5), new XPoint("IV", 4), new XPoint("I", 1) };
 
         StringBuilder ans = new StringBuilder();
         for (XPoint p : maps) {
@@ -455,11 +458,11 @@ public class BasicAlgo {
         return cur;
     }
 
-    //using array is not making it memory efficient, we can use a merge sort
+    // using array is not making it memory efficient, we can use a merge sort
     public static ListNode sortList(ListNode head) {
         ListNode cur = head;
         List<Integer> arr = new ArrayList();
-        //copy the list1 into an array, sort it and copy it back.
+        // copy the list1 into an array, sort it and copy it back.
         while (cur != null) {
             arr.add(cur.val);
             cur = cur.next;
@@ -496,7 +499,7 @@ public class BasicAlgo {
         }
     }
 
-    //solve this challenge later
+    // solve this challenge later
     public static void rotateByOne(int[][] matrix) {
         int left = 0;
         int right = matrix.length - 1;
@@ -511,8 +514,9 @@ public class BasicAlgo {
     }
 
     public static int kthSmallest(TreeNode root, int k) {
-        //using depth first search inorder traversal, inorder trasversal make sure you each the end of the left subtree
-        //before
+        // using depth first search inorder traversal, inorder trasversal make sure you
+        // each the end of the left subtree
+        // before
         Stack<TreeNode> stack = new Stack<>();
         TreeNode cur = root;
         stack.add(cur);
@@ -583,7 +587,7 @@ public class BasicAlgo {
         ListNode oddPtr = odd;
         ListNode evenPtr = even;
 
-        //link evenNodes and oddNodes
+        // link evenNodes and oddNodes
         while (evenPtr != null && evenPtr.next != null) {
             oddPtr.next = evenPtr.next;
             oddPtr = oddPtr.next;
@@ -592,7 +596,7 @@ public class BasicAlgo {
         }
         oddPtr.next = null;
 
-        //reverse the evenPtr node
+        // reverse the evenPtr node
         ListNode prev = null;
         ListNode cur = even;
         ListNode nextNode;
@@ -605,7 +609,7 @@ public class BasicAlgo {
         }
         even = prev;
 
-        //merge both oddNode and evenNode
+        // merge both oddNode and evenNode
         ListNode mergedNode = new ListNode();
         ListNode ptr = mergedNode;
 
@@ -647,7 +651,8 @@ public class BasicAlgo {
 
     }
 
-    //could not solve this, yet.... not all test cases passed,  and code is not memory efficient, it needs to be optimized
+    // could not solve this, yet.... not all test cases passed, and code is not
+    // memory efficient, it needs to be optimized
     public static ListNode reverseEvenLengthGroups(ListNode head) {
         if (head == null || head.next == null) {
             return head;
@@ -656,7 +661,6 @@ public class BasicAlgo {
         ListNode dummyPtr = dummy;
         ListNode cur = head;
 
-
         return dummy.next;
     }
 
@@ -664,7 +668,7 @@ public class BasicAlgo {
         if (head == null || head.next == null) {
             return head;
         }
-        //set a dummy node and use a two pointer technique;
+        // set a dummy node and use a two pointer technique;
         ListNode dummy = new ListNode(0, head);
         ListNode cur = head;
         ListNode dummyPtr = dummy;
@@ -729,11 +733,13 @@ public class BasicAlgo {
         return sum.next;
     }
 
-    //you can use two pointer technique to solve this, the cur pointer will move in n step first,
-    //then the second pointer will move, when the cur pointer is null skip the second pointer next by setting
-    //second pointer's next to next.next
+    // you can use two pointer technique to solve this, the cur pointer will move in
+    // n step first,
+    // then the second pointer will move, when the cur pointer is null skip the
+    // second pointer next by setting
+    // second pointer's next to next.next
     public static ListNode removeNthFromEnd(ListNode head, int n) {
-        //we can use two pointer technique for this
+        // we can use two pointer technique for this
         ListNode pre = new ListNode(0, head);
         ListNode cur = head;
         ListNode prePtr = pre;
@@ -753,23 +759,22 @@ public class BasicAlgo {
 
     }
 
-
-    //study this swap node clearly...you watched neetcode for this..
+    // study this swap node clearly...you watched neetcode for this..
     public static ListNode swapPairs(ListNode head) {
         ListNode prev = new ListNode(0, head);
         ListNode prevPtr = prev;
         ListNode cur = head;
 
         while (cur != null && cur.next != null) {
-            //save the initial pointers
+            // save the initial pointers
             ListNode secondPtr = cur.next;
             ListNode secondNextPtr = cur.next.next;
-            //repoint the pointer
+            // repoint the pointer
             secondPtr.next = cur;
             cur.next = secondNextPtr;
             prevPtr.next = secondPtr;
 
-            //update the nodes
+            // update the nodes
             prevPtr = cur;
             cur = cur.next;
         }
@@ -778,14 +783,18 @@ public class BasicAlgo {
 
     }
 
-    //you solved this yourself but took time, always look out for nulls, null should not start the beginning of a newNode,
-    //don't forget to always iterate thougha  linkedList by the pointers.
-    //avoid circular linkedlist;
-    // always changed the pointer of the linkedList to avoid circular linked list, if a points to b, b can point to a,
-    // only when a points to c and not b. if a points to b and b points to a, you have a circular linkedList,
-    //learn how to derefence yout linkedList;
+    // you solved this yourself but took time, always look out for nulls, null
+    // should not start the beginning of a newNode,
+    // don't forget to always iterate thougha linkedList by the pointers.
+    // avoid circular linkedlist;
+    // always changed the pointer of the linkedList to avoid circular linked list,
+    // if a points to b, b can point to a,
+    // only when a points to c and not b. if a points to b and b points to a, you
+    // have a circular linkedList,
+    // learn how to derefence yout linkedList;
     public static ListNode rotateRight(ListNode head, int k) {
-        //alway know that the amount of rotation k is equal to the amount of rotation k % (len of ListNodes)..
+        // alway know that the amount of rotation k is equal to the amount of rotation k
+        // % (len of ListNodes)..
         ListNode cur = head;
         if (head == null || head.next == null || k == 0) {
             return head;
@@ -850,31 +859,35 @@ public class BasicAlgo {
 
         return dummy.next;
     }
-/**
-    public static ListNode deleteDuplicates(ListNode head) {
-        ListNode dummy = new ListNode(0, head);
-        ListNode prev = dummy;
-        ListNode cur = head;
 
-        if (cur.next != null && cur.next.val == cur.val) {
-            while (cur.next != null && cur.next.val == cur.val) {
-                cur = cur.next;
-            }
-            cur.next = null;
-            cur = cur.next;
-            prev.next = cur;
-        } else {
-            prev = cur;
-            cur = cur.next;
-        }
-    }
-    **/
+    /**
+     * public static ListNode deleteDuplicates(ListNode head) {
+     * ListNode dummy = new ListNode(0, head);
+     * ListNode prev = dummy;
+     * ListNode cur = head;
+     * 
+     * if (cur.next != null && cur.next.val == cur.val) {
+     * while (cur.next != null && cur.next.val == cur.val) {
+     * cur = cur.next;
+     * }
+     * cur.next = null;
+     * cur = cur.next;
+     * prev.next = cur;
+     * } else {
+     * prev = cur;
+     * cur = cur.next;
+     * }
+     * }
+     **/
 
-    //you solved this yourself, have two pointers that points to the head,
-    //move the less pointer only when when the current pointer value is less than the value
-    //move the greater than pointer only when the current pointer is greater than the value,
-   //break the greater pointer at the end, because the next will always point at the lastcurrent values next
-   //set the less pointer to point to the GreaterNode's next
+    // you solved this yourself, have two pointers that points to the head,
+    // move the less pointer only when when the current pointer value is less than
+    // the value
+    // move the greater than pointer only when the current pointer is greater than
+    // the value,
+    // break the greater pointer at the end, because the next will always point at
+    // the lastcurrent values next
+    // set the less pointer to point to the GreaterNode's next
     public static ListNode partition(ListNode head, int x) {
         if (head == null || head.next == null) {
             return head;
@@ -904,12 +917,13 @@ public class BasicAlgo {
     }
 
     public static TreeNode sortedListToBST(ListNode head) {
-        //using two pointer technique
+        // using two pointer technique
         return null;
 
     }
 
-    //I solved this myself, please remember this, the technique here is to save the curent and previous pointers
+    // I solved this myself, please remember this, the technique here is to save the
+    // curent and previous pointers
     // before updatiung them
     public static ListNode insertGreatestCommonDivisors(ListNode head) {
         if (head == null || head.next == null) {
@@ -963,8 +977,9 @@ public class BasicAlgo {
         return null;
     }
 
-    //I also solved this, it is very simple, just multiply every Node by 2, if it is 2 decimal places
-    //i.e greater than 9, add  1 to the prev Node before it, or set the new Node
+    // I also solved this, it is very simple, just multiply every Node by 2, if it
+    // is 2 decimal places
+    // i.e greater than 9, add 1 to the prev Node before it, or set the new Node
     public static ListNode doubleIt(ListNode head) {
         if (head == null) {
             return null;
@@ -1003,7 +1018,7 @@ public class BasicAlgo {
 
         ListNode cur = head;
         while ((left < right) && (top < bottom)) {
-            //move from left to right
+            // move from left to right
             for (int i = left; i < right; i++) {
                 if (cur != null) {
                     result[top][i] = cur.val;
@@ -1014,7 +1029,7 @@ public class BasicAlgo {
             }
             top = top + 1;
 
-            //move from top to bottom
+            // move from top to bottom
             for (int i = top; i < bottom; i++) {
                 if (cur != null) {
                     result[i][right - 1] = cur.val;
@@ -1029,7 +1044,7 @@ public class BasicAlgo {
                 break;
             }
 
-            //move from right to left
+            // move from right to left
             for (int i = right - 1; i >= left; i--) {
                 if (cur != null) {
                     result[bottom - 1][i] = cur.val;
@@ -1040,7 +1055,7 @@ public class BasicAlgo {
             }
             bottom = bottom - 1;
 
-            //move from bottom to top
+            // move from bottom to top
             for (int i = bottom - 1; i >= top; i--) {
                 if (cur != null) {
                     result[i][left] = cur.val;
@@ -1056,10 +1071,11 @@ public class BasicAlgo {
         return result;
     }
 
-    //study thgis longestValidParenthesis again, know how it works
+    // study thgis longestValidParenthesis again, know how it works
 
     public int longestValidParentheses(String s) {
-        if (s.isEmpty()) return 0;
+        if (s.isEmpty())
+            return 0;
         Stack<Integer> stack = new Stack<>();
         stack.push(-1);
         Integer maxLen = 0;
@@ -1080,15 +1096,16 @@ public class BasicAlgo {
     }
 
     public static int findKthLargest(int[] nums, int k) {
-        //sort the arr, using QuickSort
+        // sort the arr, using QuickSort
         nums = quickSort(nums, 0, nums.length - 1);
         return nums[nums.length - k];
     }
 
-    //the wuick sort on uses an o(n*n) runtime order
-    private static int[]  quickSort(int[] nums, int startIndex, int endIndex) {
-        //base case
-        if (endIndex - startIndex + 1 <= 1) return nums;
+    // the wuick sort on uses an o(n*n) runtime order
+    private static int[] quickSort(int[] nums, int startIndex, int endIndex) {
+        // base case
+        if (endIndex - startIndex + 1 <= 1)
+            return nums;
         int pivotElement = nums[endIndex];
         int leftPtr = startIndex;
 
@@ -1100,78 +1117,125 @@ public class BasicAlgo {
                 leftPtr++;
             }
         }
-        
+
         nums[endIndex] = nums[leftPtr];
         nums[leftPtr] = pivotElement;
 
-        quickSort(nums, startIndex, leftPtr -1);
+        quickSort(nums, startIndex, leftPtr - 1);
         quickSort(nums, leftPtr + 1, endIndex);
 
         return nums;
     }
 
+    public static class QuickUnion {
+        private int[] arr;
+        /*
+         * for optimization, we can introducing a union by rank
+         * which reduces the find time complexity from o(n) to 0(logn)
+         */
+        private int[] rank;
+
+        public QuickUnion(int[] numArr) {
+            arr = numArr;
+            for (int i = 0; i < arr.length; i++) {
+                arr[i] = i;
+                rank[i] = 1;
+            }
+        }
+
+        public void quickUnion(int a, int b) {
+            if (a > arr.length - 1 || b > arr.length) {
+                return;
+            }
+
+            int rootA = find(a);
+            int rootB = find(b);
+
+            if (rootA != rootB) {
+                arr[rootB] = rootA;
+            }
+        }
+
+        public int find(int a) {
+            if (a > arr.length - 1) {
+                return -1;
+            }
+
+            while (arr[a] != a) {
+                a = arr[a];
+            }
+
+            return a;
+        }
+
+        public void unionByRank(int a, int b) {
+            int rootA = find(a);
+            int rootB = find(b);
+
+            if (rootA != rootB) {
+                if (rank[rootA] > rank[rootB]) {
+                    arr[rootB] = rootA;
+                } else if (rank[rootA] < rank[rootB]) {
+                    arr[rootA] = rootB;
+                } else {
+                    arr[rootB] = rootA;
+                    rank[rootA] = rank[rootA] + 1;
+                }
+            }
+        }
+
+        public boolean isConnected(int a, int b) {
+            return find(a) == find(b);
+        }
+    }
+
+    public static class QuickFind {
+        private int[] arr;
+
+        public QuickFind(int[] numArr) {
+            arr = numArr;
+            for (int i = 0; i < arr.length; i++) {
+                arr[i] = i;
+            }
+        }
+
+        public int quickFind(int a) {
+            return arr[a];
+        }
+
+        public void union(int a, int b) {
+            int rootA = quickFind(a);
+            int rootB = quickFind(b);
+
+            if (rootA != rootB) {
+                for (int i = 0; i < arr.length; i++) {
+                    if (arr[i] == rootA) {
+                        arr[i] = rootB;
+                    }
+                }
+            }
+        }
+
+        public boolean isConnected(int a, int b) {
+            return quickFind(a) == quickFind(b);
+        }
+
+    }
+
+    public int leastInterval(char[] tasks, int n) {
+        HashMap<Character, Integer> map = new HashMap<>();
+        for (int i = 0; i < tasks.length; i++) {
+            Character val = Character.valueOf(tasks[i]);
+            if (map.containsValue(val)) {
+                map.put(val, map.get(val) + 1);
+            } else {
+                map.put(val, 1);
+            }
+        }
+
+       
+
+
+    }
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,6 +1,5 @@
 package neecode_150;
 
-import java.math.BigDecimal;
 import java.util.*;
 
 import utilities.ListNode;
@@ -198,7 +197,7 @@ public class NeetCode {
 
     private static void helper(int[] nums, int start, int end) {
 
-        while (start < end) {
+        if (start < end) {
             int mid = start + (end - start) / 2;
             helper(nums, start, mid);
             helper(nums, mid + 1, end);
@@ -887,6 +886,668 @@ public class NeetCode {
 
         }
 
+    }
+
+    public static int lastStoneWeight(int[] stones) {
+        PriorityQueue<Integer> pQueue = new PriorityQueue<>(Collections.reverseOrder());
+        Arrays.stream(stones).forEach(pQueue::add);
+
+        while (pQueue.size() > 1) {
+            int x = pQueue.poll();
+            int y = pQueue.poll();
+
+            int newWeight = Math.abs(y - x);
+            if (newWeight > 0) {
+                pQueue.add(newWeight);
+
+            }
+        }
+        if (pQueue.size() > 0) {
+            return pQueue.peek();
+        }
+
+        return 0;
+
+    }
+
+    public static int[][] kClosest(int[][] points, int k) {
+        int[][] ans = new int[k][];
+        PriorityQueue<int[]> pQueue = new PriorityQueue<>(
+                (a, b) -> Integer.compare((a[0] * a[0]) + (a[1] * a[1]), (b[0] * b[0]) + (b[1] * b[1])));
+        for (int i = 0; i < points.length; i++) {
+            pQueue.add(points[i]);
+        }
+
+        for (int i = 0; i < k; i++) {
+            ans[i] = pQueue.poll();
+        }
+
+        return ans;
+
+    }
+
+    public static int findKthLargest(int[] nums, int k) {
+        PriorityQueue<Integer> pQueue = new PriorityQueue<>(Collections.reverseOrder());
+        Arrays.stream(nums).forEach(pQueue::add);
+        int ans = 0;
+        for (int i = 0; i < k; i++) {
+            ans = pQueue.poll();
+        }
+
+        return ans;
+    }
+
+    /**
+     * This LRU cache us not optimized the placeInfrontOfStack method uses o(n),
+     * it can be optimized using double linkedlist, created a LinkNode
+     */
+
+    public static class LRUCache {
+
+        private Deque<Integer> stack;
+        private HashMap<Integer, Integer> map;
+        private int capacity;
+
+        public LRUCache(int capacity) {
+            stack = new ArrayDeque<Integer>();
+            map = new HashMap<>();
+            this.capacity = capacity;
+        }
+
+        public int get(int key) {
+            int ans = -1;
+            if (map.containsKey(key)) {
+                ans = map.get(key);
+                placeInFrontOfStack(key);
+            }
+
+            return ans;
+
+        }
+
+        public void put(int key, int value) {
+            if (isFull() && !map.containsKey(key)) {
+                remove();
+            }
+            add(key, value);
+
+        }
+
+        private boolean isFull() {
+
+            return stack.size() == capacity;
+        }
+
+        private void remove() {
+            if (!stack.isEmpty()) {
+                int key = stack.remove();
+                map.remove(key);
+            }
+        }
+
+        private void add(int key, int value) {
+            map.put(key, value);
+            placeInFrontOfStack(key);
+        }
+
+        public void placeInFrontOfStack(int key) {
+            stack.remove(key);
+            stack.add(key);
+
+        }
+    }
+
+    public static class LRUCacheII {
+
+        public static class Node {
+            private int key;
+            private int val;
+            private Node prev;
+            private Node next;
+
+            public Node(int key, int val) {
+                this.key = key;
+                this.val = val;
+                this.prev = null;
+                this.next = null;
+            }
+        }
+
+        /* this give the less recently used Node */
+        private Node left;
+        /* this gives the most recently used Node */
+        private Node right;
+        private int capacity;
+        private HashMap<Integer, Node> map;
+
+        public LRUCacheII(int capacity) {
+            this.left = new Node(0, 0);
+            this.right = new Node(0, 0);
+            this.left.next = this.right;
+            this.right.prev = this.left;
+            this.capacity = capacity;
+            this.map = new HashMap<>();
+        }
+
+        public void remove(Node node) {
+            Node prevNode = node.prev;
+            Node nextNode = node.next;
+            prevNode.next = nextNode;
+            nextNode.prev = prevNode;
+        }
+
+        public void insert(Node node) {
+            Node rightNode = right;
+            Node leftNode = right.prev;
+
+            leftNode.next = node;
+            right.prev = node;
+            node.next = rightNode;
+            node.prev = leftNode;
+
+        }
+
+        public int get(int key) {
+            if (map.containsKey(key)) {
+                Node node = map.get(key);
+                this.remove(node);
+                this.insert(node);
+                return node.val;
+            }
+            return -1;
+        }
+
+        public void put(int key, int value) {
+            Node node;
+            if (map.containsKey(key)) {
+                node = map.get(key);
+                remove(node);
+            }
+            node = new Node(key, value);
+            map.put(key, node);
+            insert(node);
+            if (map.size() > capacity) {
+                Node lru = this.left.next;
+                remove(lru);
+                map.remove(lru.key);
+            }
+        }
+
+    }
+    /*
+     * use dfs and backtracking technique, for bfs technique check BasicAlgo.java
+     */
+
+    public static int numIslands(char[][] grid) {
+        int count = 0;
+        int[][] visit = new int[grid.length][grid[0].length];
+        for (int r = 0; r < grid.length; r++) {
+            for (int c = 0; c < grid[0].length; c++) {
+                if (grid[r][c] == '1' && visit[r][c] == 0) {
+                    numberIslandDfsHelper(grid, r, c, visit);
+                    count++;
+                }
+            }
+        }
+        return count;
+
+    }
+
+    public static void numberIslandDfsHelper(char[][] grid, int r, int c, int[][] visit) {
+        int row = grid.length;
+        int col = grid[0].length;
+
+        if ((r < 0 || c < 0) || (r >= row || c >= col) || grid[r][c] == '0' || visit[r][c] == 1) {
+            return;
+        }
+        // once visited, we would not be visiting it again
+        visit[r][c] = 1;
+        numberIslandDfsHelper(grid, r + 1, c, visit);
+        numberIslandDfsHelper(grid, r - 1, c, visit);
+        numberIslandDfsHelper(grid, r, c + 1, visit);
+        numberIslandDfsHelper(grid, r, c - 1, visit);
+    }
+
+    public static class GraphMaxArea {
+
+        public static class Point {
+            private int r;
+            private int c;
+            private int l;
+
+            public Point(int row, int col, int len) {
+                this.r = row;
+                this.c = col;
+                this.l = len;
+            }
+        }
+
+        public static int maxAreaOfIsland(int[][] grid) {
+            int maximum = 0;
+            for (int r = 0; r < grid.length; r++) {
+                for (int c = 0; c < grid[0].length; c++) {
+                    if (grid[r][c] == 1) {
+                        Point point = new Point(r, c, 0);
+                        maximum = Math.max(maximum, maxAreaOfIslandDfsHelper(grid, point));
+                    }
+
+                }
+            }
+            return maximum;
+
+        }
+
+        private static int maxAreaOfIslandDfsHelper(int[][] grid, Point p) {
+            int count;
+            int row = grid.length;
+            int col = grid[0].length;
+            int[][] visit = new int[row][col];
+            count = 1;
+            Queue<Point> queue = new LinkedList<>();
+            queue.add(p);
+            while (!queue.isEmpty()) {
+                Point x = queue.remove();
+                int[][] directions = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
+                for (int[] d : directions) {
+                    int rr = x.r + d[0];
+                    int cc = x.c + d[1];
+                    if ((rr >= 0 && rr < row && cc >= 0 && cc < col)
+                            && grid[rr][cc] == 1
+                            && visit[rr][cc] == 0) {
+                        visit[rr][cc] = 1;
+                        Point newPoint = new Point(rr, cc, 1);
+                        queue.add(newPoint);
+                        count++;
+                    }
+
+                }
+            }
+
+            return count;
+        }
+
+        /**
+         * this is a variation that needs to add the distance to the point, as you
+         * calculate along
+         */
+        public static int shortestPathBinaryMatrix(int[][] grid) {
+            if (grid[0][0] == 1) {
+                return -1;
+            }
+
+            return shortestPathBinaryMatrixHelper(grid, 0, 0);
+
+        }
+
+        private static int shortestPathBinaryMatrixHelper(int[][] grid, int r, int c) {
+            int n = grid.length;
+            int[][] visit = new int[n][n];
+            visit[r][c] = 1;
+            Point point = new Point(r, c, 1);
+            Queue<Point> queue = new LinkedList<>();
+            queue.add(point);
+            while (!queue.isEmpty()) {
+                Point x = queue.remove();
+                if (x.r == n - 1 && x.c == n - 1) {
+                    return x.l;
+                }
+
+                int[][] directions = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 },
+                        { 1, 1 }, { -1, -1 }, { 1, -1 },
+                        { -1, 1 } };
+                for (int[] d : directions) {
+                    int rr = x.r + d[0];
+                    int cc = x.c + d[1];
+
+                    if ((rr >= 0 && rr < n && cc >= 0 && cc < n)
+                            && visit[rr][cc] == 0
+                            && grid[rr][cc] == 0) {
+                        queue.add(new Point(rr, cc, 1 + x.l));
+                        visit[rr][cc] = 1;
+                    }
+                }
+
+            }
+            return -1;
+
+        }
+
+        /**
+         * my solution, it was not efficient, the
+         * idea, is first counting the rotten oranges and add the good oranges
+         * to a queue, you can then do a bfs on the rotten oranges
+         */
+        public static int orangesRotting(int[][] grid) {
+            int freshOranges = 0;
+            int times = 0;
+            int row = grid.length;
+            int col = grid[0].length;
+            Queue<Point> queue = new ArrayDeque<>();
+            for (int r = 0; r < row; r++) {
+                for (int c = 0; c < col; c++) {
+                    if (grid[r][c] == 2) {
+                        queue.add(new Point(r, c, 0));
+                    }
+                    if (grid[r][c] == 1) {
+                        freshOranges = freshOranges + 1;
+                    }
+                }
+            }
+            int[][] directions = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
+            while (!queue.isEmpty() && freshOranges > 0) {
+                times++;
+                int len = queue.size();
+                for (int i = 0; i < len; i++) {
+                    Point p = queue.remove();
+                    for (int[] d : directions) {
+                        int rr = p.r + d[0];
+                        int cc = p.c + d[1];
+                        if ((rr >= 0 && rr < row && cc >= 0 && cc < col)
+                                && (grid[rr][cc] == 1)) {
+                            grid[rr][cc] = 2;
+                            queue.add(new Point(rr, cc, 0));
+                            freshOranges = freshOranges - 1;
+                        }
+                    }
+                }
+
+            }
+            if (freshOranges == 0) {
+                return times;
+            }
+            return -1;
+        }
+
+    }
+
+    public static class Node {
+        public int val;
+        public List<Node> neighbors;
+
+        public Node() {
+            val = 0;
+            neighbors = new ArrayList<Node>();
+        }
+
+        public Node(int _val) {
+            val = _val;
+            neighbors = new ArrayList<Node>();
+        }
+
+        public Node(int _val, ArrayList<Node> _neighbors) {
+            val = _val;
+            neighbors = _neighbors;
+        }
+
+        public Node cloneGraph(Node node) {
+            HashMap<Node, Node> map = new HashMap<>();
+
+            if (node == null) {
+                return null;
+            }
+            return cloneDfs(node, map);
+        }
+
+        /** fully undertsand thuis problem */
+
+        public Node cloneDfs(Node oldNode, HashMap<Node, Node> map) {
+            Node newNode;
+            if (map.containsKey(oldNode)) {
+                return map.get(oldNode);
+            } else {
+                newNode = new Node(oldNode.val);
+                map.put(oldNode, newNode);
+            }
+
+            for (Node childNode : oldNode.neighbors) {
+                Node node = cloneDfs(childNode, map);
+                newNode.neighbors.add(node);
+            }
+
+            return newNode;
+        }
+
+        /** this is wrong, make surte you get this right with bfs */
+        public Node cloneBfs(Node oldNode, HashMap<Node, Node> map) {
+            Queue<Node> queue = new LinkedList<>();
+            Node newNode = null;
+            /* create the childnodes with bfs */
+            queue.add(oldNode);
+            while (!queue.isEmpty()) {
+                int len = queue.size();
+                for (int i = 0; i < len; i++) {
+                    Node popNode = queue.remove();
+                    if (map.containsKey(popNode)) {
+                        newNode = map.get(popNode);
+                    } else {
+                        newNode = new Node(popNode.val);
+                        map.put(oldNode, newNode);
+                    }
+                    for (Node childNode : popNode.neighbors) {
+                        if (!newNode.neighbors.contains(childNode)) {
+                            newNode.neighbors.add(childNode);
+                            queue.add(childNode);
+                        }
+
+                    }
+
+                }
+            }
+            return newNode;
+        }
+
+        /**
+         * you can use an oject of hashmap ton represent a grap,
+         * where the key is the node and value is a list containing
+         * it's neighbours (vertex)
+         */
+        public static HashMap<String, List<String>> buildGraph(String[][] arrs) {
+            HashMap<String, List<String>> map = new HashMap<>();
+            for (String[] arr : arrs) {
+                if (!map.containsKey(arr[0])) {
+                    List<String> neighbours = new ArrayList<>();
+                    map.put(arr[0], neighbours);
+                }
+
+                if (!map.containsKey(arr[1])) {
+                    List<String> neighbours = new ArrayList<>();
+                    map.put(arr[1], neighbours);
+                }
+
+                map.get(arr[0].toString()).add(arr[1]);
+
+            }
+            return map;
+        }
+
+        /**
+         * using dfs we can find the count between start and end
+         */
+        public static int countToDestination(HashMap<String, List<String>> map, String start, String end) {
+            HashSet<String> visited = new HashSet<>();
+            return countToDestinationBfs(map, start, end);
+        }
+
+        private static int countToDestinationBfs(HashMap<String, List<String>> map, String start, String end) {
+            int count = 0;
+            Queue<String> queue = new LinkedList<>();
+            HashSet<String> visit = new HashSet<>();
+            queue.add(start);
+            visit.add(start);
+            while (!queue.isEmpty()) {
+                int len = queue.size();
+                for (int i = 0; i < len; i++) {
+                    String newStart = queue.remove();
+                    if (newStart == end) {
+                        return count;
+                    }
+
+                    List<String> neighbours = map.get(newStart);
+                    for (String s : neighbours) {
+                        if (!visit.contains(s)) {
+                            queue.add(s);
+                            visit.add(s);
+                        }
+                    }
+
+                }
+                count++;
+
+            }
+
+            return count;
+        }
+
+        /**
+         * this uses a toplogical sort=, if toplogical sort exist, then thcourse can be
+         * completed
+         * else if there is a cycle in the graph, the toplogical will be fail, and we
+         * can say the
+         * courses do not exist
+         */
+        public static boolean canFinishBfs(int numCourses, int[][] prerequisites) {
+            int visit = 0;
+            Queue<Integer> queue = new LinkedList<>();
+            int[] noOfDegree = new int[numCourses];
+            List<Integer>[] arr = new ArrayList[numCourses];
+            for (int i = 0; i < arr.length; i++) {
+                arr[i] = new ArrayList<>();
+            }
+            for (int[] pre : prerequisites) {
+                arr[pre[1]].add(pre[0]);
+                noOfDegree[pre[0]] = noOfDegree[pre[0]] + 1;
+            }
+
+            for (int i = 0; i < numCourses; i++) {
+                if (noOfDegree[i] == 0) {
+                    queue.add(i);
+                }
+            }
+
+            while (!queue.isEmpty()) {
+                int cur = queue.remove();
+                visit = visit + 1;
+                for (int neigh : arr[cur]) {
+                    noOfDegree[neigh] = noOfDegree[neigh] - 1;
+                    if (noOfDegree[neigh] == 0) {
+                        queue.add(neigh);
+                    }
+                }
+
+            }
+
+            return visit == numCourses;
+        }
+
+        public static int findCircleNum(int[][] isConnected) {
+            int n = isConnected.length;
+            boolean[] visited = new boolean[n];
+            int connectedNo = 0;
+
+            for (int i = 0; i < n; i++) {
+                if (!visited[i]) {
+                    connectedNo++;
+                    findCircleNumBfs(isConnected, i, visited);
+                }
+            }
+            return connectedNo;
+        }
+
+        private static void findCircleNumBfs(int[][] isConnected, int city, boolean[] visited) {
+            Queue<Integer> queue = new LinkedList<>();
+            visited[city] = true;
+            queue.add(city);
+
+            while (!queue.isEmpty()) {
+                int popedCity = queue.remove();
+                for (int i = 0; i < isConnected.length; i++) {
+                    if (isConnected[popedCity][i] == 1 && !visited[i]) {
+                        visited[i] = true;
+                        queue.add(i);
+                    }
+                }
+            }
+
+        }
+
+        public static int[] findOrder(int numCourses, int[][] prerequisites) {
+            /** use topological sort */
+            int visited = 0;
+            int tracker = 0;
+            Queue<Integer> q = new LinkedList<>();
+            int[] result = new int[numCourses];
+            List<Integer>[] adj = new ArrayList[numCourses];
+            int[] in = new int[numCourses];
+
+            for (int i = 0; i < numCourses; i++) {
+                adj[i] = new ArrayList<>();
+            }
+
+            for (int[] pre : prerequisites) {
+                adj[pre[1]].add(pre[0]);
+                in[pre[0]] = in[pre[0]] + 1;
+            }
+
+            for (int i = 0; i < in.length; i++) {
+                if (in[i] == 0) {
+                    q.add(i);
+                    result[tracker++] = i;
+                }
+            }
+
+            while (!q.isEmpty()) {
+                int n = q.remove();
+                visited++;
+                for (int num : adj[n]) {
+                    in[num]--;
+                    if (in[num] == 0) {
+                        q.add(num);
+                        result[tracker++] = num;
+                    }
+                }
+            }
+
+            if (visited == numCourses) {
+                return result;
+
+            }
+
+            int[] empty = new int[0];
+            return empty;
+        }
+
+    }
+    /** this is a typical dynamic programming questiuoin that uses recurrence relation
+     * learn recurrence relation and you can unlock the key to understanding dynamic 
+     * programming
+     */
+    public static int rob(int[] nums) {
+
+        int firstRob = 0;
+        int secondRob = 0;
+        //[firstRob, secondRob, n, n+1]
+        for (int i = 0; i < nums.length; i++) {
+            int temp = Math.max(firstRob + nums[i], secondRob);
+            firstRob = secondRob;
+            secondRob = temp;  
+        }
+
+        return Math.max(firstRob, secondRob);
+    }
+
+    public static int fibRecurrenceRelation(int n) {
+        if ( n <= 1) {
+            return n;
+        }
+
+        int[] dp = {0, 1};
+        for (int i = 2; i <= n; ++i) {
+            int temp = dp[1];
+            dp[1] = dp[0] + dp[1];
+            dp[0] = temp;            
+        }
+
+        return dp[1];
     }
 
 }

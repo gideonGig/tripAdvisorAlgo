@@ -14,7 +14,7 @@ public class InteruptThread {
         result = BigDecimal.valueOf(1);
     }
 
-    public void interuptThread() {
+    public void interuptThreading() {
         Thread t = new Thread(new LongCalculation());
         t.start();
         t.interrupt();
