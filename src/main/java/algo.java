@@ -385,8 +385,24 @@ public class algo {
                 int[] arr =  {1, 2, 3, 1};
                 System.out.println(NeetCode.rob(arr));
                 */
-
+                
+                /* 
                 System.out.println(NeetCode.fibRecurrenceRelation(3));
+                */
+                /* 
+                int[] arr = {0, 3,7, 2, 5, 6, 4,6, 0, 1};
+                int[] arr2 = {100, 4, 200, 1, 3, 2};
+                System.out.println(NeetCode.longestConsecutive(arr2));
+                */
+
+                //System.out.println(NeetCode.checkInclusion2("adc", "dcda"));
+
+                //System.out.println(NeetCode.minWindow("bbaa", "aba"));
+
+                int[] nums = {1,3,-1,-3,5,3,6,7};
+                System.out.println(NeetCode.maxSlidingWindow2(nums, 3).toString());
+
+
 
         }
 
