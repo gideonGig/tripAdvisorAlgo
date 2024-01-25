@@ -398,9 +398,13 @@ public class algo {
                 //System.out.println(NeetCode.checkInclusion2("adc", "dcda"));
 
                 //System.out.println(NeetCode.minWindow("bbaa", "aba"));
-
+                
+                /* 
                 int[] nums = {1,3,-1,-3,5,3,6,7};
                 System.out.println(NeetCode.maxSlidingWindow2(nums, 3).toString());
+                */
+
+                System.out.println(NeetCode.isValid("(]"));
 
 
 

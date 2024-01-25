@@ -358,7 +358,11 @@ public class NeetCode {
         }
         return res;
     }
-    /** optimized version */
+    /** optimized version, the max sliding window uses the Deque
+     * what get added to the deque is the index, because we can
+     * always find the valuew of the index, we do this because
+     * we want to know if the leftPtr is out of scope.
+    */
     public static int[] maxSlidingWindow2(int[] nums, int k) {
         Deque<Integer> q = new ArrayDeque<>();
         int[] res = new int[nums.length - k + 1];
@@ -384,7 +388,39 @@ public class NeetCode {
         }
 
         return res;
-       
+    }
+
+    public static boolean isValid(String s) {
+        HashMap<Character, Character> map = new HashMap<>();
+        map.put('(', ')');
+        map.put('{', '}');
+        map.put('[',']');
+
+        Stack<Character> stack = new Stack<>();
+        for (int i = 0; i < s.length(); i++) {
+            Character c = s.charAt(i);
+            if (map.containsKey(c)) {
+                stack.add(c);
+            } else {
+                if (!stack.isEmpty()) {
+                    Character lastchar = stack.pop();
+                    if (!map.get(lastchar).equals(c)) {
+                        return false;
+                    } 
+                } else {
+                    return false;
+                   
+                }
+            }
+        }
+        if (!stack.isEmpty()) {
+            return false;
+
+        }
+
+        return true;
+        
+        
     }
 
     public static boolean isPalindrome(String s) {
