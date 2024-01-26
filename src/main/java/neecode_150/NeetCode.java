@@ -552,8 +552,19 @@ public class NeetCode {
         }
 
         return res;
-
     }
+    
+    public static int maxSubArray(int[] nums) {
+        int submax = nums[0];
+        int max = nums[0];
+        for(int i = 1; i < nums.length; i++) {
+            submax = Math.max(nums[i], nums[i] + max);
+            max = Math.max(submax, max);
+        }
+        return max;
+        
+    }
+
 
     public static int[] productExceptSelf(int[] nums) {
         int[] forward = new int[nums.length];
@@ -1956,35 +1967,6 @@ public class NeetCode {
             return newNode;
         }
 
-        /** this is wrong, make surte you get this right with bfs */
-        public Node cloneBfs(Node oldNode, HashMap<Node, Node> map) {
-            Queue<Node> queue = new LinkedList<>();
-            Node newNode = null;
-            /* create the childnodes with bfs */
-            queue.add(oldNode);
-            while (!queue.isEmpty()) {
-                int len = queue.size();
-                for (int i = 0; i < len; i++) {
-                    Node popNode = queue.remove();
-                    if (map.containsKey(popNode)) {
-                        newNode = map.get(popNode);
-                    } else {
-                        newNode = new Node(popNode.val);
-                        map.put(oldNode, newNode);
-                    }
-                    for (Node childNode : popNode.neighbors) {
-                        if (!newNode.neighbors.contains(childNode)) {
-                            newNode.neighbors.add(childNode);
-                            queue.add(childNode);
-                        }
-
-                    }
-
-                }
-            }
-            return newNode;
-        }
-
         /**
          * you can use an oject of hashmap ton represent a grap,
          * where the key is the node and value is a list containing
@@ -2203,3 +2185,6 @@ public class NeetCode {
     }
 
 }
+
+
+
