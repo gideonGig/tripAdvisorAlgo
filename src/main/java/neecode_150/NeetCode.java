@@ -815,7 +815,7 @@ public class NeetCode {
         }
 
         public void heapify(int val) {
-            arr.addLast(val);
+            arr.add(val);
             int indexVal = arr.size() - 1;
             int parentIndex = indexVal / 2;
             while (parentIndex > 0 &&

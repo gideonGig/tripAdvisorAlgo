@@ -1222,6 +1222,7 @@ public class BasicAlgo {
 
     }
 
+    /** not finished yet **/
     public int leastInterval(char[] tasks, int n) {
         HashMap<Character, Integer> map = new HashMap<>();
         for (int i = 0; i < tasks.length; i++) {
@@ -1234,7 +1235,7 @@ public class BasicAlgo {
         }
 
        
-
+        return n;
 
     }
 
