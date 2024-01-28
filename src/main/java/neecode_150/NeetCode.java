@@ -2,6 +2,7 @@ package neecode_150;
 
 import java.util.*;
 
+import neecode_150.NeetCode.GraphMaxArea.Point;
 import utilities.ListNode;
 import utilities.TreeNode;
 
@@ -358,11 +359,13 @@ public class NeetCode {
         }
         return res;
     }
-    /** optimized version, the max sliding window uses the Deque
+
+    /**
+     * optimized version, the max sliding window uses the Deque
      * what get added to the deque is the index, because we can
      * always find the valuew of the index, we do this because
      * we want to know if the leftPtr is out of scope.
-    */
+     */
     public static int[] maxSlidingWindow2(int[] nums, int k) {
         Deque<Integer> q = new ArrayDeque<>();
         int[] res = new int[nums.length - k + 1];
@@ -394,7 +397,7 @@ public class NeetCode {
         HashMap<Character, Character> map = new HashMap<>();
         map.put('(', ')');
         map.put('{', '}');
-        map.put('[',']');
+        map.put('[', ']');
 
         Stack<Character> stack = new Stack<>();
         for (int i = 0; i < s.length(); i++) {
@@ -406,10 +409,10 @@ public class NeetCode {
                     Character lastchar = stack.pop();
                     if (!map.get(lastchar).equals(c)) {
                         return false;
-                    } 
+                    }
                 } else {
                     return false;
-                   
+
                 }
             }
         }
@@ -419,8 +422,7 @@ public class NeetCode {
         }
 
         return true;
-        
-        
+
     }
 
     public static boolean isPalindrome(String s) {
@@ -553,18 +555,17 @@ public class NeetCode {
 
         return res;
     }
-    
+
     public static int maxSubArray(int[] nums) {
         int submax = nums[0];
         int max = nums[0];
-        for(int i = 1; i < nums.length; i++) {
+        for (int i = 1; i < nums.length; i++) {
             submax = Math.max(nums[i], nums[i] + max);
             max = Math.max(submax, max);
         }
         return max;
-        
-    }
 
+    }
 
     public static int[] productExceptSelf(int[] nums) {
         int[] forward = new int[nums.length];
@@ -1399,7 +1400,7 @@ public class NeetCode {
             list.add(element);
             helperSubset(start + 1, nums, result, list);
 
-            list.remove(nums.length - 1);
+            list.remove(list.size() - 1);
             helperSubset(start + 1, nums, result, list);
         }
     }
@@ -1454,6 +1455,135 @@ public class NeetCode {
             combinationSum3Helper(start + 1, result, list, k, target, contains);
         }
 
+    }
+
+    public static boolean exist(char[][] board, String word) {
+        int row = board.length;
+        int col = board[0].length;
+        boolean[][] isFirstStart = new boolean[row][col];
+
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                if (board[i][j] == word.charAt(0)) {
+                    if (existBfs(board, 0, word, i, j)) {
+                        return true;
+
+                    }
+
+                }
+
+            }
+        }
+        return false;
+
+    }
+
+    private static boolean existBfs(char[][] board, int i, String word, int r, int c) {
+        int row = board.length;
+        int col = board[0].length;
+        if (i >= word.length()) {
+            return true;
+        }
+        if (r < 0 || r > row - 1 || c < 0 || c > col - 1
+                || board[r][c] != word.charAt(i)) {
+            return false;
+        }
+
+        char temp = board[r][c];
+        board[r][c] = '#';
+        boolean isExist = existBfs(board, i + 1, word, r + 1, c) ||
+                existBfs(board, i + 1, word, r - 1, c) ||
+                existBfs(board, i + 1, word, r, c + 1) ||
+                existBfs(board, i + 1, word, r, c - 1);
+        board[r][c] = temp;
+        return isExist;
+    }
+
+    public static List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+
+        for (int i = 0; i < nums.length; i++) {
+            Stack<Integer> set = new Stack<>();
+            set.add(nums[i]);
+            permuteDfs(nums, set, res);
+        }
+
+        return res;
+    }
+
+    private static void permuteDfs(int[] nums, Stack<Integer> set, List<List<Integer>> res) {
+        List<Integer> arr = new ArrayList<>();
+        if (set.size() == nums.length) {
+            arr = new ArrayList<>(set.stream().toList());
+            res.add(arr);
+
+        }
+
+        for (int n = 0; n < nums.length; n++) {
+            if (!set.contains(nums[n])) {
+                int val = nums[n];
+                set.add(val);
+                permuteDfs(nums, set, res);
+                set.pop();
+            }
+        }
+
+    }
+
+    public static List<List<Integer>> subsetsWithDup(int[] nums) {
+        Arrays.sort(nums);
+        List<List<Integer>> res = new ArrayList<>();
+
+        HashMap<List<Integer>, List<Integer>> map = new HashMap<>();
+        List<Integer> list = new ArrayList<>();
+        int start = 0;
+        subsetsWithDupDfs(nums, start, map, list, res);
+
+        return res;
+    }
+
+    private static void subsetsWithDupDfs(int[] nums, int start, HashMap<List<Integer>, List<Integer>> map,
+            List<Integer> list, List<List<Integer>> res) {
+        if (start >= nums.length) {
+            list.sort((a, b) -> a - b);
+            if (!map.containsKey(list)) {
+                map.put(list, list);
+                res.add(new ArrayList<>(list));
+            }
+        } else {
+            int element = nums[start];
+            list.add(element);
+            subsetsWithDupDfs(nums, start + 1, map, list, res);
+
+            list.remove(list.size() - 1);
+            subsetsWithDupDfs(nums, start + 1, map, list, res);
+        }
+    }
+
+    public static List<List<Integer>> subsetsWithDup2(int[] nums) {
+        Arrays.sort(nums);
+        List<List<Integer>> res = new ArrayList<>();
+        Stack<Integer> stack = new Stack<>();
+        int index = 0;
+        subsetsWithDupDfs2(nums, stack, res, index);
+        return res;
+    }
+
+    private static void subsetsWithDupDfs2(int[] nums, Stack<Integer> stack, List<List<Integer>> res, int index) {
+        if (stack.size() <= nums.length) {
+            res.add(new ArrayList<>(stack.stream().toList()));
+        }
+
+        for (int i = index; i < nums.length; i++) {
+            if (i != index && nums[i] == nums[i - 1]) {
+                continue;
+            }
+
+            int val = nums[i];
+            stack.add(val);
+            subsetsWithDupDfs2(nums, stack, res, i + 1);
+            stack.pop();
+        }
     }
 
     public static class KthLargest {
@@ -2185,6 +2315,3 @@ public class NeetCode {
     }
 
 }
-
-
-
