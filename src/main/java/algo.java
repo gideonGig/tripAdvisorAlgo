@@ -404,7 +404,15 @@ public class algo {
                 System.out.println(NeetCode.maxSlidingWindow2(nums, 3).toString());
                 */
 
-                System.out.println(NeetCode.isValid("(]"));
+                //System.out.println(NeetCode.isValid("(]"));
+                /* 
+                char[][] board = {{'A','B','C','E'},{'S','F','C','S'},{'A','D','E','E'}};
+                System.out.println(NeetCode.exist(board, "ABCCED"));
+                */
+                
+                int[] arr = {1, 2, 2};
+                System.out.println(NeetCode.subsetsWithDup(arr));
+
 
 
 
