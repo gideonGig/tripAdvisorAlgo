@@ -20,26 +20,6 @@ public class BasicAlgo {
             list1.add(value);
         }
 
-        // this is an ineffcient algorithm, as for every pop operation it runs an 0(n)
-        public Integer pop() {
-            Integer ans = -1;
-            Integer lengthList = list1.size();
-            Integer newArrlength = lengthList - 1;
-            Integer[] arr = new Integer[lengthList - 1];
-            for (int i = 0; i < lengthList; i++) {
-                Integer value = list1.pop();
-                if (i == lengthList - 1) {
-                    ans = value;
-                } else {
-                    arr[newArrlength - i - 1] = value;
-                }
-            }
-
-            list1 = new Stack();
-            Collections.addAll(list1, arr);
-            return ans;
-        }
-
         // efficient algorithm is using 2 stacks for Enqueue and Dequeue Operation..we
         // wuld always pop from list2
         // firt check that list2 is empyy, if it is empty, remove all elements from
@@ -1234,7 +1214,6 @@ public class BasicAlgo {
             }
         }
 
-       
         return n;
 
     }
