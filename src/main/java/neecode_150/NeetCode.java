@@ -345,7 +345,7 @@ public class NeetCode {
         }
         res[resPtr++] = max;
         max = Integer.MIN_VALUE;
-        ;
+
         while (rightPtr < nums.length) {
             leftPtr = rightPtr - k + 1;
             while (leftPtr <= rightPtr) {
@@ -1865,7 +1865,7 @@ public class NeetCode {
 
     }
     /*
-     * use dfs and backtracking technique, for bfs technique check BasicAlgo.java
+     * use dfs and backtracking technique, for bfs technique check neecode_150.BasicAlgo.java
      */
 
     public static int numIslands(char[][] grid) {

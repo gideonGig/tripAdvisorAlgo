@@ -1,0 +1,14 @@
+
+X
+java:S4977"=Rename "T" which hides a type parameter from the outer scope.(áÚÙîûÿÿÿÿ
+—
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ôû÷ñ
+œ
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(áÚÙîûÿÿÿÿ
+œ
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(œÑæÿÿÿÿÿ
+6
+java:S2326"T is not used in the class.(•çÕ¨ûÿÿÿÿ
+m
+java:S6204
+"RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(ó§ÑÖÿÿÿÿÿ

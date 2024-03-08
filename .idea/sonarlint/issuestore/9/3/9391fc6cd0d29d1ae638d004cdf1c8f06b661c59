@@ -1,0 +1,44 @@
+
+g	java:S101
+"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(ÁöÑÙøÿÿÿÿ
+Œ
+java:S1130"wRemove the declaration of thrown exception 'java.lang.InterruptedException', as it cannot be thrown from method's body.(º™Ú7
+Q	java:S125"<This block of commented-out lines of code should be removed.(ûØ€•
+P	java:S125!"<This block of commented-out lines of code should be removed.(Ú’µ
+V	java:S125."<This block of commented-out lines of code should be removed.(ûÚêýÿÿÿÿ
+Q	java:S1254"<This block of commented-out lines of code should be removed.(êÓËÀ
+V	java:S125?"<This block of commented-out lines of code should be removed.(‹Ì¤ðÿÿÿÿÿ
+V	java:S125Z"<This block of commented-out lines of code should be removed.(é¡Ôøÿÿÿÿ
+Q	java:S125x"<This block of commented-out lines of code should be removed.(–¯‹Ö
+R	java:S125î"<This block of commented-out lines of code should be removed.(‚ÞÅ‘
+R	java:S125õ"<This block of commented-out lines of code should be removed.(à‚Œ“
+W	java:S125û"<This block of commented-out lines of code should be removed.(¿®ÌÂùÿÿÿÿ
+R	java:S125“"<This block of commented-out lines of code should be removed.(ìù¤ü
+R	java:S125"<This block of commented-out lines of code should be removed.(äŸ”ù
+W	java:S125°"<This block of commented-out lines of code should be removed.(ŽÝ¢­þÿÿÿÿ
+R	java:S125¶"<This block of commented-out lines of code should be removed.(ëÚ‹Ú
+W	java:S125Ë"<This block of commented-out lines of code should be removed.(ýÇúøüÿÿÿÿ
+R	java:S125Ù"<This block of commented-out lines of code should be removed.(¥…õå
+R	java:S125à"<This block of commented-out lines of code should be removed.(¶¨”‰
+R	java:S125å"<This block of commented-out lines of code should be removed.(Øžý’
+R	java:S125ê"<This block of commented-out lines of code should be removed.(ØÌÃÿ
+W	java:S125"<This block of commented-out lines of code should be removed.(„¹úáÿÿÿÿÿ
+R	java:S125†"<This block of commented-out lines of code should be removed.(Õ·”
+W	java:S125‰"<This block of commented-out lines of code should be removed.(Õƒ‘öþÿÿÿÿ
+R	java:S125Ž"<This block of commented-out lines of code should be removed.(³Æ¶ª
+R	java:S125"<This block of commented-out lines of code should be removed.(ãç€Ç
+R	java:S125“"<This block of commented-out lines of code should be removed.(Þà©„
+W	java:S125—"<This block of commented-out lines of code should be removed.(œ°¤Íÿÿÿÿÿ
+A	java:S106ž"+Replace this use of System.out by a logger.(Ìßõ‡
+T
+java:S1128"9Remove this unused import 'neecode_150.NeetCode.MyStack'.(ôØØêþÿÿÿÿ
+J
+java:S1128"/Remove this unused import 'utilities.ListNode'.(Üúá¶ýÿÿÿÿ
+G
+java:S1128"1Remove this unused import 'java.math.BigDecimal'.(êêŠ
+F
+java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ
+I
+java:S1128".Remove this unused import 'java.util.HashMap'.(™˜”€ùÿÿÿÿ
+F
+java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ
