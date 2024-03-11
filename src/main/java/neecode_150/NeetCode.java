@@ -2,7 +2,6 @@ package neecode_150;
 
 import java.util.*;
 
-import neecode_150.NeetCode.GraphMaxArea.Point;
 import utilities.ListNode;
 import utilities.TreeNode;
 
@@ -332,34 +331,6 @@ public class NeetCode {
         }
     }
 
-    /** this is not perfomant, it times out, check below */
-    public static int[] maxSlidingWindow(int[] nums, int k) {
-        int leftPtr = 0;
-        int rightPtr = 0;
-        int resPtr = 0;
-        int[] res = new int[nums.length - k + 1];
-        int max = Integer.MIN_VALUE;
-        while (rightPtr < k) {
-            max = Math.max(nums[rightPtr], max);
-            rightPtr++;
-        }
-        res[resPtr++] = max;
-        max = Integer.MIN_VALUE;
-        ;
-        while (rightPtr < nums.length) {
-            leftPtr = rightPtr - k + 1;
-            while (leftPtr <= rightPtr) {
-                max = Math.max(nums[leftPtr], max);
-                leftPtr++;
-            }
-            res[resPtr++] = max;
-            max = Integer.MIN_VALUE;
-
-            rightPtr++;
-        }
-        return res;
-    }
-
     /**
      * optimized version, the max sliding window uses the Deque
      * what get added to the deque is the index, because we can
@@ -539,8 +510,8 @@ public class NeetCode {
         PriorityQueue<Map.Entry<Integer, Integer>> pq = new PriorityQueue<>((a, b) -> b.getValue() - a.getValue());
         HashMap<Integer, Integer> map = new HashMap<>();
         for (int num : nums) {
-            int key = map.getOrDefault(num, 0) + 1;
-            map.put(num, key);
+            int freq = map.getOrDefault(num, 0) + 1;
+            map.put(num, freq);
 
         }
 
@@ -1530,6 +1501,34 @@ public class NeetCode {
 
     }
 
+    public static List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        Arrays.sort(candidates);
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> stack = new Stack<>();
+        combinationSum2BackTrack(candidates, target, 0, stack, res);
+        return res;
+
+    }
+
+    private static void combinationSum2BackTrack(int[] candidates, int target, int start,
+            List<Integer> list, List<List<Integer>> res) {
+        if (target == 0) {
+            res.add(new ArrayList<>(list));
+        }
+        if (target < 0) {
+            return;
+        }
+        for (int i = start; i < candidates.length; i++) {
+            if (i > 0 && candidates[i] == candidates[i - 1]) {
+                continue;
+            }
+
+            list.add(candidates[i]);
+            combinationSum2BackTrack(candidates, target - candidates[i], start + 1, list, res);
+            list.remove(list.size() - 1);
+        }
+    }
+
     public static List<List<Integer>> subsetsWithDup(int[] nums) {
         Arrays.sort(nums);
         List<List<Integer>> res = new ArrayList<>();
@@ -1586,6 +1585,42 @@ public class NeetCode {
         }
     }
 
+    public static List<String> generateParenthesis(int n) {
+        int len = n * 2;
+        List<String> res = new ArrayList<>();
+        List<Character> c = new ArrayList<>();
+        int numOpen = 0;
+        int numClose = 0;
+        backTrackGenerateParanthesis(n, c, res, numOpen, numClose);
+        return res;
+    }
+
+    private static void backTrackGenerateParanthesis(int n, List<Character> c, List<String> res, int numOpen,
+            int numClose) {
+        if (c.size() == n * 2) {
+            StringBuilder st = new StringBuilder();
+            for (char ch : c) {
+                st.append(ch);
+            }
+            res.add(st.toString());
+            return;
+        }
+
+        // add open Parenthesis
+        if (numOpen < n) {
+            c.add('(');
+            backTrackGenerateParanthesis(n, c, res, numOpen + 1, numClose);
+            c.remove(c.size() - 1);
+        }
+
+        if (numClose < numOpen) {
+            c.add(')');
+            backTrackGenerateParanthesis(n, c, res, numOpen, numClose + 1);
+            c.remove(c.size() - 1);
+        }
+
+    }
+
     public static class KthLargest {
 
         private List<Integer> arr = new ArrayList<Integer>();
@@ -1605,7 +1640,7 @@ public class NeetCode {
         }
 
         public void heapify(int val) {
-            arr.addLast(val);
+            arr.add(val);
             int indexVal = arr.size() - 1;
             int parentIndex = indexVal / 2;
             while (parentIndex > 0 &&
@@ -2313,5 +2348,89 @@ public class NeetCode {
 
         return dp[1];
     }
+
+    public static int factorial(int n, int k) {
+        /*
+         * nCk = n! /(k! * (n -k)!)
+         */
+        if (k < 0 || k > n) {
+            return 0;
+        }
+
+        int fN = getFactorial(n);
+
+        int fK = getFactorial(k);
+
+        int fNK = getFactorial(n - k);
+        return fN / (fK * fNK);
+    }
+
+    public static int getFactorial(int num) {
+        int res = 1;
+        if (num == 0) {
+            return res;
+        }
+        for (int i = 1; i <= num; i++) {
+            res = res * i;
+        }
+
+        return res;
+    }
+
+    /**
+     * rearrange array ar a1<a2>a3<a4
+     */
+
+    public static void rearrange(int[] nums) {
+        Arrays.sort(nums);
+
+        for (int i = 1; i < nums.length - 1; i += 2) {
+            swapIndex(nums, i, i + 1);
+        }
+    }
+
+    private static void swapIndex(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+
+    }
+
+    /*
+     * create a graph and perform a dfs traversal
+     */
+
+    public class Graph {
+        public Integer vertex;
+        public List<Integer>[] adj;
+
+        public Graph(Integer vertex) {
+            for (int i = 0; i < vertex; i++) {
+                adj[i] = new ArrayList<Integer>();
+            }
+        }
+
+        public void add(int source, int dest) {
+            adj[source].add(dest);
+    
+        }
+
+        public void dfs(int start) {
+            boolean[] visited = new boolean[vertex];
+            dfsTraversal(start, visited);
+        }
+
+        public void dfsTraversal(int vertex, boolean[] visited) {
+            visited[vertex] = true;
+            System.out.println(vertex + " -> ");
+
+            for (int neighbours : adj[vertex]) {
+                if (!visited[neighbours]) {
+                    dfsTraversal(neighbours, visited);
+                }
+            }
+        }
+    }
+    
 
 }

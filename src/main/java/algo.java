@@ -409,10 +409,21 @@ public class algo {
                 char[][] board = {{'A','B','C','E'},{'S','F','C','S'},{'A','D','E','E'}};
                 System.out.println(NeetCode.exist(board, "ABCCED"));
                 */
-                
+
+                /*
                 int[] arr = {1, 2, 2};
                 System.out.println(NeetCode.subsetsWithDup(arr));
+                */
+                 
 
+               //System.out.println(NeetCode.generateParenthesis(3));
+
+               //System.out.println(NeetCode.factorial(5, 2));
+
+               int[] arr ={1, 3, 2, 5, 4, 6, 7};
+               NeetCode.rearrange(arr);
+               System.out.println(arr);
+        
 
 
 
