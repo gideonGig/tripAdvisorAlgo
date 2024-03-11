@@ -1,0 +1,66 @@
+
+D
+java:S3740"/Provide the parametrized type for this generic.(Æˆã
+E
+java:S3740"/Provide the parametrized type for this generic.(ØÔ’¼
+E
+java:S3740F"/Provide the parametrized type for this generic.(İ˜üğ
+J
+java:S3740^"/Provide the parametrized type for this generic.(Œà’–ùÿÿÿÿ
+E
+java:S3740Ë"/Provide the parametrized type for this generic.(Ù©ÛS
+F
+java:S3740Í"/Provide the parametrized type for this generic.(Éüù
+K
+java:S3740Î"/Provide the parametrized type for this generic.(òÇÂ²ÿÿÿÿÿ
+K
+java:S3740•"/Provide the parametrized type for this generic.(„¯›¯ÿÿÿÿÿ
+E
+java:S3740¼"/Provide the parametrized type for this generic.(„ÉÒu
+D
+java:S5411Š"(Use a primitive boolean expression here.(ôÛ’ıÿÿÿÿÿ
+?
+java:S5411¡"(Use a primitive boolean expression here.(±—¹“
+S
+java:S4973À"<Strings and Boxed types should be compared using "equals()".(‚ÎÔ
+]
+java:S2259Ç"AA "NullPointerException" could be thrown; "cur" is nullable here.(†•øÿÿÿÿ
+€
+java:S4165¸"bRemove this useless assignment; "nums" already holds the assigned value along all execution paths.(…†ÚÜ8ŠıÆ€â1
+k
+java:S1149
+"PReplace the synchronized class "Stack" by an unsynchronized one such as "Deque".(Â“†ªüÿÿÿÿ
+f
+java:S1149"PReplace the synchronized class "Stack" by an unsynchronized one such as "Deque".(¤¦²³
+f
+java:S1149F"PReplace the synchronized class "Stack" by an unsynchronized one such as "Deque".(İ˜üğ
+l
+java:S1149ˆ"PReplace the synchronized class "Stack" by an unsynchronized one such as "Deque".(ÑÖÙƒıÿÿÿÿ
+g
+java:S1149ô"PReplace the synchronized class "Stack" by an unsynchronized one such as "Deque".(ŠÈİà
+s
+java:S1149£"PReplace the synchronized class "Stack" by an unsynchronized one such as "Deque".(û›şöıÿÿÿÿ8Í€Ç€â1
+@	java:S106o"+Replace this use of System.out by a logger.(¦œÌ¦
+]
+java:S1126˜"AReplace this if-then-else statement by a single return statement.(¤«»·ùÿÿÿÿ
+T
+java:S1854é"8Remove this useless assignment to local variable "temp".(®ç¸˜ûÿÿÿÿ
+E
+java:S1481é")Remove this unused "temp" local variable.(®ç¸˜ûÿÿÿÿ
+?	java:S108ë")Either remove or fill this block of code.(„—êå
+M
+java:S1854‚"7Remove this useless assignment to local variable "cur".(¨ÚİU
+S
+java:S1854"<Remove this useless assignment to local variable "dummyPtr".(ÔÁîÌ
+D
+java:S1481"-Remove this unused "dummyPtr" local variable.(ÔÁîÌ
+>
+java:S1481‚"(Remove this unused "cur" local variable.(¨ÚİU
+W	java:S125‹"<This block of commented-out lines of code should be removed.(¤‘Øçÿÿÿÿÿ
+R	java:S125"<This block of commented-out lines of code should be removed.(Ñ¾¥
+G
+java:S1172ƒ"+Remove this unused method parameter "head".(«±Ñ›ûÿÿÿÿ
+p
+java:S3776Ş"RRefactor this method to reduce its Cognitive Complexity from 29 to the 15 allowed.(ŞÅ®8÷ˆÇ€â1
+o
+java:S2175º	"QA "HashMap<Character, Integer>" cannot contain a "Character" in a "Integer" type.(şĞ‘º8ÁŠÇ€â1

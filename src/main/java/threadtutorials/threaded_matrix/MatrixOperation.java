@@ -35,18 +35,6 @@ public class MatrixOperation {
             this.queue = queue;
         }
 
-        private static void saveMatrixToFile(FileWriter fileWriter, float[][] matrix) throws IOException {
-            for (int r = 0; r < N; r++) {
-                StringJoiner stringJoiner = new StringJoiner(", ");
-                for (int c = 0; c < N; c++) {
-                    stringJoiner.add(String.format("%.2f", matrix[r][c]));
-                }
-                fileWriter.write(stringJoiner.toString());
-                fileWriter.write('\n');
-            }
-            fileWriter.write('\n');
-        }
-
         @Override
         public void run() {
             while (true) {
@@ -82,6 +70,18 @@ public class MatrixOperation {
                 }
             }
             return result;
+        }
+
+        private static void saveMatrixToFile(FileWriter fileWriter, float[][] matrix) throws IOException {
+            for (int r = 0; r < N; r++) {
+                StringJoiner stringJoiner = new StringJoiner(", ");
+                for (int c = 0; c < N; c++) {
+                    stringJoiner.add(String.format("%.2f", matrix[r][c]));
+                }
+                fileWriter.write(stringJoiner.toString());
+                fileWriter.write('\n');
+            }
+            fileWriter.write('\n');
         }
     }
 

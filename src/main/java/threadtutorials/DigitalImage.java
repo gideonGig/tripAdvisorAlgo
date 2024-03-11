@@ -19,7 +19,7 @@ public class DigitalImage {
         recolorSingleThreaded(originalImage, resultImage);
     }
 
-    public static void recolorMultiThreaded(BufferedImage originalImage, BufferedImage resultImage, int numberOfThreads)  {
+    public static void recolorMultiThreaded(BufferedImage originalImage, BufferedImage resultImage, int numberOfThreads) {
         List<Thread> threads = new ArrayList<>();
         int width = originalImage.getWidth();
         int height = originalImage.getHeight() / numberOfThreads;

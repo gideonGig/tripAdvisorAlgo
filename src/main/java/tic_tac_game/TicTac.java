@@ -1,3 +1,5 @@
+package tic_tac_game;
+
 import java.util.HashMap;
 import java.util.Scanner;
 

@@ -35,21 +35,21 @@ public class algo {
 
                 /**
                  * Integer{} arr = {1,3,4,5};
-                 * Integer coin = BasicAlgo.coinChange(arr, 7);
+                 * Integer coin = neecode_150.BasicAlgo.coinChange(arr, 7);
                  * System.out.println(coin);
                  * 
-                 * int sum = BasicAlgo.sumOfNaturalNumbers(10);
+                 * int sum = neecode_150.BasicAlgo.sumOfNaturalNumbers(10);
                  * System.out.println(sum);
                  **/
 
                 /*
                  * Integer{} unsortedArr = {-3, 0, 2, 1, 5, 7, 6};
-                 * BasicAlgo.mergeSort(unsortedArr);
+                 * neecode_150.BasicAlgo.mergeSort(unsortedArr);
                  * Arrays.stream(unsortedArr).forEach(System.out::println);
                  */
 
                 /*
-                 * BasicAlgo.MyQueue queue = new BasicAlgo.MyQueue();
+                 * neecode_150.BasicAlgo.MyQueue queue = new neecode_150.BasicAlgo.MyQueue();
                  * queue.append(10);
                  * queue.append(20);
                  * queue.append(30);
@@ -60,7 +60,7 @@ public class algo {
                  */
 
                 /*
-                 * BigDecimal pow = BasicAlgo.power(16, 0);
+                 * BigDecimal pow = neecode_150.BasicAlgo.power(16, 0);
                  * System.out.println(pow);
                  */
 
@@ -73,7 +73,7 @@ public class algo {
                  * ListNode nodeB = new ListNode(4,
                  * new ListNode(6, new ListNode(8,
                  * new ListNode(10))));
-                 * ListNode node = BasicAlgo.findIntersectionBetweenNodes(nodeA, nodeB);
+                 * ListNode node = neecode_150.BasicAlgo.findIntersectionBetweenNodes(nodeA, nodeB);
                  * 
                  * System.out.println(node.getVal());
                  **/
@@ -82,18 +82,18 @@ public class algo {
                  * {'1','1','0','1','0'},
                  * {'1','1','0','0','0'},
                  * {'0','0','0','0','0'} };
-                 * int times = BasicAlgo.numberOfIsland(arr);
+                 * int times = neecode_150.BasicAlgo.numberOfIsland(arr);
                  * System.out.println(times);
                  */
 
                 /*
                  * int[][] fishArr = {{0, 2, 1, 0}, {4, 0, 0, 3}, {1, 0, 0, 4}, {0, 3, 2, 0}};
-                 * int maxFish = BasicAlgo.findMaxFish(fishArr);
+                 * int maxFish = neecode_150.BasicAlgo.findMaxFish(fishArr);
                  * System.out.println(maxFish);
                  **/
 
                 /**
-                 * TicTac game = new TicTac();
+                 * tic_tac_game.TicTac game = new tic_tac_game.TicTac();
                  * Boolean isWin = false;
                  * while (isWin == false) {
                  * game.drawBoard();
@@ -113,50 +113,50 @@ public class algo {
 
                 /**
                  * int[] arr = {0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1};
-                 * System.out.println(BasicAlgo.twitterWaterFall(arr));
+                 * System.out.println(neecode_150.BasicAlgo.twitterWaterFall(arr));
                  */
 
                 /*
-                 * System.out.println(BasicAlgo.convertIntToRoman(1670));
+                 * System.out.println(neecode_150.BasicAlgo.convertIntToRoman(1670));
                  **/
 
                 /**
-                 * System.out.println(BasicAlgo.validParathensis("()]"));
+                 * System.out.println(neecode_150.BasicAlgo.validParathensis("()]"));
                  **/
 
                 /**
                  * ListNode nodeA = new ListNode(1, new ListNode(2, new ListNode(3)));
                  * ListNode nodeB = new ListNode(1, new ListNode(3, new ListNode(4)));
-                 * ListNode merged = BasicAlgo.mergeTwoSortedList(nodeA, nodeB);
+                 * ListNode merged = neecode_150.BasicAlgo.mergeTwoSortedList(nodeA, nodeB);
                  * System.out.println(merged.getNext().stringifyNode());
                  **/
 
                 /**
                  * ListNode nodeA = new ListNode(2, new ListNode(1, new ListNode(3)));
-                 * System.out.println(BasicAlgo.sortList(nodeA).stringifyNode());
+                 * System.out.println(neecode_150.BasicAlgo.sortList(nodeA).stringifyNode());
                  **/
 
                 /**
                  * int[][] arr = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-                 * BasicAlgo.rotate(arr);
+                 * neecode_150.BasicAlgo.rotate(arr);
                  **/
 
                 /**
                  * int[][] arr = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-                 * BasicAlgo.rotate(arr);
+                 * neecode_150.BasicAlgo.rotate(arr);
                  **/
 
                 /**
                  * int[] arr = {1, 1, 0, 6, 5};
                  * ListNode node = ListNode.convertToListNode(arr);
-                 * ListNode rev = BasicAlgo.reverseEvenLengthGroups(node);
+                 * ListNode rev = neecode_150.BasicAlgo.reverseEvenLengthGroups(node);
                  * System.out.println(rev.stringifyNode());
                  **/
 
                 /**
                  * int[] arr = {3, 5};
                  * ListNode node = ListNode.convertToListNode(arr);
-                 * ListNode rev = BasicAlgo.reverseBetween(node, 1, 2);
+                 * ListNode rev = neecode_150.BasicAlgo.reverseBetween(node, 1, 2);
                  * System.out.println(rev.stringifyNode());
                  **/
 
@@ -167,7 +167,7 @@ public class algo {
                  * int[] arr2 = {5, 6, 4, 9};
                  * ListNode l2 = ListNode.convertToListNode(arr2);
                  * 
-                 * ListNode node = BasicAlgo.addTwoNumbers(l1, l2);
+                 * ListNode node = neecode_150.BasicAlgo.addTwoNumbers(l1, l2);
                  * System.out.println(node.stringifyNode());
                  **/
 
@@ -175,53 +175,53 @@ public class algo {
                  * 
                  * int[] arr = {1, 2, 3, 4, 5};
                  * ListNode l1 = ListNode.convertToListNode(arr);
-                 * ListNode node = BasicAlgo.removeNthFromEnd(l1, 2);
+                 * ListNode node = neecode_150.BasicAlgo.removeNthFromEnd(l1, 2);
                  * System.out.println(node.stringifyNode());
                  **/
 
                 /**
                  * int[] arr = {1, 2};
                  * ListNode l1 = ListNode.convertToListNode(arr);
-                 * ListNode node = BasicAlgo.rotateRight(l1, 2);
+                 * ListNode node = neecode_150.BasicAlgo.rotateRight(l1, 2);
                  * /
                  **/
 
                 /**
                  * int[] arr = {1, 2, 3, 3, 4, 4, 5};
                  * ListNode l1 = ListNode.convertToListNode(arr);
-                 * ListNode node = BasicAlgo.deleteDuplicates(l1);
+                 * ListNode node = neecode_150.BasicAlgo.deleteDuplicates(l1);
                  * System.out.println(node.stringifyNode());
                  **/
 
                 /**
                  * int[] arr = {1, 2};
                  * ListNode l1 = ListNode.convertToListNode(arr);
-                 * ListNode node = BasicAlgo.rotateRight(l1, 2);
+                 * ListNode node = neecode_150.BasicAlgo.rotateRight(l1, 2);
                  * System.out.println(node.stringifyNode());
                  **/
 
                 /**
-                 * StreamT.testStream();
+                 * stream_test.StreamT.testStream();
                  */
 
                 /**
                  * int[] arr = {1, 4, 3, 2, 5, 2};
                  * ListNode l1 = ListNode.convertToListNode(arr);
-                 * ListNode node = BasicAlgo.partition(l1, 3);
+                 * ListNode node = neecode_150.BasicAlgo.partition(l1, 3);
                  * System.out.println(node.stringifyNode());
                  **/
 
                 /**
                  * int[] divisors = {18, 6, 10, 3};
                  * ListNode divisorNode = ListNode.convertToListNode(divisors);
-                 * ListNode result = BasicAlgo.insertGreatestCommonDivisors(divisorNode);
+                 * ListNode result = neecode_150.BasicAlgo.insertGreatestCommonDivisors(divisorNode);
                  * System.out.println(result.stringifyNode());
                  **/
 
                 /**
                  * int[] arr = {1, 8, 9};
                  * ListNode l1 = ListNode.convertToListNode(arr);
-                 * ListNode node = BasicAlgo.doubleIt(l1);
+                 * ListNode node = neecode_150.BasicAlgo.doubleIt(l1);
                  * System.out.println(node.stringifyNode());
                  **/
 
@@ -230,14 +230,14 @@ public class algo {
                  * //int[] arr = {1, 1, 1, 1};
                  * //int[] arr = {5, 2, 12, 3, 8};
                  * ListNode l1 = ListNode.convertToListNode(arr);
-                 * ListNode node = BasicAlgo.removeNodes(l1);
+                 * ListNode node = neecode_150.BasicAlgo.removeNodes(l1);
                  * System.out.println(node.stringifyNode());
                  **/
 
                 /*
                  * int[] arr = {3, 0, 2, 6, 8, 1, 7, 9, 4, 2, 5, 5, 0};
                  * ListNode l1 = ListNode.convertToListNode(arr);
-                 * int[][] result = BasicAlgo.spiralMatrix(3, 5, l1);
+                 * int[][] result = neecode_150.BasicAlgo.spiralMatrix(3, 5, l1);
                  * System.out.println(result);
                  */
 
@@ -273,7 +273,7 @@ public class algo {
 
                 /*
                  * int[] arr2 = new int[]{3,2, 1, 5, 6, 4};
-                 * System.out.println(BasicAlgo.findKthLargest(arr2, 2));
+                 * System.out.println(neecode_150.BasicAlgo.findKthLargest(arr2, 2));
                  */
 
                 /**
@@ -360,7 +360,7 @@ public class algo {
 
                 /*
                  * int[] arr = new int[10];
-                 * BasicAlgo.QuickFind root = new BasicAlgo.QuickFind(arr);
+                 * neecode_150.BasicAlgo.QuickFind root = new neecode_150.BasicAlgo.QuickFind(arr);
                  * root.union(0, 1);
                  * root.union(0, 2);
                  * root.union(1, 3);

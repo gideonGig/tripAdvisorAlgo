@@ -1,3 +1,7 @@
+package generics;
+
+import neecode_150.BasicAlgo;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
@@ -17,5 +21,8 @@ public class Generics<T> {
     public  <T extends TestInterface & BoundContext> void tryExtendsMultiple(T element) {
 
     }
-    
+
+    public static interface TestInterface {
+
+    }
 }

@@ -1,3 +1,5 @@
+package neecode_150;
+
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -1202,6 +1204,7 @@ public class BasicAlgo {
 
     }
 
+    /** not finished yet **/
     public int leastInterval(char[] tasks, int n) {
         HashMap<Character, Integer> map = new HashMap<>();
         for (int i = 0; i < tasks.length; i++) {
@@ -1213,7 +1216,6 @@ public class BasicAlgo {
             }
         }
 
-       
         return n;
 
     }
