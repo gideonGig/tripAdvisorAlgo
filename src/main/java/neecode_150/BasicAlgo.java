@@ -1219,5 +1219,47 @@ public class BasicAlgo {
         return n;
 
     }
+    
+    /* use topological sort for clarity */
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+        int visit = 0;
+        int[] result = new int[numCourses];
+        Queue<Integer>  queue = new LinkedList<>();
+        int[] freq = new int[numCourses];
+        List<Integer>[] adj = new ArrayList[numCourses];
+        for (int i = 0; i < adj.length; i++) {
+            adj[i] = new ArrayList<>();
+        }
+
+        for (int[] pre : prerequisites) {
+            adj[pre[1]].add(pre[0]);
+            freq[pre[0]]++;
+        }
+
+        for (int i = 0; i < freq.length; i++) {
+            if (freq[i] == 0) {
+                queue.add(i);
+            }
+        }
+
+        while(!queue.isEmpty()) {
+            int cur = queue.poll();
+            result[visit++] = cur;
+            for (int neigh : adj[cur]) {
+                freq[neigh]--;
+                if (freq[neigh] == 0) {
+                    queue.add(neigh);
+                }
+            }
+        }
+
+        if (visit == numCourses) {
+            return result;
+
+        }
+
+        result = new int[0];
+        return result;
+    }
 
 }

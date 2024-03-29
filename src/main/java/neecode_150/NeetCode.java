@@ -2,6 +2,7 @@ package neecode_150;
 
 import java.util.*;
 
+import neecode_150.NeetCode.GraphMaxArea.Point;
 import utilities.ListNode;
 import utilities.TreeNode;
 
@@ -1621,6 +1622,61 @@ public class NeetCode {
 
     }
 
+    /* this is not efficient, use a monotinically decreasing stack to solve */
+    public static int[] dailyTemperatures(int[] temperatures) {
+        int leftPtr = 0;
+        int rightPtr = 1;
+        int k = 0;
+        int[] res = new int[temperatures.length];
+        while (leftPtr < temperatures.length) {
+            if (rightPtr == temperatures.length) {
+                res[k++] = 0;
+                leftPtr++;
+                rightPtr = leftPtr + 1;
+            }
+            if (leftPtr >= temperatures.length - 1) {
+                res[temperatures.length - 1] = 0;
+                break;
+            }
+            if (temperatures[rightPtr] > temperatures[leftPtr]) {
+                int dist = rightPtr - leftPtr;
+                res[k++] = dist;
+                leftPtr++;
+                rightPtr = leftPtr + 1;
+            } else {
+                rightPtr++;
+            }
+        }
+
+        return res;
+    }
+
+    /*
+     * using a monotically decreasing stack, we keep track of elements
+     * in decreasing order
+     */
+    public static int[] dailyTemperaturesII(int[] temperature) {
+        int[] res = new int[temperature.length];
+        Stack<Integer> stack = new Stack<Integer>();
+        stack.add(0);
+        for (int i = 1; i < temperature.length; i++) {
+            while (!stack.isEmpty() && temperature[i] > temperature[stack.peek()]) {
+                int position = stack.pop();
+                res[position] = i - position;
+            }
+
+            stack.add(i);
+        }
+
+        while (!stack.isEmpty()) {
+            int position = stack.pop();
+            res[position] = 0;
+        }
+
+        return res;
+
+    }
+
     public static class KthLargest {
 
         private List<Integer> arr = new ArrayList<Integer>();
@@ -1900,7 +1956,8 @@ public class NeetCode {
 
     }
     /*
-     * use dfs and backtracking technique, for bfs technique check neecode_150.BasicAlgo.java
+     * use dfs and backtracking technique, for bfs technique check
+     * neecode_150.BasicAlgo.java
      */
 
     public static int numIslands(char[][] grid) {
@@ -1939,11 +1996,26 @@ public class NeetCode {
             private int r;
             private int c;
             private int l;
+            private int maxTop = -1;
+            private int maxBottom = -1;
+            private int maxRight = -1;
+            private int maxLeft = -1;
+            private boolean visited = false;
 
             public Point(int row, int col, int len) {
                 this.r = row;
                 this.c = col;
                 this.l = len;
+            }
+
+            public Point(int r, int c, int maxRight, int maxLeft, int maxTop, int maxBottom, boolean visited) {
+                this.r = r;
+                this.c = c;
+                this.maxTop = maxTop;
+                this.maxBottom = maxBottom;
+                this.maxRight = maxRight;
+                this.maxLeft = maxLeft;
+                this.visited = visited;
             }
         }
 
@@ -2085,6 +2157,70 @@ public class NeetCode {
 
     }
 
+    public static List<List<Integer>> pacificAtlantic(int[][] heights) {
+        List<List<Integer>> result = new ArrayList<>();
+        int row = heights.length;
+        int col = heights[0].length;
+        Point[][] point = new Point[row][col];
+
+        for (int r = 0; r < row; r++) {
+            for (int c = 0; c < col; c++) {
+                Point p = point[r][c];
+                if (findMaxTowardsPacificAndAtlantic(heights, r, c, point)) {
+                    List<Integer> arr = new ArrayList<>();
+                    arr.add(r);
+                    arr.add(c);
+                    result.add(arr);
+                }
+            }
+        }
+        return result;
+    }
+
+    private static boolean findMaxTowardsPacificAndAtlantic(int[][] heights, int r, int c, Point[][] point) {
+        Point p = point[r][c];
+        int row = heights.length;
+        int col = heights[0].length;
+
+        boolean isAtlanticOceanRightValid = true;
+        boolean isAtlanticOceanBottomValid = true;
+        boolean isPacificOceanLeftValid = true;
+        boolean isPacificOceanTopValid = true;
+        // check along the row to Atlantic Ocean right
+
+        for (int i = c; i < col - 1; i++) {
+            if (heights[r][i + 1] > heights[r][i]) {
+                isAtlanticOceanRightValid = false;
+                break;
+            }
+        }
+
+        for (int i = r; i < row - 1; i++) {
+            if (heights[i + 1][c] > heights[i][c]) {
+                isAtlanticOceanBottomValid = false;
+                break;
+            }
+        }
+
+        for (int i = c; i >= 1; i--                    ) {
+            if (heights[r][i - 1] > heights[r][i]) {
+                isPacificOceanLeftValid = false;
+                break;
+            }
+        }
+
+        for (int i = r; i >= 1; i--) {
+            if (heights[i - 1][c] > heights[i][c]) {
+                isPacificOceanTopValid = false;
+                break;
+            }
+        }
+
+        return ((isAtlanticOceanRightValid || isAtlanticOceanBottomValid) &&
+                (isPacificOceanLeftValid || isPacificOceanTopValid));
+
+    }
+
     public static class Node {
         public int val;
         public List<Node> neighbors;
@@ -2113,7 +2249,7 @@ public class NeetCode {
             return cloneDfs(node, map);
         }
 
-        /** fully undertsand thuis problem */
+        /** fully undertsand this problem */
 
         public Node cloneDfs(Node oldNode, HashMap<Node, Node> map) {
             Node newNode;
@@ -2195,7 +2331,8 @@ public class NeetCode {
         }
 
         /**
-         * this uses a toplogical sort=, if toplogical sort exist, then thcourse can be
+         * this uses a toplogical sort=, if toplogical sort exist, then the course can
+         * be
          * completed
          * else if there is a cycle in the graph, the toplogical will be fail, and we
          * can say the
@@ -2412,7 +2549,7 @@ public class NeetCode {
 
         public void add(int source, int dest) {
             adj[source].add(dest);
-    
+
         }
 
         public void dfs(int start) {
@@ -2431,6 +2568,5 @@ public class NeetCode {
             }
         }
     }
-    
 
 }

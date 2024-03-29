@@ -1,3 +1,4 @@
+import neecode_150.BasicAlgo;
 import neecode_150.NeetCode;
 import neecode_150.NeetCode.MyStack;
 import utilities.ListNode;
@@ -6,6 +7,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import mastercard.MySingleton;
 
 public class algo {
 
@@ -58,6 +61,12 @@ public class algo {
                  * System.out.println(queue.dequeue());
                  *
                  */
+
+                 BasicAlgo algo = new BasicAlgo();
+                 int[][] prerequisites = {{1,0}, {2,0}, {3,1}, {3,2}};
+                 System.out.println(algo.findOrder(4, prerequisites));
+
+
 
                 /*
                  * BigDecimal pow = neecode_150.BasicAlgo.power(16, 0);
@@ -347,11 +356,13 @@ public class algo {
                  * int count = NeetCode.Node.countToDestination(map, "A", "E");
                  * System.out.println(count);
                  */
-
-                /*
-                 * int[][] numArrs = {{1, 4}, {2, 4},{3, 1}, {3, 2}};
-                 * System.out.println(NeetCode.Node.canFinishBfs(5, numArrs));
+                  
+                 /*
+                   int[][] numArrs = {{1, 4}, {2, 4},{3, 1}, {3, 2}};
+                   System.out.println(NeetCode.Node.canFinishBfs(5, numArrs));
                  */
+                
+                 
 
                 /*
                  * int[][] isConnected = { {1, 1, 1}, {1, 1, 1}, {1, 1, 1}};
@@ -419,14 +430,27 @@ public class algo {
                //System.out.println(NeetCode.generateParenthesis(3));
 
                //System.out.println(NeetCode.factorial(5, 2));
-
+        
+               /*
                int[] arr ={1, 3, 2, 5, 4, 6, 7};
                NeetCode.rearrange(arr);
                System.out.println(arr);
-        
+                */
+               /* 
+               MySingleton singleton = MySingleton.getInstance();       
+               System.out.println(singleton);
+               MySingleton singleton2 = MySingleton.getInstance(); 
+               System.out.println(singleton);
+               */ 
 
+               /* 
 
+               int[] temp = {30,60,90};
+               System.out.println(NeetCode.dailyTemperaturesII(temp));
+               */
 
+               int[][] heights = {{1,2,2,3,5},{3,2,3,4,4},{2,4,5,3,1},{6,7,1,4,5},{5,1,1,2,4}};
+               System.out.println(NeetCode.pacificAtlantic(heights));
         }
 
 }

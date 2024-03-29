@@ -91,6 +91,16 @@ public class AtomicStack {
         }
     }
 
+    
+    private static class StackNode<T> {
+        public T value;
+        public StackNode<T> next;
+
+        public StackNode(T value) {
+            this.value = value;
+        }
+    }
+
     public static class StandardStack<T> {
         private StackNode<T> head;
         private int counter = 0;
@@ -110,7 +120,7 @@ public class AtomicStack {
 
             T value = head.value;
             head = head.next;
-            counter++;
+            counter--;
             return value;
         }
 
@@ -119,13 +129,4 @@ public class AtomicStack {
         }
     }
 
-    private static class StackNode<T> {
-        public T value;
-        public StackNode<T> next;
-
-        public StackNode(T value) {
-            this.value = value;
-            this.next = next;
-        }
-    }
 }

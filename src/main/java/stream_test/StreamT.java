@@ -1,10 +1,8 @@
 package stream_test;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.locks.LockSupport;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -46,6 +44,67 @@ public class StreamT {
         public Employee[] getEmployeeArray() {
             return StreamT.employees;
         }
+    }
+
+    public static class EmployeeComparator implements Comparator<Employee> {
+        @Override
+        public int compare(Employee e1, Employee e2) {
+            return e1.getSalary().compareTo(e2.getSalary());
+        }
+    }
+
+    public static class EmployeePriorityQueue {
+       private PriorityQueue<Employee> employeeQueue;
+
+       public EmployeePriorityQueue() {
+           employeeQueue  = new PriorityQueue<>(new EmployeeComparator());
+
+       }
+
+       public void addEmployee(Employee employee) {
+           employeeQueue.offer(employee);
+       }    
+
+       public Employee getEmployee() {
+          return employeeQueue.poll();
+       }
+
+       public boolean isEmpty() {
+           return employeeQueue.isEmpty();
+       }    
+
+       public int size() {
+           return employeeQueue.size();
+       }    
+
+    }
+
+    public static class EmployeeAtomicPriorirtyQueue {
+        private AtomicReference<PriorityQueue<Employee>> atomicEmployeeQueue;
+
+        public EmployeeAtomicPriorirtyQueue() {
+            atomicEmployeeQueue = new AtomicReference<>(new PriorityQueue<>(new EmployeeComparator()));
+        }
+
+        public void addEmployee(Employee employee) {
+            while (true) {
+                PriorityQueue<Employee> currentQueue = atomicEmployeeQueue.get();
+                PriorityQueue<Employee> newQueue = new PriorityQueue<>(currentQueue);
+                newQueue.offer(employee);
+                if (atomicEmployeeQueue.compareAndSet(currentQueue, newQueue)) {
+                    break;
+                } else {
+                    LockSupport.parkNanos(1);
+                }
+            }
+        }
+
+        public Employee removeEmployee() {
+            PriorityQueue<Employee> currentEmployeeQueue = atomicEmployeeQueue.get();
+             return null;
+           
+        }
+
     }
 
     public static Employee[] employees = new Employee[]{new Employee(1, "Gideon", "Estate", true, new BigDecimal(9000.00)),
