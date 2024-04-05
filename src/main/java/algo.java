@@ -421,7 +421,7 @@ public class algo {
                 System.out.println(NeetCode.exist(board, "ABCCED"));
                 */
 
-                /*
+                /* 
                 int[] arr = {1, 2, 2};
                 System.out.println(NeetCode.subsetsWithDup(arr));
                 */
@@ -447,10 +447,16 @@ public class algo {
 
                int[] temp = {30,60,90};
                System.out.println(NeetCode.dailyTemperaturesII(temp));
-               */
-
+               */   
+             
+               /*      
                int[][] heights = {{1,2,2,3,5},{3,2,3,4,4},{2,4,5,3,1},{6,7,1,4,5},{5,1,1,2,4}};
                System.out.println(NeetCode.pacificAtlantic(heights));
+                */
+
+                int[][] edges =  {{1,2},{2,3},{3,4},{1,4},{1,5}};
+                int[] result = NeetCode.findRedundantConnection(edges);
+                System.out.println(result.toString());
         }
 
 }

@@ -1622,7 +1622,7 @@ public class NeetCode {
 
     }
 
-    /* this is not efficient, use a monotinically decreasing stack to solve */
+    /* this is not efficient, use a monotnically decreasing stack to solve */
     public static int[] dailyTemperatures(int[] temperatures) {
         int leftPtr = 0;
         int rightPtr = 1;
@@ -1996,11 +1996,8 @@ public class NeetCode {
             private int r;
             private int c;
             private int l;
-            private int maxTop = -1;
-            private int maxBottom = -1;
-            private int maxRight = -1;
-            private int maxLeft = -1;
             private boolean visited = false;
+            private boolean isWaterEscaped = false;
 
             public Point(int row, int col, int len) {
                 this.r = row;
@@ -2008,14 +2005,9 @@ public class NeetCode {
                 this.l = len;
             }
 
-            public Point(int r, int c, int maxRight, int maxLeft, int maxTop, int maxBottom, boolean visited) {
-                this.r = r;
-                this.c = c;
-                this.maxTop = maxTop;
-                this.maxBottom = maxBottom;
-                this.maxRight = maxRight;
-                this.maxLeft = maxLeft;
+            public Point(boolean visited, boolean isWaterEscaped) {
                 this.visited = visited;
+                this.isWaterEscaped = isWaterEscaped;
             }
         }
 
@@ -2161,65 +2153,114 @@ public class NeetCode {
         List<List<Integer>> result = new ArrayList<>();
         int row = heights.length;
         int col = heights[0].length;
-        Point[][] point = new Point[row][col];
+        Queue<int[]> pacificQueue = new LinkedList<>();
+        Queue<int[]> atlanticQueue = new LinkedList<>();
+        boolean[][] pacificVisited = new boolean[row][col];
+        boolean[][] atlanticVisited = new boolean[row][col];
+
+        /*
+         * add border of pacific to pacificQueue and initialize it to be visited, same
+         * for atlantic queue
+         */
+        for (int r = 0; r < row; r++) {
+            pacificQueue.add(new int[] { r, 0 });
+            atlanticQueue.add(new int[] { r, col - 1 });
+            pacificVisited[r][0] = true;
+            atlanticVisited[r][col - 1] = true;
+        }
+
+        for (int c = 0; c < col; c++) {
+            pacificQueue.add(new int[] { 0, c });
+            atlanticQueue.add(new int[] { row - 1, c });
+            pacificVisited[0][c] = true;
+            atlanticVisited[row - 1][c] = true;
+        }
+
+        findMaxTowardsOceanBfs(heights, pacificQueue, pacificVisited);
+        findMaxTowardsOceanBfs(heights, atlanticQueue, atlanticVisited);
 
         for (int r = 0; r < row; r++) {
             for (int c = 0; c < col; c++) {
-                Point p = point[r][c];
-                if (findMaxTowardsPacificAndAtlantic(heights, r, c, point)) {
-                    List<Integer> arr = new ArrayList<>();
-                    arr.add(r);
-                    arr.add(c);
-                    result.add(arr);
+                if (pacificVisited[r][c] && atlanticVisited[r][c]) {
+                    List<Integer> list = new ArrayList<>();
+                    list.add(r);
+                    list.add(c);
+                    result.add(list);
                 }
             }
         }
+
         return result;
-    }
-
-    private static boolean findMaxTowardsPacificAndAtlantic(int[][] heights, int r, int c, Point[][] point) {
-        Point p = point[r][c];
-        int row = heights.length;
-        int col = heights[0].length;
-
-        boolean isAtlanticOceanRightValid = true;
-        boolean isAtlanticOceanBottomValid = true;
-        boolean isPacificOceanLeftValid = true;
-        boolean isPacificOceanTopValid = true;
-        // check along the row to Atlantic Ocean right
-
-        for (int i = c; i < col - 1; i++) {
-            if (heights[r][i + 1] > heights[r][i]) {
-                isAtlanticOceanRightValid = false;
-                break;
-            }
-        }
-
-        for (int i = r; i < row - 1; i++) {
-            if (heights[i + 1][c] > heights[i][c]) {
-                isAtlanticOceanBottomValid = false;
-                break;
-            }
-        }
-
-        for (int i = c; i >= 1; i--                    ) {
-            if (heights[r][i - 1] > heights[r][i]) {
-                isPacificOceanLeftValid = false;
-                break;
-            }
-        }
-
-        for (int i = r; i >= 1; i--) {
-            if (heights[i - 1][c] > heights[i][c]) {
-                isPacificOceanTopValid = false;
-                break;
-            }
-        }
-
-        return ((isAtlanticOceanRightValid || isAtlanticOceanBottomValid) &&
-                (isPacificOceanLeftValid || isPacificOceanTopValid));
 
     }
+
+    private static void findMaxTowardsOceanBfs(int[][] heights, Queue<int[]> q, boolean[][] visited) {
+        int row = visited.length;
+        int col = visited[0].length;
+        int[][] directions =  { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
+        while (!q.isEmpty()) {
+            int[] cur = q.remove();
+            for(int[] d : directions) {
+                int rr = d[0] + cur[0];
+                int cc = d[1] + cur[1];
+
+                if (rr < row && rr >= 0 && cc < col && cc >= 0 && 
+                !visited[rr][cc] && heights[rr][cc] >= heights[cur[0]][cur[1]] ) {
+                    q.add(new int[]{rr,cc});
+                    visited[rr][cc] = true;
+                }
+            }
+
+        }
+
+    }
+
+    public static int[] findRedundantConnection(int[][] edges) {
+        int totalLength = edges.length + 1;
+        Queue<Integer> q = new LinkedList<>();
+        List<Integer>[] adj = new ArrayList[totalLength];
+        int[] freq = new int[totalLength];
+        for (int i = 0; i < adj.length; i++) {
+            adj[i] = new ArrayList<Integer>();
+        }
+
+        for (int[] e : edges) {
+            adj[e[1]].add(e[0]);
+            freq[e[0]]++;
+        }
+        for (int i = 0; i < freq.length; i++) {
+            if (freq[i] > 0) {
+                q.add(i);
+            }
+        }
+
+        while(!q.isEmpty()) {
+            int cur = q.remove();
+            for (int neigh : adj[cur]) {
+                freq[neigh]--;
+                if (freq[neigh] == 0) {
+                    q.add(neigh);
+                }
+            }
+        }
+        
+        int cycleVertex = -1;
+        for (int i = freq.length - 1; i >= 0; i--) {
+           if (freq[i] > 0) {
+              cycleVertex = i;
+              break;
+           }
+        }
+
+        for (int i = edges.length - 1; i >= 0; i--) {
+            if (edges[i][0] == cycleVertex) {
+                return edges[i];
+            }
+        }
+
+        return new int[] {};
+    }
+
 
     public static class Node {
         public int val;
