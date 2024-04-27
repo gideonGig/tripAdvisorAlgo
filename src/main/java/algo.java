@@ -14,7 +14,7 @@ public class algo {
 
         public static void main(String[] args) throws InterruptedException {
 
-                /** Beginning of Thread1 **/
+                /** Beginning of Thread1 **/ 
 
                 /**
                  * Thread2 thread2 = new Thread2();
@@ -61,11 +61,12 @@ public class algo {
                  * System.out.println(queue.dequeue());
                  *
                  */
-
+                
+                 /*
                  BasicAlgo algo = new BasicAlgo();
                  int[][] prerequisites = {{1,0}, {2,0}, {3,1}, {3,2}};
                  System.out.println(algo.findOrder(4, prerequisites));
-
+                 /*
 
 
                 /*
@@ -452,11 +453,13 @@ public class algo {
                /*      
                int[][] heights = {{1,2,2,3,5},{3,2,3,4,4},{2,4,5,3,1},{6,7,1,4,5},{5,1,1,2,4}};
                System.out.println(NeetCode.pacificAtlantic(heights));
-                */
-
+               */
+               
+               /* 
                 int[][] edges =  {{1,2},{2,3},{3,4},{1,4},{1,5}};
                 int[] result = NeetCode.findRedundantConnection(edges);
                 System.out.println(result.toString());
+               */
         }
 
 }

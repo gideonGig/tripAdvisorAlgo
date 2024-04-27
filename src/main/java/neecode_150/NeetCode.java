@@ -1622,35 +1622,6 @@ public class NeetCode {
 
     }
 
-    /* this is not efficient, use a monotnically decreasing stack to solve */
-    public static int[] dailyTemperatures(int[] temperatures) {
-        int leftPtr = 0;
-        int rightPtr = 1;
-        int k = 0;
-        int[] res = new int[temperatures.length];
-        while (leftPtr < temperatures.length) {
-            if (rightPtr == temperatures.length) {
-                res[k++] = 0;
-                leftPtr++;
-                rightPtr = leftPtr + 1;
-            }
-            if (leftPtr >= temperatures.length - 1) {
-                res[temperatures.length - 1] = 0;
-                break;
-            }
-            if (temperatures[rightPtr] > temperatures[leftPtr]) {
-                int dist = rightPtr - leftPtr;
-                res[k++] = dist;
-                leftPtr++;
-                rightPtr = leftPtr + 1;
-            } else {
-                rightPtr++;
-            }
-        }
-
-        return res;
-    }
-
     /*
      * using a monotically decreasing stack, we keep track of elements
      * in decreasing order
@@ -1892,6 +1863,38 @@ public class NeetCode {
                 this.prev = null;
                 this.next = null;
             }
+
+            @Override
+            public int hashCode() {
+                final int prime = 31;
+                int result = 1 * prime;
+                result = prime * result + (prev == null ? 0 : prev.hashCode());
+                result = prime * result + (next == null ? 0 : next.hashCode());
+                result = prime * result + key;
+                result = prime * result + val;
+                return result;
+            }
+
+            @Override
+            public boolean equals(Object obj) {
+                if (this == obj)
+                    return true;
+                if (obj == null)
+                    return false;
+                if (this.getClass() != obj.getClass())
+                    return false;
+                Node castNode = (Node) obj;
+                if (prev == null) {
+                    if (castNode.prev != null)
+                        return false;
+
+                } else if (!prev.equals(castNode.prev))
+                    return false;
+
+                /** continue the pattern */
+                return true;
+            }
+
         }
 
         /* this give the less recently used Node */
@@ -2197,16 +2200,16 @@ public class NeetCode {
     private static void findMaxTowardsOceanBfs(int[][] heights, Queue<int[]> q, boolean[][] visited) {
         int row = visited.length;
         int col = visited[0].length;
-        int[][] directions =  { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
+        int[][] directions = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
         while (!q.isEmpty()) {
             int[] cur = q.remove();
-            for(int[] d : directions) {
+            for (int[] d : directions) {
                 int rr = d[0] + cur[0];
                 int cc = d[1] + cur[1];
 
-                if (rr < row && rr >= 0 && cc < col && cc >= 0 && 
-                !visited[rr][cc] && heights[rr][cc] >= heights[cur[0]][cur[1]] ) {
-                    q.add(new int[]{rr,cc});
+                if (rr < row && rr >= 0 && cc < col && cc >= 0 &&
+                        !visited[rr][cc] && heights[rr][cc] >= heights[cur[0]][cur[1]]) {
+                    q.add(new int[] { rr, cc });
                     visited[rr][cc] = true;
                 }
             }
@@ -2234,7 +2237,7 @@ public class NeetCode {
             }
         }
 
-        while(!q.isEmpty()) {
+        while (!q.isEmpty()) {
             int cur = q.remove();
             for (int neigh : adj[cur]) {
                 freq[neigh]--;
@@ -2243,13 +2246,13 @@ public class NeetCode {
                 }
             }
         }
-        
+
         int cycleVertex = -1;
         for (int i = freq.length - 1; i >= 0; i--) {
-           if (freq[i] > 0) {
-              cycleVertex = i;
-              break;
-           }
+            if (freq[i] > 0) {
+                cycleVertex = i;
+                break;
+            }
         }
 
         for (int i = edges.length - 1; i >= 0; i--) {
@@ -2260,7 +2263,6 @@ public class NeetCode {
 
         return new int[] {};
     }
-
 
     public static class Node {
         public int val;
@@ -2365,7 +2367,6 @@ public class NeetCode {
 
                 }
                 count++;
-
             }
 
             return count;
@@ -2387,6 +2388,7 @@ public class NeetCode {
             for (int i = 0; i < arr.length; i++) {
                 arr[i] = new ArrayList<>();
             }
+
             for (int[] pre : prerequisites) {
                 arr[pre[1]].add(pre[0]);
                 noOfDegree[pre[0]] = noOfDegree[pre[0]] + 1;
@@ -2441,7 +2443,6 @@ public class NeetCode {
                     }
                 }
             }
-
         }
 
         public static int[] findOrder(int numCourses, int[][] prerequisites) {
@@ -2609,5 +2610,4 @@ public class NeetCode {
             }
         }
     }
-
 }

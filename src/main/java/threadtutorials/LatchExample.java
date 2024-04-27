@@ -31,14 +31,6 @@ public class LatchExample implements Runnable {
     public static void main(String[] args) {
         CountDownLatch latch = new CountDownLatch(5);
         ExecutorService service = Executors.newFixedThreadPool(2);
-        String hello = "hello";
-        String hello2 = hello;
-        String world = hello2;
-        world = hello2 + " world";
-
-        System.out.println(hello);
-        System.out.println(hello2);
-        System.out.println(world);
 
         for (int i = 0 ; i < 5; i++) {
             service.execute(new LatchExample(i, latch));
