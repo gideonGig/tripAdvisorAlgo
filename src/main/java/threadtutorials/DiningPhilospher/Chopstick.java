@@ -6,7 +6,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class Chopstick {
     private int id;
-    private Lock lock;  
+    private Lock lock;
 
     public Chopstick(int id) {
         this.id = id;
@@ -18,10 +18,10 @@ public class Chopstick {
         return "Chopstick: " + this.id;
 
     }
-    
-    public boolean pickUpChopStick(Philosopher philosoper, TypeChopstick typeChopstick) throws InterruptedException{
-        if(lock.tryLock(10,TimeUnit.MILLISECONDS)) {
-            System.out.println(philosoper.toString() +" acquired the "+typeChopstick.toString() + this);
+
+    public boolean pickUpChopStick(Philosopher philosoper, TypeChopstick typeChopstick) throws InterruptedException {
+        if (lock.tryLock(10, TimeUnit.MILLISECONDS)) {
+            System.out.println(philosoper.toString() + " acquired the " + typeChopstick.toString() + this);
             return true;
         }
         return false;
@@ -30,6 +30,6 @@ public class Chopstick {
 
     public void dropChopStick(Philosopher philospher, TypeChopstick typeChopstick) {
         lock.unlock();
-        System.out.println(philospher.toString()  + " drops chop stick " + typeChopstick.toString() +this);
+        System.out.println(philospher.toString() + " drops chop stick " + typeChopstick.toString() + this);
     }
 }
