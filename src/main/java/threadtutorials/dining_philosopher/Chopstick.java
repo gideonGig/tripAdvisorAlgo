@@ -1,4 +1,4 @@
-package threadtutorials.DiningPhilospher;
+package threadtutorials.dining_philosopher;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;

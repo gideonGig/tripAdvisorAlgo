@@ -1,4 +1,4 @@
-package threadtutorials.DiningPhilospher;
+package threadtutorials.dining_philosopher;
 
 import java.util.Random;
 import java.util.concurrent.BrokenBarrierException;

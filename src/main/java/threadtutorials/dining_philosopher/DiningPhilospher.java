@@ -1,8 +1,8 @@
-package threadtutorials.DiningPhilospher;
+package threadtutorials.dining_philosopher;
 
 import java.util.concurrent.*;
 
-public class RunDiningPhilospher {
+public class DiningPhilospher {
 
     public static void main(String[] args) throws InterruptedException {
         Philosopher[] philosophers = new Philosopher[Constant.numberOfPhilosopher];

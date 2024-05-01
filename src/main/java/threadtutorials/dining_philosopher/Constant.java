@@ -1,4 +1,4 @@
-package threadtutorials.DiningPhilospher;
+package threadtutorials.dining_philosopher;
 
 public final class Constant {
     private Constant (){
