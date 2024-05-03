@@ -7,7 +7,6 @@ import java.util.concurrent.Executors;
 public class StudentLibrary {
     private static final int totalBooks = 2;
     private static final int totalStudents = 5;
-
     private static final int simulationTime = 2000;
 
     public static void main(String[] args) {

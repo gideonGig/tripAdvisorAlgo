@@ -1718,7 +1718,6 @@ public class NeetCode {
         }
 
         public int add(int val) {
-
             heapify(val * -1);
             int popElement = pop();
             if (arr.size() > 1) {
