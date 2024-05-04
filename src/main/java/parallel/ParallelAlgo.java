@@ -10,13 +10,13 @@ public class ParallelAlgo {
         List<Integer> arr = new ArrayList<>();
         List<Integer> result = new ArrayList<Integer>();
         for (int i = 0; i < itemSize; i++) {
-            arr.add(i);  
+            arr.add(i);
         }
         ForkJoinPool pool = new ForkJoinPool();
         SimpleRecurisiveTasks task = new SimpleRecurisiveTasks(arr, result);
         pool.invoke(task);
 
-      System.out.println(task.getPrimeNumbersInArray().toString());
+        System.out.println(task.getPrimeNumbersInArray().toString());
     }
 
 }
