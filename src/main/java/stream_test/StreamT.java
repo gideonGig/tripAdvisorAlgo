@@ -108,7 +108,7 @@ public class StreamT {
     }
 
     public static Employee[] employees = new Employee[]{new Employee(1, "Gideon", "Estate", true, new BigDecimal(9000.00)),
-            new Employee(3, "Gideon", "Estate", true, new BigDecimal(6000.00)), new Employee(2, "Gideon", "Estate", true, new BigDecimal(7000.00)) };
+            new Employee(3, "Gideon", "Estate", false, new BigDecimal(6000.00)), new Employee(2, "Gideon", "Estate", true, new BigDecimal(7000.00)) };
     public static List<Employee> employeeList = Arrays.asList(employees);
     public static List<BigDecimal> salaryList = new ArrayList<BigDecimal>();
 
@@ -123,6 +123,10 @@ public class StreamT {
         List<BigDecimal> salaryListGreaterThan500 = employeeList.stream().filter(x -> x.getSalary().compareTo(BigDecimal.valueOf(6500.00)) > 0)
                 .map(x -> x.salary).sorted(BigDecimal::compareTo).collect(Collectors.toList());
         System.out.println(salaryListGreaterThan500);
+
+        Map<Boolean, List<Employee>> employeeMap = Arrays.stream(employees).collect(Collectors.groupingBy(x->x.isContractor));
+
+        employeeMap.entrySet().stream().forEach(System.out::println);
 
     }
 

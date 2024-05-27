@@ -8,7 +8,7 @@ public class ParallelAlgo {
     public static void main(String[] args)  {
         int itemSize = 1000000;
         List<Integer> arr = new ArrayList<>();
-        List<Integer> result = new ArrayList<Integer>();
+        List<Integer> result = new ArrayList<>();
         for (int i = 0; i < itemSize; i++) {
             arr.add(i);
         }
