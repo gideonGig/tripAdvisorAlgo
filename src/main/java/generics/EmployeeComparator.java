@@ -1,8 +1,8 @@
 package generics;
 
-import stream_test.StreamT;
-
 import java.util.Comparator;
+
+import streams.StreamT;
 
 public class EmployeeComparator implements Comparator<StreamT.Employee> {
 

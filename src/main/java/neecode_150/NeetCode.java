@@ -1,8 +1,20 @@
 package neecode_150;
 
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Deque;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.Set;
+import java.util.Stack;
 
-import neecode_150.NeetCode.GraphMaxArea.Point;
 import utilities.ListNode;
 import utilities.TreeNode;
 
@@ -156,6 +168,9 @@ public class NeetCode {
         return total;
 
     }
+    /*
+     * kandane Allgorithm
+     */
 
     public static int maxProfit(int[] prices) {
         int max = 0;
@@ -168,6 +183,9 @@ public class NeetCode {
 
     }
 
+    /*
+     * Beginning of Two Pointer and Sliding Window Technique
+     */
     public static int lengthOfLongestSubstring(String s) {
         Set<Character> set = new HashSet<>();
         int leftPtr = 0;
@@ -365,6 +383,74 @@ public class NeetCode {
         return res;
     }
 
+    public static int numOfSubarrays(int[] arr, int k, int threshold) {
+        int leftPtr = 0;
+        int rightPtr = 0;
+        int max = 0;
+        int count = 0;
+        for (rightPtr = 0; rightPtr < arr.length; rightPtr++) {
+            max += arr[rightPtr];
+            if (rightPtr - leftPtr + 1 == k) {
+              if (max/k >= threshold) {
+                count++;
+              }
+              max = max - arr[leftPtr];
+              leftPtr++;
+            }
+        }
+        return count;
+    }
+
+    public static boolean containsNearbyDuplicate(int[] nums, int k) {
+        //if k == 0, everything is disitinct, no duplicates will exist
+        if (k == 0) {
+            return true;
+        }
+        int leftPtr = 0;
+        int rightPtr = 1;
+        HashSet<Integer> set = new HashSet<>();
+        set.add(nums[leftPtr]);
+        for (rightPtr = 1; rightPtr < nums.length; rightPtr++) {
+            if (set.contains(nums[rightPtr])) {
+                return true;
+            }
+
+            if (rightPtr - leftPtr == k) {
+                set.remove(nums[leftPtr]);
+                leftPtr++;
+            }
+
+           
+
+            set.add(nums[rightPtr]);
+        }
+
+        return false;
+        
+    }
+
+    public static int minSubArrayLen(int target, int[] nums) {
+        int leftPtr = 0;
+        int rightPtr = 0;
+        int res = Integer.MAX_VALUE;
+        int total = 0;
+        for (rightPtr = 0; rightPtr < nums.length; rightPtr++) {
+            total += nums[rightPtr];
+            while (total >= target ) {
+                res = Math.min(rightPtr - leftPtr  + 1, res);
+                total = total - nums[leftPtr];
+                leftPtr++;
+            }
+        }
+
+      if (res == Integer.MAX_VALUE) {
+          return 0;
+      }
+    
+      return res;
+        
+    }
+    
     public static boolean isValid(String s) {
         HashMap<Character, Character> map = new HashMap<>();
         map.put('(', ')');
@@ -1455,10 +1541,6 @@ public class NeetCode {
         int col = board[0].length;
         if (i >= word.length()) {
             return true;
-        }
-        if (r < 0 || r > row - 1 || c < 0 || c > col - 1
-                || board[r][c] != word.charAt(i)) {
-            return false;
         }
 
         char temp = board[r][c];

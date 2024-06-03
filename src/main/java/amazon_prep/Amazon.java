@@ -3,17 +3,19 @@ package amazon_prep;
 import java.util.*;
 
 public class Amazon {
-    //arrays
+    // arrays
 
     /*
-    Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
-    You may assume that each input would have exactly one solution, and you may not use the same element twice.
-    you can return the answer in any order.
-
-    Input: nums = [2,7,11,15], target = 9
-    Output: [0,1]
-    Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
-    */
+     * Given an array of integers nums and an integer target, return indices of the
+     * two numbers such that they add up to target.
+     * You may assume that each input would have exactly one solution, and you may
+     * not use the same element twice.
+     * you can return the answer in any order.
+     * 
+     * Input: nums = [2,7,11,15], target = 9
+     * Output: [0,1]
+     * Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
+     */
     public static int[] twoSum(int[] nums, int target) {
         Map<Integer, Integer> map = new HashMap<>();
         int[] res = new int[2];
@@ -33,23 +35,24 @@ public class Amazon {
 
     }
 
-
     /*
-    Given a string s, find the length of the longest substring without repeating characters.
-    Example 1:
-    Input: s = "abcabcbb"
-    Output: 3
-    Explanation: The answer is "abc", with the length of 3.
-    Example 2:
-    input: s = "bbbbb"
-    Output: 1
-    Explanation: The answer is "b", with the length of 1.
-    Example 3:
-    Input: s = "pwwkew"
-    Output: 3
-    Explanation: The answer is "wke", with the length of 3.
-    Notice that the answer must be a substring, "pwke" is a subsequence and not a substring.
-    */
+     * Given a string s, find the length of the longest substring without repeating
+     * characters.
+     * Example 1:
+     * Input: s = "abcabcbb"
+     * Output: 3
+     * Explanation: The answer is "abc", with the length of 3.
+     * Example 2:
+     * input: s = "bbbbb"
+     * Output: 1
+     * Explanation: The answer is "b", with the length of 1.
+     * Example 3:
+     * Input: s = "pwwkew"
+     * Output: 3
+     * Explanation: The answer is "wke", with the length of 3.
+     * Notice that the answer must be a substring, "pwke" is a subsequence and not a
+     * substring.
+     */
     public static int lengthOfLongestSubstring(String s) {
         HashSet<Character> set = new HashSet<>();
         int max = 0;
@@ -69,18 +72,23 @@ public class Amazon {
     }
 
     /*
-    Implement the myAtoi(string s) function, which converts a string to a 32-bit signed integer.
-    The algorithm for myAtoi(string s) is as follows:
-    Whitespace: Ignore any leading whitespace (" ").
-    Signedness: Determine the sign by checking if the next character is '-' or '+', assuming positivity is neither present.
-    Conversion: Read the integer by skipping leading zeros until a non-digit character is encountered or the end of the
-    string is reached. If no digits were read, then the result is 0.
-    Rounding: If the integer is out of the 32-bit signed integer range [-231, 231 - 1],
-    then round the integer to remain in the range. Specifically, integers less than -231 should be rounded to -231,
-    and integers greater than 231 - 1 should be rounded to 231 - 1.
-    eturn the integer as the final result.
-
- */
+     * Implement the myAtoi(string s) function, which converts a string to a 32-bit
+     * signed integer.
+     * The algorithm for myAtoi(string s) is as follows:
+     * Whitespace: Ignore any leading whitespace (" ").
+     * Signedness: Determine the sign by checking if the next character is '-' or
+     * '+', assuming positivity is neither present.
+     * Conversion: Read the integer by skipping leading zeros until a non-digit
+     * character is encountered or the end of the
+     * string is reached. If no digits were read, then the result is 0.
+     * Rounding: If the integer is out of the 32-bit signed integer range [-231, 231
+     * - 1],
+     * then round the integer to remain in the range. Specifically, integers less
+     * than -231 should be rounded to -231,
+     * and integers greater than 231 - 1 should be rounded to 231 - 1.
+     * eturn the integer as the final result.
+     * 
+     */
     public static int myAtoi(String s) {
         int i = 0;
         int n = s.length();
@@ -104,7 +112,6 @@ public class Amazon {
             i++;
         }
 
-
         while (i < n && Character.isDigit(s.charAt(i))) {
             int digit = s.charAt(i) - '0';
             result = (result * 10) + digit;
@@ -121,13 +128,15 @@ public class Amazon {
         result *= sign;
         return (int) result;
     }
-/*
-You are given an integer array height of length n. There are n vertical lines drawn such that the two endpoints of the
- ith line are (i, 0) and (i, height[i]).
-Find two lines that together with the x-axis form a container, such that the container contains the most water.
-Return the maximum amount of water a container can store.
-Notice that you may not slant the container.
- */
+    /*
+     * You are given an integer array height of length n. There are n vertical lines
+     * drawn such that the two endpoints of the
+     * ith line are (i, 0) and (i, height[i]).
+     * Find two lines that together with the x-axis form a container, such that the
+     * container contains the most water.
+     * Return the maximum amount of water a container can store.
+     * Notice that you may not slant the container.
+     */
 
     public static int maxArea(int[] height) {
         int leftPtr = 0;
@@ -148,11 +157,11 @@ Notice that you may not slant the container.
     }
 
     /*
-    convert Integer to Roman
+     * convert Integer to Roman
      */
     public static String intToRoman(int num) {
-        Integer[] numbers = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
-        String[] roman = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+        Integer[] numbers = { 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1 };
+        String[] roman = { "M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I" };
         StringBuilder res = new StringBuilder();
         int n = num;
         for (int i = 0; i < numbers.length; i++) {
@@ -171,7 +180,7 @@ Notice that you may not slant the container.
     }
 
     /*
-    convert roman to integer
+     * convert roman to integer
      */
     public static int romanToInt(String s) {
         int pre = 0;
@@ -202,9 +211,10 @@ Notice that you may not slant the container.
     }
 
     /*
-    Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]]
-    such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
-    Notice that the solution set must not contain duplicate triplets.
+     * Given an integer array nums, return all the triplets [nums[i], nums[j],
+     * nums[k]]
+     * such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
+     * Notice that the solution set must not contain duplicate triplets.
      */
     public static List<List<Integer>> threeSum(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
@@ -254,7 +264,7 @@ Notice that you may not slant the container.
             return startIndex;
         }
 
-        for (int i = 0; i < hSize -nSize + 1; i++) {
+        for (int i = 0; i < hSize - nSize + 1; i++) {
             int j = 0;
             while (j < nSize && haystack.charAt(i + j) == needle.charAt(j)) {
                 j++;
@@ -268,60 +278,67 @@ Notice that you may not slant the container.
         return -1;
     }
 
+    /*
+     * Given an integer array nums of length n and an integer target, find three
+     * integers in nums such that the sum is closest to target.
+     * Return the sum of the three integers.
+     * You may assume that each input would have exactly one solution.
+     */
+
+    public static int threeSumCloset(int[] nums, int target) {
+        Arrays.sort(nums);
+        int closeSum = nums[0] + nums[1] + nums[2];
+        int n = nums.length;
+        for (int i = 0; i < n - 2; i++) {
+            int leftPtr = i + 1;
+            int rightPtr = n - 1;
+
+            while (leftPtr < rightPtr) {
+                int curSum = nums[i] + nums[leftPtr] + nums[rightPtr];
+                if (Math.abs(curSum - target) < Math.abs(closeSum - target)) {
+                    closeSum = curSum;
+                }
+
+                if (curSum < target) {
+                    leftPtr++;
+                } else if (curSum > target) {
+                    rightPtr--;
+                } else {
+                    return curSum;
+                }
+            }
+
+        }
+
+        return closeSum;
+    }
+    /*
+     * You are given an n x n 2D matrix representing an image, rotate the image by
+     * 90 degrees (clockwise).
+     * You have to rotate the image in-place, which means you have to modify the
+     * input 2D matrix directly.
+     * do NOT allocate another 2D matrix and do the rotation.
+     */
+
+    public static void rotateImage(int[][] matrix) {
+        int left = 0;
+        int right = matrix[0].length - 1;
+
+        while (left < right) {
+            int top = 0;
+            int bottom = matrix.length - 1;
+            for (int i = 0; i < right - left; i++) {
+                int temp = matrix[top][left + i];
+                matrix[top][left + i] = matrix[bottom - i][left];
+                matrix[bottom - i][left] = matrix[right - i][bottom];
+                matrix[right - i][bottom] = matrix[top + i][right];
+                matrix[top + i][right] = temp;
+            }
+
+            left++;
+            right--;
+        }
+
+    }
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
