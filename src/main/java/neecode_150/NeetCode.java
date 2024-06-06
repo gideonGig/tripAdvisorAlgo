@@ -353,7 +353,7 @@ public class NeetCode {
     /**
      * optimized version, the max sliding window uses the Deque
      * what get added to the deque is the index, because we can
-     * always find the valuew of the index, we do this because
+     * always find the value of the index, we do this because
      * we want to know if the leftPtr is out of scope.
      */
     public static int[] maxSlidingWindow2(int[] nums, int k) {
@@ -391,11 +391,11 @@ public class NeetCode {
         for (rightPtr = 0; rightPtr < arr.length; rightPtr++) {
             max += arr[rightPtr];
             if (rightPtr - leftPtr + 1 == k) {
-              if (max/k >= threshold) {
-                count++;
-              }
-              max = max - arr[leftPtr];
-              leftPtr++;
+                if (max / k >= threshold) {
+                    count++;
+                }
+                max = max - arr[leftPtr];
+                leftPtr++;
             }
         }
         return count;
@@ -420,13 +420,12 @@ public class NeetCode {
                 leftPtr++;
             }
 
-           
 
             set.add(nums[rightPtr]);
         }
 
         return false;
-        
+
     }
 
     public static int minSubArrayLen(int target, int[] nums) {
@@ -436,21 +435,50 @@ public class NeetCode {
         int total = 0;
         for (rightPtr = 0; rightPtr < nums.length; rightPtr++) {
             total += nums[rightPtr];
-            while (total >= target ) {
-                res = Math.min(rightPtr - leftPtr  + 1, res);
+            while (total >= target) {
+                res = Math.min(rightPtr - leftPtr + 1, res);
                 total = total - nums[leftPtr];
                 leftPtr++;
             }
         }
 
-      if (res == Integer.MAX_VALUE) {
-          return 0;
-      }
-    
-      return res;
-        
+        if (res == Integer.MAX_VALUE) {
+            return 0;
+        }
+
+        return res;
     }
-    
+
+    public static int maxSubarraySumCircular(int[] nums) {
+        int rightPtr = 0;
+        int curSum = 0;
+        int maxSum = Integer.MIN_VALUE;
+
+        for (rightPtr = 0; rightPtr < nums.length; rightPtr++) {
+            curSum = Math.max(curSum + nums[rightPtr], nums[rightPtr]);
+            maxSum = Math.max(curSum, maxSum);
+        }
+
+        int i = 1;
+        int j = nums.length - 1;
+
+        while (i < j) {
+            int temp = nums[i];
+            nums[i] = nums[j];
+            nums[j] = temp;
+            i++;
+            j--;
+        }
+
+        curSum = 0;
+        for (rightPtr = 0; rightPtr < nums.length; rightPtr++) {
+            curSum = Math.max(curSum + nums[rightPtr], nums[rightPtr]);
+            maxSum = Math.max(curSum, maxSum);
+        }
+
+        return maxSum;
+    }
+
     public static boolean isValid(String s) {
         HashMap<Character, Character> map = new HashMap<>();
         map.put('(', ')');
@@ -1055,7 +1083,7 @@ public class NeetCode {
      * in less than or equal to h using binaruSearch, if you don't get this in the
      * future please
      * watch https://www.youtube.com/watch?v=U2SozAs9RzA
-     * 
+     *
      * @param piles
      * @param h
      * @return
@@ -1472,7 +1500,7 @@ public class NeetCode {
     }
 
     private static void combinationSumHelper(int start, List<Integer> list, List<List<Integer>> result, int target,
-            int[] candidate) {
+                                             int[] candidate) {
         if (target == 0) {
             result.add(new ArrayList<>(list));
         } else if (target < 0 || start >= candidate.length) {
@@ -1498,7 +1526,7 @@ public class NeetCode {
     }
 
     private static void combinationSum3Helper(int start, List<List<Integer>> result, List<Integer> list,
-            int k, int target, int[] contains) {
+                                              int k, int target, int[] contains) {
         if (target == 0 && list.size() == k) {
             result.add(new ArrayList<>(list));
             ;
@@ -1625,7 +1653,7 @@ public class NeetCode {
     }
 
     private static void subsetsWithDupDfs(int[] nums, int start, HashMap<List<Integer>, List<Integer>> map,
-            List<Integer> list, List<List<Integer>> res) {
+                                          List<Integer> list, List<List<Integer>> res) {
         if (start >= nums.length) {
             list.sort((a, b) -> a - b);
             if (!map.containsKey(list)) {
@@ -1679,7 +1707,7 @@ public class NeetCode {
     }
 
     private static void backTrackGenerateParanthesis(int n, List<Character> c, List<String> res, int numOpen,
-            int numClose) {
+                                                     int numClose) {
         if (c.size() == n * 2) {
             StringBuilder st = new StringBuilder();
             for (char ch : c) {

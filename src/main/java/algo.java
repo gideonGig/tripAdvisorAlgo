@@ -460,6 +460,10 @@ public class algo {
                 int[] result = NeetCode.findRedundantConnection(edges);
                 System.out.println(result.toString());
                */
-        }
+
+        int[] arr = {-3, -2, -3};
+        int res = NeetCode.maxSubarraySumCircular(arr);
+        System.out.println(res);
+    }
 
 }
