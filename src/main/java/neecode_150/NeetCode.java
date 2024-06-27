@@ -15,6 +15,7 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.Stack;
 
+import javafx.util.Pair;
 import utilities.ListNode;
 import utilities.TreeNode;
 
@@ -452,30 +453,26 @@ public class NeetCode {
         int rightPtr = 0;
         int curSum = 0;
         int maxSum = Integer.MIN_VALUE;
+        int totalSum = 0;
+
+        int minSum = Integer.MAX_VALUE;
+        int mini = 0;
 
         for (rightPtr = 0; rightPtr < nums.length; rightPtr++) {
+            totalSum += nums[rightPtr];
             curSum = Math.max(curSum + nums[rightPtr], nums[rightPtr]);
             maxSum = Math.max(curSum, maxSum);
+
+            mini = Math.min(mini + nums[rightPtr], nums[rightPtr]);
+            minSum = Math.min(mini, minSum);
         }
 
-        int i = 1;
-        int j = nums.length - 1;
-
-        while (i < j) {
-            int temp = nums[i];
-            nums[i] = nums[j];
-            nums[j] = temp;
-            i++;
-            j--;
-        }
-
-        curSum = 0;
-        for (rightPtr = 0; rightPtr < nums.length; rightPtr++) {
-            curSum = Math.max(curSum + nums[rightPtr], nums[rightPtr]);
-            maxSum = Math.max(curSum, maxSum);
+        if (maxSum > 0) {
+            return Math.max(maxSum, totalSum - minSum);
         }
 
         return maxSum;
+
     }
 
     public static boolean isValid(String s) {
@@ -1458,6 +1455,95 @@ public class NeetCode {
         }
 
         return false;
+    }
+
+    public static List<TreeNode> generateTrees(int n) {
+        if (n == 0) return new ArrayList<>();
+        Map<Pair<Integer, Integer>, List<TreeNode>> memo = new HashMap<>();
+        return getAllBST(1, n, memo);
+
+    }
+
+    private static List<TreeNode> getAllBST(int start, int end, Map<Pair<Integer, Integer>, List<TreeNode>> memo) {
+        List<TreeNode> res = new ArrayList<>();
+        if (start > end) {
+            res.add(null);
+            return res;
+        }
+
+        Pair<Integer, Integer> pair = new Pair<>(start, end);
+        if (memo.containsKey(pair)) {
+            return memo.get(pair);
+        }
+
+        for (int i = start; i <= end; i++) {
+            List<TreeNode> leftSubTree = getAllBST(start, i - 1, memo);
+            List<TreeNode> rightSubTree = getAllBST(i + 1, end, memo);
+
+            for (TreeNode left : leftSubTree) {
+                for (TreeNode right : rightSubTree) {
+                    TreeNode node = new TreeNode(i, left, right);
+                    res.add(node);
+                }
+            }
+        }
+
+        memo.put(new Pair<>(start, end), res);
+        return res;
+    }
+
+    public static int numTrees(int n) {
+        int start = 1;
+        int end = n;
+        Map<Pair<Integer, Integer>, Integer> memo = new HashMap<>();
+        return getNumTreesByRecursion(start, end, memo);
+
+    }
+
+    private static int getNumTreesByRecursion(int start, int end,  Map<Pair<Integer, Integer>, Integer> memo) {
+        if (start >= end) {
+            return 1;
+        }
+
+        Pair<Integer, Integer> pair = new Pair<>(start, end);
+        if (memo.containsKey(pair)) {
+            return memo.get(pair);
+        }
+
+        int total = 0;
+        for (int i = start; i <= end; i++) {
+            total += getNumTreesByRecursion(start, i - 1, memo) * getNumTreesByRecursion(i + 1, end, memo);
+        }
+        memo.put(new Pair<>(start, end), total);
+
+        return total;
+    }
+
+    public static boolean isValidBST(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+
+        TreeNode[] prev = new TreeNode[1];
+        return isValidBSTInOrder(root, prev);
+    }
+
+    private static boolean isValidBSTInOrder(TreeNode root, TreeNode[] prev) {
+        if (root == null) {
+            return true;
+        }
+
+        if (!isValidBSTInOrder(root.left, prev)) {
+            return false;
+        }
+
+        if (prev != null && prev[0].val >= root.val) {
+            return false;
+        }
+
+        prev[0] = root;
+
+        return isValidBSTInOrder(root.right, prev);
     }
 
     /**
