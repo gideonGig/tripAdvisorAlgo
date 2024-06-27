@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import mastercard.MySingleton;
+import utilities.TreeNode;
 
 public class algo {
 
@@ -461,9 +462,9 @@ public class algo {
                 System.out.println(result.toString());
                */
 
-        int[] arr = {-3, -2, -3};
-        int res = NeetCode.maxSubarraySumCircular(arr);
-        System.out.println(res);
+        int listNodes = NeetCode.numTrees(3);
+        System.out.println(listNodes);
+
     }
 
 }
