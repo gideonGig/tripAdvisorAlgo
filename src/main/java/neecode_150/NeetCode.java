@@ -403,7 +403,7 @@ public class NeetCode {
     }
 
     public static boolean containsNearbyDuplicate(int[] nums, int k) {
-        //if k == 0, everything is disitinct, no duplicates will exist
+        // if k == 0, everything is disitinct, no duplicates will exist
         if (k == 0) {
             return true;
         }
@@ -420,7 +420,6 @@ public class NeetCode {
                 set.remove(nums[leftPtr]);
                 leftPtr++;
             }
-
 
             set.add(nums[rightPtr]);
         }
@@ -1675,7 +1674,7 @@ public class NeetCode {
     }
 
     private static void combinationSumHelper(int start, List<Integer> list, List<List<Integer>> result, int target,
-                                             int[] candidate) {
+            int[] candidate) {
         if (target == 0) {
             result.add(new ArrayList<>(list));
         } else if (target < 0 || start >= candidate.length) {
@@ -1701,7 +1700,7 @@ public class NeetCode {
     }
 
     private static void combinationSum3Helper(int start, List<List<Integer>> result, List<Integer> list,
-                                              int k, int target, int[] contains) {
+            int k, int target, int[] contains) {
         if (target == 0 && list.size() == k) {
             result.add(new ArrayList<>(list));
             ;
@@ -1828,7 +1827,7 @@ public class NeetCode {
     }
 
     private static void subsetsWithDupDfs(int[] nums, int start, HashMap<List<Integer>, List<Integer>> map,
-                                          List<Integer> list, List<List<Integer>> res) {
+            List<Integer> list, List<List<Integer>> res) {
         if (start >= nums.length) {
             list.sort((a, b) -> a - b);
             if (!map.containsKey(list)) {
@@ -1882,7 +1881,7 @@ public class NeetCode {
     }
 
     private static void backTrackGenerateParanthesis(int n, List<Character> c, List<String> res, int numOpen,
-                                                     int numClose) {
+            int numClose) {
         if (c.size() == n * 2) {
             StringBuilder st = new StringBuilder();
             for (char ch : c) {
@@ -2729,6 +2728,199 @@ public class NeetCode {
             int[] empty = new int[0];
             return empty;
         }
+
+    }
+
+    public static String alienOrder(String[] words) {
+        Map<Character, List<Character>> graph = new HashMap<>();
+        Map<Character, Integer> indegree = new HashMap<>();
+
+        for (String word : words) {
+            for (Character w : word.toCharArray()) {
+                graph.putIfAbsent(w, new ArrayList<Character>());
+                indegree.putIfAbsent(w, 0);
+            }
+        }
+
+        for (int i = 0; i < words.length - 1; i++) {
+            String parent = words[i];
+            String child = words[i + 1];
+
+            if (parent.length() > child.length() && parent.startsWith(child)) {
+                return "";
+            }
+
+            for (int j = 0; j < Math.min(parent.length(), child.length()); j++) {
+                Character p = parent.charAt(j);
+                Character c = child.charAt(j);
+                if (p != c) {
+                    graph.get(p).add(c);
+                    indegree.put(c, indegree.get(c) + 1);
+                    break;
+                }
+            }
+
+        }
+
+        Queue<Character> queue = new LinkedList<>();
+        for (Character c : indegree.keySet()) {
+            if (indegree.get(c) == 0) {
+                queue.offer(c);
+            }
+        }
+
+        StringBuilder s = new StringBuilder();
+        while (!queue.isEmpty()) {
+            Character c = queue.poll();
+            s.append(c);
+
+            for (Character neighbour : graph.get(c)) {
+                indegree.put(neighbour, indegree.get(neighbour) - 1);
+                if (indegree.get(neighbour) == 0) {
+                    queue.offer(neighbour);
+                }
+            }
+        }
+
+        String result = s.toString();
+        if (s.length() < indegree.size()) {
+            return "";
+        }
+
+        return result;
+    }
+
+    public static List<Integer> findMinHeightTrees(int n, int[][] edges) {
+        if (n == 1) {
+            return Collections.singletonList(0);
+        }
+        List<Set<Integer>> graph = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+           graph.add(new HashSet<>());
+        }
+        
+        /* initialize an undirected graph */
+        for (int i = 0; i < edges.length; i++) {
+            int[] edge = edges[i];
+            graph.get(edge[0]).add(edge[1]);
+            graph.get(edge[1]).add(edge[0]);
+        }
+        
+        List<Integer> leaves = new ArrayList<>();
+        for (int i = 0; i < graph.size(); i++) {
+            if (graph.get(i).size() == 1) {
+               leaves.add(i);
+            }
+        }
+        
+        //remove leave nodes from the graph
+        while (n > 2) {
+            n = n - leaves.size();
+            List<Integer> newLeaves = new ArrayList<>();
+            for (int leaf : leaves) {
+                //you can do this, remember the leaves contain only one leaf node
+                int neigh = graph.get(leaf).iterator().next();
+                graph.get(neigh).remove(leaf);
+                //when the leaf node has been reduced to one, add it to a new Leaves
+                if (graph.get(neigh).size() == 1) {
+                    newLeaves.add(neigh);
+                }
+            }
+
+            leaves = newLeaves;
+        }
+
+        return leaves;                           
+    }
+
+    public static int longestIncreasingPath(int[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int[][] cache = new int[m][n];
+        int ans = 0;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                ans = Math.max(ans, dfsIncreasingPath(matrix, cache, i,j));
+            
+            }
+        }
+        return ans;
+    }
+
+    private static int dfsIncreasingPath(int[][] matrix, int[][] cache, int m, int n) {
+        if (cache[m][n] != 0) {
+            return cache[m][n];
+        }
+        int[][] directions = { { 1, 0 }, { 0, 1 }, { -1, 0 }, { 0, -1 } };
+        int ans = 0;
+        for (int[] d : directions) {
+            int x = d[0] + m;
+            int y = d[1] + n;
+
+            if (x >= 0 && x < matrix.length &&
+                    y >= 0 && y < matrix[0].length &&
+                    matrix[x][y] > matrix[m][n]) {
+                        cache[m][n] = Math.max(cache[m][n], dfsIncreasingPath(matrix, cache, x, y));
+            }
+
+        }
+
+        return ++cache[m][n];
+    }
+
+    public static int longestIncreasingPathII(int[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int result = 0;
+
+        int[][] directions = { { 1, 0 }, { 0, 1 }, { -1, 0 }, { 0, -1 } };
+
+        Map<Integer, List<int[]>> graph = new HashMap<>();
+        int[][] indegree = new int[m][n];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                graph.putIfAbsent((i * m) + j, new ArrayList<>());
+                for (int[] d : directions) {
+                    int x = d[0] + i;
+                    int y = d[1] + j;
+                    if (x >= 0 && x < matrix.length && y >= 0 && y < matrix[0].length && matrix[x][y] > matrix[i][j]) {
+                        graph.get((i * m) + j).add(new int[] { x, y });
+                        indegree[x][y]++;
+                    }
+                }
+
+            }
+        }
+
+        Queue<int[]> queue = new LinkedList<>();
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (indegree[i][j] == 0) {
+                    queue.offer(new int[] { i, j });
+                }
+            }
+        }
+
+        while (!queue.isEmpty()) {
+            int k = queue.size();
+            result++;
+            for (int i = 0; i < k; i++) {
+                int[] cur = queue.poll();
+                int r = cur[0];
+                int c = cur[1];
+                for (int[] neigh : graph.get((r * m) + c)) {
+                    int row = neigh[0];
+                    int col = neigh[1];
+                    indegree[row][col]--;
+                    if (indegree[row][col] == 0) {
+                        queue.offer(new int[] { row, col });
+                    }
+                }
+            }
+
+        }
+
+        return result;
 
     }
 
