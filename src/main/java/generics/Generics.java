@@ -18,7 +18,7 @@ public class Generics<T> {
 
     }
 
-    public  <T extends TestInterface & BoundContext> void tryExtendsMultiple(T element) {
+    public <T extends TestInterface & BoundContext> void tryExtendsMultiple(T element) {
 
     }
 

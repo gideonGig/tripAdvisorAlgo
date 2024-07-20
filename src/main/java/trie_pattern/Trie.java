@@ -13,16 +13,18 @@ public class Trie {
             isEnd = false;
         }
     }
-    
+
     public TrieNode root;
+
     public Trie() {
         root = new TrieNode();
     }
+
     public void insert(String word) {
         TrieNode cur = root;
         for (Character c : word.toCharArray()) {
             if (!cur.children.containsKey(c)) {
-               cur.children.put(c, new TrieNode());
+                cur.children.put(c, new TrieNode());
             }
 
             cur = cur.children.get(c);

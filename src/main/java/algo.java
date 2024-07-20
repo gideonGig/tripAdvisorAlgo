@@ -1,6 +1,7 @@
 import neecode_150.BasicAlgo;
 import neecode_150.NeetCode;
 import neecode_150.NeetCode.MyStack;
+import streams.StreamT;
 import utilities.ListNode;
 
 import java.math.BigDecimal;
@@ -427,11 +428,11 @@ public class algo {
                 int[] arr = {1, 2, 2};
                 System.out.println(NeetCode.subsetsWithDup(arr));
                 */
-                 
 
-               //System.out.println(NeetCode.generateParenthesis(3));
 
-               //System.out.println(NeetCode.factorial(5, 2));
+        //System.out.println(NeetCode.generateParenthesis(3));
+
+        //System.out.println(NeetCode.factorial(5, 2));
         
                /*
                int[] arr ={1, 3, 2, 5, 4, 6, 7};
@@ -462,9 +463,16 @@ public class algo {
                 System.out.println(result.toString());
                */
 
-        int listNodes = NeetCode.numTrees(3);
-        System.out.println(listNodes);
-
+            /*
+        TreeNode node = new TreeNode(1, new TreeNode(3, null,
+                new TreeNode(2, null, null)),
+                null);
+        NeetCode.recoverTree(node);
+        System.out.println(node);
+        */
+            int[][] edges = {{1, 2}, {1, 3}, {2, 3}};
+            int[] res = NeetCode.findRedundantConnection(edges);
+            System.out.println(res);
     }
 
 }

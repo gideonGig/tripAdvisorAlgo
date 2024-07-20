@@ -1501,7 +1501,7 @@ public class NeetCode {
 
     }
 
-    private static int getNumTreesByRecursion(int start, int end,  Map<Pair<Integer, Integer>, Integer> memo) {
+    private static int getNumTreesByRecursion(int start, int end, Map<Pair<Integer, Integer>, Integer> memo) {
         if (start >= end) {
             return 1;
         }
@@ -1545,6 +1545,95 @@ public class NeetCode {
         prev[0] = root;
 
         return isValidBSTInOrder(root.right, prev);
+    }
+
+    public static void recoverTree(TreeNode root) {
+        TreeNode minNode = new TreeNode(Integer.MIN_VALUE, null, null);
+        TreeNode[] prev = {minNode};
+        TreeNode[] firstNum = new TreeNode[1];
+        TreeNode[] secondNum = new TreeNode[1];
+
+        recoverTreeDFS(root, prev, firstNum, secondNum);
+
+        int temp;
+        temp = firstNum[0].val;
+        firstNum[0].val = secondNum[0].val;
+        secondNum[0].val = temp;
+    }
+
+    private static void recoverTreeDFS(TreeNode root, TreeNode[] prev, TreeNode[] firstNum, TreeNode[] secondNum) {
+        if (root == null) {
+            return;
+        }
+
+        recoverTreeDFS(root.left, prev, firstNum, secondNum);
+
+        if (firstNum[0] == null && prev[0].val > root.val) {
+            firstNum[0] = prev[0];
+        }
+
+        if (firstNum[0] != null && prev[0].val > root.val) {
+            secondNum[0] = root;
+        }
+
+        prev[0] = root;
+
+        recoverTreeDFS(root.right, prev, firstNum, secondNum);
+    }
+
+    public static boolean isSameTree(TreeNode p, TreeNode q) {
+        return inOrderBfsSameTree(p, q);
+    }
+
+    private static boolean inOrderBfsSameTree(TreeNode p, TreeNode q) {
+        if (p == null && q == null) {
+            return true;
+        }
+
+        if (p == null || q == null) {
+            return false;
+        }
+
+        if (!inOrderBfsSameTree(p.left, q.left)) {
+            return false;
+        }
+
+        if (p.val != q.val) {
+            return false;
+        }
+
+        return inOrderBfsSameTree(p.right, q.right);
+    }
+
+    public static boolean isSymmetric(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        return isSymmetricDfs(root, root);
+    }
+
+    /**
+     * IsSymetric uses PreOrder dfs solution, and root is passed twice in the function
+     */
+    private static boolean isSymmetricDfs(TreeNode childLeft, TreeNode childRight) {
+        if (childLeft == null && childRight == null) {
+            return true;
+        }
+
+        if (childLeft == null || childRight == null) {
+            return false;
+        }
+
+        if (childLeft.val != childRight.val) {
+            return false;
+        }
+
+        if (!isSymmetricDfs(childLeft.left, childRight.right)) {
+            return false;
+        }
+
+        return isSymmetricDfs(childRight.left, childLeft.right);
+
     }
 
     /**
@@ -1708,7 +1797,7 @@ public class NeetCode {
     }
 
     private static void combinationSum2BackTrack(int[] candidates, int target, int start,
-            List<Integer> list, List<List<Integer>> res) {
+                                                 List<Integer> list, List<List<Integer>> res) {
         if (target == 0) {
             res.add(new ArrayList<>(list));
         }
@@ -2413,51 +2502,6 @@ public class NeetCode {
 
     }
 
-    public static int[] findRedundantConnection(int[][] edges) {
-        int totalLength = edges.length + 1;
-        Queue<Integer> q = new LinkedList<>();
-        List<Integer>[] adj = new ArrayList[totalLength];
-        int[] freq = new int[totalLength];
-        for (int i = 0; i < adj.length; i++) {
-            adj[i] = new ArrayList<Integer>();
-        }
-
-        for (int[] e : edges) {
-            adj[e[1]].add(e[0]);
-            freq[e[0]]++;
-        }
-        for (int i = 0; i < freq.length; i++) {
-            if (freq[i] > 0) {
-                q.add(i);
-            }
-        }
-
-        while (!q.isEmpty()) {
-            int cur = q.remove();
-            for (int neigh : adj[cur]) {
-                freq[neigh]--;
-                if (freq[neigh] == 0) {
-                    q.add(neigh);
-                }
-            }
-        }
-
-        int cycleVertex = -1;
-        for (int i = freq.length - 1; i >= 0; i--) {
-            if (freq[i] > 0) {
-                cycleVertex = i;
-                break;
-            }
-        }
-
-        for (int i = edges.length - 1; i >= 0; i--) {
-            if (edges[i][0] == cycleVertex) {
-                return edges[i];
-            }
-        }
-
-        return new int[] {};
-    }
 
     public static class Node {
         public int val;
@@ -2805,4 +2849,131 @@ public class NeetCode {
             }
         }
     }
+
+    public static class UnionFind {
+        private int[] root;
+        private int[] rank;
+        private int numEdges;
+
+        public UnionFind(int numEdges) {
+            this.numEdges = numEdges;
+            this.root = new int[numEdges + 1];
+            this.rank = new int[numEdges + 1];
+            for (int i = 1; i <= numEdges; i++) {
+                root[i] = i;
+                rank[i] = 1;
+            }
+        }
+
+        public boolean union(int a, int b) {
+            if (!((a > 0 && a <= numEdges) || (b > 0 && b <= numEdges))) {
+                return false;
+            }
+
+            int rootA = findRoot(a);
+            int rootB = findRoot(b);
+
+            if (rootA == rootB) {
+                return false;
+            }
+
+            if (rank[rootA] > rank[rootB]) {
+                root[rootB] = rootA;
+            } else if (rank[rootA] < rank[rootB]) {
+                root[rootA] = rootB;
+            } else {
+                root[rootB] = rootA;
+                rank[rootB] = rank[rootB] + 1;
+            }
+
+
+            return true;
+        }
+
+        public int findRoot(int a) {
+            int b = a;
+            while (root[b] != b) {
+                b = root[b];
+            }
+            return b;
+        }
+
+    }
+
+    public static int[] findRedundantConnection(int[][] edges) {
+        UnionFind graph = new UnionFind(edges.length);
+        int[] res = null;
+        for (int[] arr : edges) {
+            if (!graph.union(arr[0], arr[1])) {
+                res = arr;
+            }
+        }
+
+        return res;
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
