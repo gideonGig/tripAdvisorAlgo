@@ -1537,7 +1537,7 @@ public class NeetCode {
             return false;
         }
 
-        if (prev != null && prev[0].val >= root.val) {
+        if (prev[0] != null && prev[0].val >= root.val) {
             return false;
         }
 

@@ -461,9 +461,15 @@ public class algo {
                 int[] result = NeetCode.findRedundantConnection(edges);
                 System.out.println(result.toString());
                */
-
+        /*
         int listNodes = NeetCode.numTrees(3);
         System.out.println(listNodes);
+         */
+           
+        TreeNode root = new TreeNode(2, new TreeNode(1, null, null), 
+                        new TreeNode(3, null, null) );
+        boolean result = NeetCode.isValidBST(root);
+        System.out.println(result);
 
     }
 

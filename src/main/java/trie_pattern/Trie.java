@@ -18,6 +18,7 @@ public class Trie {
     public Trie() {
         root = new TrieNode();
     }
+  
     public void insert(String word) {
         TrieNode cur = root;
         for (Character c : word.toCharArray()) {
