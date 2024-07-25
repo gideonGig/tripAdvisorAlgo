@@ -1,5 +1,5 @@
 package generics;
 
-public interface BoundContext  {
+public interface BoundContext {
 
 }

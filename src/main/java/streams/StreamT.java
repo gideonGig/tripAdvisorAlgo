@@ -17,11 +17,11 @@ public class StreamT {
         private BigDecimal salary;
 
         public Employee(int id, String name, String address, Boolean isContractor, BigDecimal salary) {
-             this.id = id;
-             this.address = address;
-             this.isContractor = isContractor;
-             this.salary = salary;
-        }  
+            this.id = id;
+            this.address = address;
+            this.isContractor = isContractor;
+            this.salary = salary;
+        }
 
         public int getId(){
             return id;
@@ -34,6 +34,7 @@ public class StreamT {
         public String getAddress() {
             return address;
         }
+
         public Boolean getIsContractor() {
             return isContractor;
         }
@@ -55,28 +56,28 @@ public class StreamT {
     }
 
     public static class EmployeePriorityQueue {
-       private PriorityQueue<Employee> employeeQueue;
+        private PriorityQueue<Employee> employeeQueue;
 
-       public EmployeePriorityQueue() {
-           employeeQueue  = new PriorityQueue<>(new EmployeeComparator());
+        public EmployeePriorityQueue() {
+            employeeQueue = new PriorityQueue<>(new EmployeeComparator());
 
-       }
+        }
 
-       public void addEmployee(Employee employee) {
-           employeeQueue.offer(employee);
-       }    
+        public void addEmployee(Employee employee) {
+            employeeQueue.offer(employee);
+        }
 
-       public Employee getEmployee() {
-          return employeeQueue.poll();
-       }
+        public Employee getEmployee() {
+            return employeeQueue.poll();
+        }
 
-       public boolean isEmpty() {
-           return employeeQueue.isEmpty();
-       }    
+        public boolean isEmpty() {
+            return employeeQueue.isEmpty();
+        }
 
-       public int size() {
+        public int size() {
            return employeeQueue.size();
-       }    
+       }
 
     }
 
@@ -102,8 +103,8 @@ public class StreamT {
 
         public Employee removeEmployee() {
             PriorityQueue<Employee> currentEmployeeQueue = atomicEmployeeQueue.get();
-             return null;
-           
+            return null;
+
         }
 
     }
@@ -210,12 +211,12 @@ public class StreamT {
     }
 
     public static void generatePossiblePair(List<Integer> item1, List<Integer> item2, List<Integer> item3) {
-      Stream<Integer> stream3 = item3.stream();
-      Stream<Integer> stream2 = item2.stream();
-      List<Integer> stream1 = item1.stream().flatMap(i -> stream2
-                                            .flatMap(j -> stream3
-                                            .map(k -> k * i * j)))
-                                            .collect(Collectors.toList());
+        Stream<Integer> stream3 = item3.stream();
+        Stream<Integer> stream2 = item2.stream();
+        List<Integer> stream1 = item1.stream().flatMap(i -> stream2
+                        .flatMap(j -> stream3
+                                .map(k -> k * i * j)))
+                .collect(Collectors.toList());
     }
 
 }

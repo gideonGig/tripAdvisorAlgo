@@ -1100,15 +1100,16 @@ public class BasicAlgo {
 
         public QuickUnion(int[] numArr) {
             arr = numArr;
+            rank = new int[numArr.length];
             for (int i = 0; i < arr.length; i++) {
                 arr[i] = i;
                 rank[i] = 1;
             }
         }
 
-        public void quickUnion(int a, int b) {
+        public boolean quickUnion(int a, int b) {
             if (a > arr.length - 1 || b > arr.length) {
-                return;
+                return false;
             }
 
             int rootA = find(a);
@@ -1116,7 +1117,10 @@ public class BasicAlgo {
 
             if (rootA != rootB) {
                 arr[rootB] = rootA;
+                return true;
             }
+
+            return false;
         }
 
         public int find(int a) {
@@ -1131,7 +1135,7 @@ public class BasicAlgo {
             return a;
         }
 
-        public void unionByRank(int a, int b) {
+        public boolean unionByRank(int a, int b) {
             int rootA = find(a);
             int rootB = find(b);
 
@@ -1144,6 +1148,9 @@ public class BasicAlgo {
                     arr[rootB] = rootA;
                     rank[rootA] = rank[rootA] + 1;
                 }
+                return true;
+            } else {
+                return false;
             }
         }
 
