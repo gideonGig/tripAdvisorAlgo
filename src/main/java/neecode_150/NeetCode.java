@@ -3104,6 +3104,69 @@ public class NeetCode {
         return res;
     }
 
+    public static List<List<String>> accountsMerge(List<List<String>> accounts) {
+        HashMap<String, Integer> emailToId = new HashMap<>();
+        HashMap<String, String> emailToName = new HashMap<>();
+        int uniqEmailCount = 0;
+        for (List<String> account : accounts) {
+            String name = account.get(0);
+            for (int i = 1; i < account.size(); i++) {
+                String email = account.get(i);
+                if (!emailToId.containsKey(email)) {
+                    emailToId.put(email, uniqEmailCount++);
+                    emailToName.put(email, name);
+             
+                }
+            }
+        }
+
+        UnionFind uf = new UnionFind(uniqEmailCount);
+        for (List<String> account : accounts) {
+            int firstEmailIndex = emailToId.get(account.get(1));
+            for (int i = 2; i < account.size(); i++) {
+                int emailIndexInGroup = emailToId.get(account.get(i));
+                uf.union(firstEmailIndex, emailIndexInGroup);
+
+            }
+        }
+
+        HashMap<Integer, List<String>> IdToEmails = new HashMap<>();
+        for (String email : emailToId.keySet()) {
+            int idEmail = emailToId.get(email);
+            int index = uf.findRoot(idEmail);
+            IdToEmails.computeIfAbsent(index, x -> new ArrayList<>()).add(email);
+        }
+
+        List<List<String>> mergedList = new ArrayList<>();
+        for (List<String> emailList : IdToEmails.values()) {
+            Collections.sort(emailList);
+            String name = emailToName.get(emailList.get(0));
+            List<String> account = new ArrayList<>();
+            account.add(name);
+            account.addAll(emailList);
+            mergedList.add(account);
+        }
+        
+        return mergedList;
+        
+    }
+
+    public static int countComponents(int n, int[][] edges) {
+        UnionFind uf = new UnionFind(n);
+        for (int[] edge : edges) {
+            uf.union(edge[0], edge[1]);
+        }
+
+        Set<Integer> set = new HashSet<>();
+        for (int i = 0; i < n; i++) {
+            int root = uf.findRoot(i);
+            set.add(root);
+        }
+
+        return set.size();
+
+    }
+
 }
 
 
