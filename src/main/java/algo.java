@@ -467,12 +467,12 @@ public class algo {
         int listNodes = NeetCode.numTrees(3);
         System.out.println(listNodes);
          */
-           
+            /*
         TreeNode root = new TreeNode(2, new TreeNode(1, null, null), 
                         new TreeNode(3, null, null) );
         boolean result = NeetCode.isValidBST(root);
         System.out.println(result);
-
+         */
             /*
         TreeNode node = new TreeNode(1, new TreeNode(3, null,
                 new TreeNode(2, null, null)),
@@ -480,9 +480,15 @@ public class algo {
         NeetCode.recoverTree(node);
         System.out.println(node);
         */
+            /*
             int[][] edges = {{1, 2}, {1, 3}, {2, 3}};
             int[] res = NeetCode.findRedundantConnection(edges);
             System.out.println(res);
+            */
+
+        int[] arr = {9,1,4,7,3,-1,0,5,8,-1,6};
+        int res = NeetCode.longestConsecutiveII(arr);
+        System.out.println(res);
     }
 
 }

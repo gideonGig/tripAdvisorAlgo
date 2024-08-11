@@ -1827,7 +1827,7 @@ public class NeetCode {
     }
 
     private static void subsetsWithDupDfs(int[] nums, int start, HashMap<List<Integer>, List<Integer>> map,
-            List<Integer> list, List<List<Integer>> res) {
+                                          List<Integer> list, List<List<Integer>> res) {
         if (start >= nums.length) {
             list.sort((a, b) -> a - b);
             if (!map.containsKey(list)) {
@@ -2741,14 +2741,14 @@ public class NeetCode {
                 indegree.putIfAbsent(w, 0);
             }
         }
-
+  
         for (int i = 0; i < words.length - 1; i++) {
             String parent = words[i];
             String child = words[i + 1];
 
-            if (parent.length() > child.length() && parent.startsWith(child)) {
-                return "";
-            }
+          
+
+
 
             for (int j = 0; j < Math.min(parent.length(), child.length()); j++) {
                 Character p = parent.charAt(j);
@@ -3115,7 +3115,7 @@ public class NeetCode {
                 if (!emailToId.containsKey(email)) {
                     emailToId.put(email, uniqEmailCount++);
                     emailToName.put(email, name);
-             
+
                 }
             }
         }
@@ -3146,9 +3146,9 @@ public class NeetCode {
             account.addAll(emailList);
             mergedList.add(account);
         }
-        
+
         return mergedList;
-        
+
     }
 
     public static int countComponents(int n, int[][] edges) {
@@ -3164,6 +3164,31 @@ public class NeetCode {
         }
 
         return set.size();
+    }
+
+    public static int longestConsecutiveII(int[] nums) {
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
+
+        HashSet<Integer> set = new HashSet<>();
+        for (int num : nums) {
+            max = Math.max(max, num);
+            min = Math.min(min, num);
+            set.add(num);
+        }
+
+        int count = 0;
+        int maxCount = 0;
+        for (int i = min; i <= max; i++) {
+            if (set.contains(i)) {
+                count++;
+            } else {
+                maxCount = Math.max(count, maxCount);
+                count = 0;
+            }
+        }
+
+        return Math.max(count, maxCount);
 
     }
 
