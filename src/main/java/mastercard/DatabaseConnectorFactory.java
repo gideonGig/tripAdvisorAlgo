@@ -4,12 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseConnectorFactory {
-    interface Connector {
-        boolean connect();
-
-        void disconnect();
-    }
-
     private int totalNumberOfConnectors;
 
     public List<Connector> createConnectors(int portNumber,
@@ -17,7 +11,7 @@ public class DatabaseConnectorFactory {
                                             int numberOfConnectors) {
         List<Connector> connectors = new ArrayList<>();
 
-        for (int i = 0 ; i < numberOfConnectors; i++) {
+        for (int i = 0; i < numberOfConnectors; i++) {
             Connector connector = new Connector() {
                 @Override
                 public boolean connect() {
@@ -33,5 +27,11 @@ public class DatabaseConnectorFactory {
             connectors.add(connector);
         }
         return connectors;
+    }
+
+    interface Connector {
+        boolean connect();
+
+        void disconnect();
     }
 }

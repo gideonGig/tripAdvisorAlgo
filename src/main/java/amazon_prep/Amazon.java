@@ -11,13 +11,13 @@ public class Amazon {
      * You may assume that each input would have exactly one solution, and you may
      * not use the same element twice.
      * you can return the answer in any order.
-     * 
+     *
      * Input: nums = [2,7,11,15], target = 9
      * Output: [0,1]
      * Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
      */
     public static int[] twoSum(int[] nums, int target) {
-        Map<Integer, Integer> map = new HashMap<>();
+        Map<Integer,Integer> map = new HashMap<>();
         int[] res = new int[2];
 
         for (int i = 0; i < nums.length; i++) {
@@ -87,7 +87,7 @@ public class Amazon {
      * than -231 should be rounded to -231,
      * and integers greater than 231 - 1 should be rounded to 231 - 1.
      * eturn the integer as the final result.
-     * 
+     *
      */
     public static int myAtoi(String s) {
         int i = 0;
@@ -160,8 +160,8 @@ public class Amazon {
      * convert Integer to Roman
      */
     public static String intToRoman(int num) {
-        Integer[] numbers = { 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1 };
-        String[] roman = { "M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I" };
+        Integer[] numbers = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+        String[] roman = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
         StringBuilder res = new StringBuilder();
         int n = num;
         for (int i = 0; i < numbers.length; i++) {
@@ -185,7 +185,7 @@ public class Amazon {
     public static int romanToInt(String s) {
         int pre = 0;
         int total = 0;
-        HashMap<Character, Integer> map = new HashMap<>();
+        HashMap<Character,Integer> map = new HashMap<>();
         map.put('M', 1000);
         map.put('D', 500);
         map.put('C', 100);

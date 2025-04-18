@@ -1,15 +1,16 @@
 package threadtutorials;
 
 public class MinMaxMetrics {
-    
+
     // Add all necessary member variables
 
     /**
      * Initializes all member variables#
      */
 
-     private volatile long minNumber;
-     private volatile long maxNumber;
+    private volatile long minNumber;
+    private volatile long maxNumber;
+
     public MinMaxMetrics() {
         // Add code here
         minNumber = Long.MAX_VALUE;

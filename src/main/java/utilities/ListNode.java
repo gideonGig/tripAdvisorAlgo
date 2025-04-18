@@ -19,6 +19,16 @@ public class ListNode {
         this.next = next;
     }
 
+    public static ListNode convertToListNode(int[] arr) {
+        ListNode node = new ListNode(arr[0]);
+        ListNode cur = node;
+        for (int i = 1; i < arr.length; i++) {
+            cur.next = new ListNode(arr[i]);
+            cur = cur.next;
+        }
+        return node;
+    }
+
     public Integer getVal() {
         return val;
     }
@@ -38,15 +48,5 @@ public class ListNode {
             }
         }
         return builder.toString();
-    }
-
-    public static ListNode convertToListNode(int[] arr) {
-        ListNode node = new ListNode(arr[0]);
-        ListNode cur = node;
-        for (int i = 1; i < arr.length; i++) {
-            cur.next = new ListNode(arr[i]);
-            cur = cur.next;
-        }
-        return node;
     }
 }

@@ -17,6 +17,21 @@ public class CyclicBarrierExample implements Runnable {
         this.barrier = barrier;
     }
 
+    public static void main(String[] args) {
+        Executor executor = Executors.newFixedThreadPool(5);
+        CyclicBarrier barrier = new CyclicBarrier(5, new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("All tasks have been finished....");
+
+            }
+        });
+
+        for (int i = 0; i < 5; i++) {
+            executor.execute(new CyclicBarrierExample(i, barrier));
+        }
+    }
+
     @Override
     public void run() {
         try {
@@ -33,21 +48,6 @@ public class CyclicBarrierExample implements Runnable {
         }
 
         System.out.println("Thread " + this.id + " continues");
-    }
-
-    public static void main(String[] args) {
-        Executor executor = Executors.newFixedThreadPool(5);
-        CyclicBarrier barrier = new CyclicBarrier(5, new Runnable() {
-            @Override
-            public void run() {
-                System.out.println("All tasks have been finished....");
-
-            }
-        });
-
-        for(int i = 0; i < 5; i++) {
-            executor.execute(new CyclicBarrierExample(i, barrier));
-        }
     }
 
 }

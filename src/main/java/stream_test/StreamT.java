@@ -1,119 +1,20 @@
 package stream_test;
 
 import java.math.BigDecimal;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.locks.LockSupport;
-import java.util.*;
 import java.util.stream.Collectors;
 
 public class StreamT {
 
-    public static class Employee {
-        private int id;
-        private String name;
-        private String address;
-        private Boolean isContractor;
-        private BigDecimal salary;
-
-        public Employee(int id, String name, String address, Boolean isContractor, BigDecimal salary) {
-             this.id = id;
-             this.address = address;
-             this.isContractor = isContractor;
-             this.salary = salary;
-        }  
-
-        public int getId(){
-            return id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public String getAddress() {
-            return address;
-        }
-        public Boolean getIsContractor() {
-            return isContractor;
-        }
-
-        public BigDecimal getSalary() {
-            return salary;
-        }
-
-        public Employee[] getEmployeeArray() {
-            return StreamT.employees;
-        }
-    }
-
-    public static class EmployeeComparator implements Comparator<Employee> {
-        @Override
-        public int compare(Employee e1, Employee e2) {
-            return e1.getSalary().compareTo(e2.getSalary());
-        }
-    }
-
-    public static class EmployeePriorityQueue {
-       private PriorityQueue<Employee> employeeQueue;
-
-       public EmployeePriorityQueue() {
-           employeeQueue  = new PriorityQueue<>(new EmployeeComparator());
-
-       }
-
-       public void addEmployee(Employee employee) {
-           employeeQueue.offer(employee);
-       }    
-
-       public Employee getEmployee() {
-          return employeeQueue.poll();
-       }
-
-       public boolean isEmpty() {
-           return employeeQueue.isEmpty();
-       }    
-
-       public int size() {
-           return employeeQueue.size();
-       }    
-
-    }
-
-    public static class EmployeeAtomicPriorirtyQueue {
-        private AtomicReference<PriorityQueue<Employee>> atomicEmployeeQueue;
-
-        public EmployeeAtomicPriorirtyQueue() {
-            atomicEmployeeQueue = new AtomicReference<>(new PriorityQueue<>(new EmployeeComparator()));
-        }
-
-        public void addEmployee(Employee employee) {
-            while (true) {
-                PriorityQueue<Employee> currentQueue = atomicEmployeeQueue.get();
-                PriorityQueue<Employee> newQueue = new PriorityQueue<>(currentQueue);
-                newQueue.offer(employee);
-                if (atomicEmployeeQueue.compareAndSet(currentQueue, newQueue)) {
-                    break;
-                } else {
-                    LockSupport.parkNanos(1);
-                }
-            }
-        }
-
-        public Employee removeEmployee() {
-            PriorityQueue<Employee> currentEmployeeQueue = atomicEmployeeQueue.get();
-             return null;
-           
-        }
-
-    }
-
     public static Employee[] employees = new Employee[]{new Employee(1, "Gideon", "Estate", true, new BigDecimal(9000.00)),
-            new Employee(3, "Gideon", "Estate", false, new BigDecimal(6000.00)), new Employee(2, "Gideon", "Estate", true, new BigDecimal(7000.00)) };
+            new Employee(3, "Gideon", "Estate", false, new BigDecimal(6000.00)), new Employee(2, "Gideon", "Estate", true, new BigDecimal(7000.00))};
     public static List<Employee> employeeList = Arrays.asList(employees);
     public static List<BigDecimal> salaryList = new ArrayList<BigDecimal>();
 
     public static void testStream() {
-        long numberOfEmployees =  employeeList.stream().count();
+        long numberOfEmployees = employeeList.stream().count();
         System.out.println(numberOfEmployees);
 
         List<BigDecimal> salaryList = employeeList.stream().map(x -> x.salary).collect(Collectors.toList());
@@ -124,15 +25,10 @@ public class StreamT {
                 .map(x -> x.salary).sorted(BigDecimal::compareTo).collect(Collectors.toList());
         System.out.println(salaryListGreaterThan500);
 
-        Map<Boolean, List<Employee>> employeeMap = Arrays.stream(employees).collect(Collectors.groupingBy(x->x.isContractor));
+        Map<Boolean,List<Employee>> employeeMap = Arrays.stream(employees).collect(Collectors.groupingBy(x -> x.isContractor));
 
         employeeMap.entrySet().stream().forEach(System.out::println);
 
-    }
-
-    public List<BigDecimal> mapSalary(BigDecimal salary) {
-        salaryList.add(salary);
-        return salaryList;
     }
 
     public static int test(int[] A) {
@@ -193,7 +89,7 @@ public class StreamT {
 
     public static int getSemiPrimesBetween(int start, int end) {
         HashSet<Integer> primeArr = getPrimeNumber(end);
-        HashMap<Integer, Boolean> dp = new HashMap<>();
+        HashMap<Integer,Boolean> dp = new HashMap<>();
         int ans = 0;
         while (start <= end) {
             if (Boolean.TRUE.equals(dp.getOrDefault(start, false))) {
@@ -210,6 +106,111 @@ public class StreamT {
             start++;
         }
         return ans;
+    }
+
+    public List<BigDecimal> mapSalary(BigDecimal salary) {
+        salaryList.add(salary);
+        return salaryList;
+    }
+
+    public static class Employee {
+        private int id;
+        private String name;
+        private String address;
+        private Boolean isContractor;
+        private BigDecimal salary;
+
+        public Employee(int id, String name, String address, Boolean isContractor, BigDecimal salary) {
+            this.id = id;
+            this.address = address;
+            this.isContractor = isContractor;
+            this.salary = salary;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getAddress() {
+            return address;
+        }
+
+        public Boolean getIsContractor() {
+            return isContractor;
+        }
+
+        public BigDecimal getSalary() {
+            return salary;
+        }
+
+        public Employee[] getEmployeeArray() {
+            return StreamT.employees;
+        }
+    }
+
+    public static class EmployeeComparator implements Comparator<Employee> {
+        @Override
+        public int compare(Employee e1, Employee e2) {
+            return e1.getSalary().compareTo(e2.getSalary());
+        }
+    }
+
+    public static class EmployeePriorityQueue {
+        private PriorityQueue<Employee> employeeQueue;
+
+        public EmployeePriorityQueue() {
+            employeeQueue = new PriorityQueue<>(new EmployeeComparator());
+
+        }
+
+        public void addEmployee(Employee employee) {
+            employeeQueue.offer(employee);
+        }
+
+        public Employee getEmployee() {
+            return employeeQueue.poll();
+        }
+
+        public boolean isEmpty() {
+            return employeeQueue.isEmpty();
+        }
+
+        public int size() {
+            return employeeQueue.size();
+        }
+
+    }
+
+    public static class EmployeeAtomicPriorirtyQueue {
+        private AtomicReference<PriorityQueue<Employee>> atomicEmployeeQueue;
+
+        public EmployeeAtomicPriorirtyQueue() {
+            atomicEmployeeQueue = new AtomicReference<>(new PriorityQueue<>(new EmployeeComparator()));
+        }
+
+        public void addEmployee(Employee employee) {
+            while (true) {
+                PriorityQueue<Employee> currentQueue = atomicEmployeeQueue.get();
+                PriorityQueue<Employee> newQueue = new PriorityQueue<>(currentQueue);
+                newQueue.offer(employee);
+                if (atomicEmployeeQueue.compareAndSet(currentQueue, newQueue)) {
+                    break;
+                } else {
+                    LockSupport.parkNanos(1);
+                }
+            }
+        }
+
+        public Employee removeEmployee() {
+            PriorityQueue<Employee> currentEmployeeQueue = atomicEmployeeQueue.get();
+            return null;
+
+        }
+
     }
 
 }

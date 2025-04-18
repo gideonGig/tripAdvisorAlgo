@@ -22,10 +22,10 @@ public final class ImmutablePerson {
     public String getName() {
         return this.name;
     }
-    
+
 
     public List<Integer> getSalaries() {
         return new ArrayList<>(salaries);
     }
-    
+
 }

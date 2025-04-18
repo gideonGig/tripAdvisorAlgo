@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.concurrent.ForkJoinPool;
 
 public class ParallelAlgo {
-    public static void main(String[] args)  {
+    public static void main(String[] args) {
         int itemSize = 1000000;
         List<Integer> arr = new ArrayList<>();
         List<Integer> result = new ArrayList<>();

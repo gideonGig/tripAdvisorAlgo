@@ -22,8 +22,7 @@ public class ProcessCustomerTask implements Runnable {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-            }
-            else {
+            } else {
                 //Processing takes place here
             }
         }

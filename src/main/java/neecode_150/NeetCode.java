@@ -1,55 +1,12 @@
 package neecode_150;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Deque;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.PriorityQueue;
-import java.util.Queue;
-import java.util.Set;
-import java.util.Stack;
-
 import javafx.util.Pair;
 import utilities.ListNode;
 import utilities.TreeNode;
 
+import java.util.*;
+
 public class NeetCode {
-
-    public static class Encoder {
-        // Encodes a list of strings to a single string.
-        public String encode(List<String> strs) {
-            StringBuilder builder = new StringBuilder();
-            for (String s : strs) {
-                builder.append(String.valueOf(s.length()) + "#" + s);
-            }
-            return builder.toString();
-        }
-
-        // Decodes a single string to a list of strings.
-        public List<String> decode(String s) {
-            List<String> res = new ArrayList<>();
-            int i = 0;
-            while (i < s.length()) {
-                int j = i;
-                while (s.charAt(j) != '#') {
-                    j++;
-                }
-                int len = Integer.valueOf(s.substring(i, j));
-                String word = s.substring(j + 1, j + len + 1);
-                res.add(word);
-                i = j + 1 + 1 + len;
-
-            }
-
-            return res;
-        }
-    }
 
     public static int longestConsecutive(int[] nums) {
         if (nums.length == 0) {
@@ -169,9 +126,6 @@ public class NeetCode {
         return total;
 
     }
-    /*
-     * kandane Allgorithm
-     */
 
     public static int maxProfit(int[] prices) {
         int max = 0;
@@ -183,6 +137,9 @@ public class NeetCode {
         return max;
 
     }
+    /*
+     * kandane Allgorithm
+     */
 
     /*
      * Beginning of Two Pointer and Sliding Window Technique
@@ -206,7 +163,7 @@ public class NeetCode {
     }
 
     public static int characterReplacement(String s, int k) {
-        HashMap<Character, Integer> freq = new HashMap<>();
+        HashMap<Character,Integer> freq = new HashMap<>();
         int leftPtr = 0;
         int rightPtr = 0;
         int maxFreq = 0;
@@ -301,14 +258,14 @@ public class NeetCode {
         }
         int rightPtr = 0;
         int leftPtr = 0;
-        Map<Character, Integer> tmap = new HashMap<>();
+        Map<Character,Integer> tmap = new HashMap<>();
         for (int i = 0; i < t.length(); i++) {
             int val = tmap.getOrDefault(t.charAt(i), 0) + 1;
             tmap.put(t.charAt(i), val);
         }
         int reqLen = tmap.size();
 
-        Map<Character, Integer> smap = new HashMap<>();
+        Map<Character,Integer> smap = new HashMap<>();
 
         for (rightPtr = 0; rightPtr < s.length(); rightPtr++) {
             Character sh = s.charAt(rightPtr);
@@ -476,7 +433,7 @@ public class NeetCode {
     }
 
     public static boolean isValid(String s) {
-        HashMap<Character, Character> map = new HashMap<>();
+        HashMap<Character,Character> map = new HashMap<>();
         map.put('(', ')');
         map.put('{', '}');
         map.put('[', ']');
@@ -534,8 +491,8 @@ public class NeetCode {
         if (s.length() != t.length()) {
             return false;
         }
-        HashMap<Character, Integer> sMap = new HashMap<>();
-        HashMap<Character, Integer> tMap = new HashMap<>();
+        HashMap<Character,Integer> sMap = new HashMap<>();
+        HashMap<Character,Integer> tMap = new HashMap<>();
 
         for (char valS : s.toCharArray()) {
             int keyS = sMap.getOrDefault(Character.valueOf(valS), 0) + 1;
@@ -581,7 +538,7 @@ public class NeetCode {
             return result;
         }
 
-        HashMap<String, List<String>> map = new HashMap<>();
+        HashMap<String,List<String>> map = new HashMap<>();
         for (String s : strs) {
             char[] c = s.toCharArray();
             Arrays.sort(c);
@@ -600,7 +557,7 @@ public class NeetCode {
     }
 
     public static int[] twoSum(int[] nums, int target) {
-        HashMap<Integer, Integer> map = new HashMap<>();
+        HashMap<Integer,Integer> map = new HashMap<>();
         int[] res = new int[2];
 
         for (int i = 0; i < nums.length; i++) {
@@ -618,15 +575,15 @@ public class NeetCode {
     }
 
     public static int[] topKFrequent(int[] nums, int k) {
-        PriorityQueue<Map.Entry<Integer, Integer>> pq = new PriorityQueue<>((a, b) -> b.getValue() - a.getValue());
-        HashMap<Integer, Integer> map = new HashMap<>();
+        PriorityQueue<Map.Entry<Integer,Integer>> pq = new PriorityQueue<>((a, b) -> b.getValue() - a.getValue());
+        HashMap<Integer,Integer> map = new HashMap<>();
         for (int num : nums) {
             int freq = map.getOrDefault(num, 0) + 1;
             map.put(num, freq);
 
         }
 
-        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+        for (Map.Entry<Integer,Integer> entry : map.entrySet()) {
             pq.add(entry);
         }
 
@@ -760,48 +717,6 @@ public class NeetCode {
         return summ;
     }
 
-    public static class MinStack {
-        private Stack<Integer> arr;
-        private Stack<Integer> minArr;
-
-        public MinStack() {
-            arr = new Stack<>();
-            minArr = new Stack<>();
-        }
-
-        public void push(int val) {
-            arr.push(val);
-            int minimum = val;
-            if (!minArr.isEmpty()) {
-                minimum = Math.min(val, minArr.peek());
-            }
-            minArr.push(minimum);
-        }
-
-        public void pop() {
-            arr.pop();
-            minArr.pop();
-        }
-
-        public int getMin() {
-            return minArr.peek();
-        }
-    }
-
-    public boolean containsDuplicate(int[] nums) {
-        Set<Integer> set = new HashSet<>();
-        for (int i = 0; i < nums.length; i++) {
-            if (set.contains(Integer.valueOf(nums[i]))) {
-                return true;
-            } else {
-                set.add(nums[i]);
-
-            }
-        }
-
-        return false;
-    }
-
     public static int countStudents(int[] students, int[] sandwiches) {
         int circular = 0;
         int square = 0;
@@ -827,60 +742,6 @@ public class NeetCode {
             }
         }
         return 0;
-    }
-
-    public static class MyStack {
-        private Deque<Integer> firstQueue;
-        private Deque<Integer> secondQueue;
-        private int count;
-        private boolean isPeek = false;
-
-        public MyStack() {
-            firstQueue = new LinkedList<>();
-            secondQueue = new LinkedList<>();
-            count = 0;
-        }
-
-        public void push(int x) {
-            firstQueue.add(x);
-            count++;
-        }
-
-        public int pop() {
-            if (!firstQueue.isEmpty()) {
-                while (!firstQueue.isEmpty()) {
-                    secondQueue.addFirst(firstQueue.remove());
-
-                }
-            }
-
-            if (!secondQueue.isEmpty()) {
-                if (isPeek) {
-                    isPeek = false;
-                    return secondQueue.peek();
-                } else {
-                    isPeek = false;
-                    count--;
-                    return secondQueue.remove();
-                }
-            }
-
-            return -1;
-        }
-
-        public int top() {
-            isPeek = true;
-            return pop();
-        }
-
-        public boolean empty() {
-            if (count > 0) {
-                return false;
-            }
-
-            return true;
-        }
-
     }
 
     public static ListNode reverseList(ListNode head) {
@@ -916,7 +777,7 @@ public class NeetCode {
     }
 
     public static int climbStairs(int n) {
-        HashMap<Integer, Integer> map = new HashMap<>();
+        HashMap<Integer,Integer> map = new HashMap<>();
         if (n <= 3) {
             return n;
         }
@@ -1025,45 +886,6 @@ public class NeetCode {
         quickSortHelper(arr, left + 1, pivotIndex);
 
         return arr;
-    }
-
-    /** This algorithm uses a bucket sort technique */
-    public void sortColors(int[] nums) {
-        // elements are between 0 1, 2
-        int[] colorTypes = { 0, 0, 0 };
-        for (int i = 0; i < nums.length; i++) {
-            colorTypes[nums[i]]++;
-        }
-
-        int i = 0;
-        for (int j = 0; j < colorTypes.length; j++) {
-            int k = 0;
-            while (k < colorTypes[j]) {
-                nums[i] = j;
-                k++;
-                i++;
-            }
-        }
-    }
-
-    public boolean searchMatrix(int[][] matrix, int target) {
-        int[] arr = Arrays.stream(matrix)
-                .flatMapToInt(x -> Arrays.stream(x)).toArray();
-        int l = 0;
-        int r = arr.length - 1;
-
-        while (l <= r) {
-            int mid = l + (r - l) / 2;
-            if (target > arr[mid]) {
-                l = mid + 1;
-            } else if (target < arr[mid]) {
-                r = mid - 1;
-            } else {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     /**
@@ -1199,7 +1021,7 @@ public class NeetCode {
      * The algorithm is a bit tricky and different from the rest above i.e the
      * isertiuon, deletion and search
      * we are returning root if we get to a leave Node, learn the Iterative pattern,
-     * 
+     *
      */
     public static List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> arr = new ArrayList<>();
@@ -1310,7 +1132,7 @@ public class NeetCode {
             return null;
         }
 
-        Map<Integer, Integer> inorderMap = new HashMap<>();
+        Map<Integer,Integer> inorderMap = new HashMap<>();
         for (int i = 0; i < inorder.length; i++) {
             inorderMap.put(inorder[i], i);
         }
@@ -1364,36 +1186,6 @@ public class NeetCode {
         }
 
         return level;
-    }
-
-    public List<List<Integer>> levelOrder(TreeNode root) {
-        List<List<Integer>> ans = new ArrayList<>();
-        if (root == null) {
-            return ans;
-        }
-
-        Queue<TreeNode> queue = new LinkedList<>();
-        queue.add(root);
-
-        while (!queue.isEmpty()) {
-            List<Integer> list = new ArrayList<>();
-            int len = queue.size();
-            for (int i = 0; i < len; i++) {
-                TreeNode current = queue.remove();
-                list.add(current.val);
-                if (current.left != null) {
-                    queue.add(current.left);
-                }
-
-                if (current.right != null) {
-                    queue.add(current.right);
-                }
-            }
-
-            ans.add(list);
-        }
-
-        return ans;
     }
 
     /**
@@ -1459,19 +1251,19 @@ public class NeetCode {
 
     public static List<TreeNode> generateTrees(int n) {
         if (n == 0) return new ArrayList<>();
-        Map<Pair<Integer, Integer>, List<TreeNode>> memo = new HashMap<>();
+        Map<Pair<Integer,Integer>,List<TreeNode>> memo = new HashMap<>();
         return getAllBST(1, n, memo);
 
     }
 
-    private static List<TreeNode> getAllBST(int start, int end, Map<Pair<Integer, Integer>, List<TreeNode>> memo) {
+    private static List<TreeNode> getAllBST(int start, int end, Map<Pair<Integer,Integer>,List<TreeNode>> memo) {
         List<TreeNode> res = new ArrayList<>();
         if (start > end) {
             res.add(null);
             return res;
         }
 
-        Pair<Integer, Integer> pair = new Pair<>(start, end);
+        Pair<Integer,Integer> pair = new Pair<>(start, end);
         if (memo.containsKey(pair)) {
             return memo.get(pair);
         }
@@ -1495,17 +1287,17 @@ public class NeetCode {
     public static int numTrees(int n) {
         int start = 1;
         int end = n;
-        Map<Pair<Integer, Integer>, Integer> memo = new HashMap<>();
+        Map<Pair<Integer,Integer>,Integer> memo = new HashMap<>();
         return getNumTreesByRecursion(start, end, memo);
 
     }
 
-    private static int getNumTreesByRecursion(int start, int end, Map<Pair<Integer, Integer>, Integer> memo) {
+    private static int getNumTreesByRecursion(int start, int end, Map<Pair<Integer,Integer>,Integer> memo) {
         if (start >= end) {
             return 1;
         }
 
-        Pair<Integer, Integer> pair = new Pair<>(start, end);
+        Pair<Integer,Integer> pair = new Pair<>(start, end);
         if (memo.containsKey(pair)) {
             return memo.get(pair);
         }
@@ -1641,7 +1433,6 @@ public class NeetCode {
      * have various decisions, backtracking can be from complex to simple solutions,
      * you may need time to master
      * it, backtracking builds on the concept of Recursion, DFS
-     *
      */
     public static List<List<Integer>> subsets(int[] nums) {
         /** I will try use two pointer technique */
@@ -1674,7 +1465,7 @@ public class NeetCode {
     }
 
     private static void combinationSumHelper(int start, List<Integer> list, List<List<Integer>> result, int target,
-            int[] candidate) {
+                                             int[] candidate) {
         if (target == 0) {
             result.add(new ArrayList<>(list));
         } else if (target < 0 || start >= candidate.length) {
@@ -1691,7 +1482,7 @@ public class NeetCode {
     }
 
     public static List<List<Integer>> combinationSum3(int k, int n) {
-        int[] contains = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+        int[] contains = {1, 2, 3, 4, 5, 6, 7, 8, 9};
         List<List<Integer>> result = new ArrayList<>();
         List<Integer> list = new ArrayList<>();
         combinationSum3Helper(0, result, list, k, n, contains);
@@ -1700,7 +1491,7 @@ public class NeetCode {
     }
 
     private static void combinationSum3Helper(int start, List<List<Integer>> result, List<Integer> list,
-            int k, int target, int[] contains) {
+                                              int k, int target, int[] contains) {
         if (target == 0 && list.size() == k) {
             result.add(new ArrayList<>(list));
             ;
@@ -1818,7 +1609,7 @@ public class NeetCode {
         Arrays.sort(nums);
         List<List<Integer>> res = new ArrayList<>();
 
-        HashMap<List<Integer>, List<Integer>> map = new HashMap<>();
+        HashMap<List<Integer>,List<Integer>> map = new HashMap<>();
         List<Integer> list = new ArrayList<>();
         int start = 0;
         subsetsWithDupDfs(nums, start, map, list, res);
@@ -1826,8 +1617,8 @@ public class NeetCode {
         return res;
     }
 
-    private static void subsetsWithDupDfs(int[] nums, int start, HashMap<List<Integer>, List<Integer>> map,
-            List<Integer> list, List<List<Integer>> res) {
+    private static void subsetsWithDupDfs(int[] nums, int start, HashMap<List<Integer>,List<Integer>> map,
+                                          List<Integer> list, List<List<Integer>> res) {
         if (start >= nums.length) {
             list.sort((a, b) -> a - b);
             if (!map.containsKey(list)) {
@@ -1881,7 +1672,7 @@ public class NeetCode {
     }
 
     private static void backTrackGenerateParanthesis(int n, List<Character> c, List<String> res, int numOpen,
-            int numClose) {
+                                                     int numClose) {
         if (c.size() == n * 2) {
             StringBuilder st = new StringBuilder();
             for (char ch : c) {
@@ -1929,6 +1720,702 @@ public class NeetCode {
         }
 
         return res;
+
+    }
+
+    public static int lastStoneWeight(int[] stones) {
+        PriorityQueue<Integer> pQueue = new PriorityQueue<>(Collections.reverseOrder());
+        Arrays.stream(stones).forEach(pQueue::add);
+
+        while (pQueue.size() > 1) {
+            int x = pQueue.poll();
+            int y = pQueue.poll();
+
+            int newWeight = Math.abs(y - x);
+            if (newWeight > 0) {
+                pQueue.add(newWeight);
+
+            }
+        }
+        if (!pQueue.isEmpty()) {
+            return pQueue.peek();
+        }
+
+        return 0;
+
+    }
+
+    public static int[][] kClosest(int[][] points, int k) {
+        int[][] ans = new int[k][];
+        PriorityQueue<int[]> pQueue = new PriorityQueue<>(
+                (a, b) -> Integer.compare((a[0] * a[0]) + (a[1] * a[1]), (b[0] * b[0]) + (b[1] * b[1])));
+        for (int i = 0; i < points.length; i++) {
+            pQueue.add(points[i]);
+        }
+
+        for (int i = 0; i < k; i++) {
+            ans[i] = pQueue.poll();
+        }
+
+        return ans;
+
+    }
+
+    public static int findKthLargest(int[] nums, int k) {
+        PriorityQueue<Integer> pQueue = new PriorityQueue<>(Collections.reverseOrder());
+        Arrays.stream(nums).forEach(pQueue::add);
+        int ans = 0;
+        for (int i = 0; i < k; i++) {
+            ans = pQueue.poll();
+        }
+
+        return ans;
+    }
+
+    public static int numIslands(char[][] grid) {
+        int count = 0;
+        int[][] visit = new int[grid.length][grid[0].length];
+        for (int r = 0; r < grid.length; r++) {
+            for (int c = 0; c < grid[0].length; c++) {
+                if (grid[r][c] == '1' && visit[r][c] == 0) {
+                    numberIslandDfsHelper(grid, r, c, visit);
+                    count++;
+                }
+            }
+        }
+        return count;
+
+    }
+
+    public static void numberIslandDfsHelper(char[][] grid, int r, int c, int[][] visit) {
+        int row = grid.length;
+        int col = grid[0].length;
+
+        if ((r < 0 || c < 0) || (r >= row || c >= col) || grid[r][c] == '0' || visit[r][c] == 1) {
+            return;
+        }
+        // once visited, we would not be visiting it again
+        visit[r][c] = 1;
+        numberIslandDfsHelper(grid, r + 1, c, visit);
+        numberIslandDfsHelper(grid, r - 1, c, visit);
+        numberIslandDfsHelper(grid, r, c + 1, visit);
+        numberIslandDfsHelper(grid, r, c - 1, visit);
+    }
+
+    public static List<List<Integer>> pacificAtlantic(int[][] heights) {
+        List<List<Integer>> result = new ArrayList<>();
+        int row = heights.length;
+        int col = heights[0].length;
+        Queue<int[]> pacificQueue = new LinkedList<>();
+        Queue<int[]> atlanticQueue = new LinkedList<>();
+        boolean[][] pacificVisited = new boolean[row][col];
+        boolean[][] atlanticVisited = new boolean[row][col];
+
+        /*
+         * add border of pacific to pacificQueue and initialize it to be visited, same
+         * for atlantic queue
+         */
+        for (int r = 0; r < row; r++) {
+            pacificQueue.add(new int[]{r, 0});
+            atlanticQueue.add(new int[]{r, col - 1});
+            pacificVisited[r][0] = true;
+            atlanticVisited[r][col - 1] = true;
+        }
+
+        for (int c = 0; c < col; c++) {
+            pacificQueue.add(new int[]{0, c});
+            atlanticQueue.add(new int[]{row - 1, c});
+            pacificVisited[0][c] = true;
+            atlanticVisited[row - 1][c] = true;
+        }
+
+        findMaxTowardsOceanBfs(heights, pacificQueue, pacificVisited);
+        findMaxTowardsOceanBfs(heights, atlanticQueue, atlanticVisited);
+
+        for (int r = 0; r < row; r++) {
+            for (int c = 0; c < col; c++) {
+                if (pacificVisited[r][c] && atlanticVisited[r][c]) {
+                    List<Integer> list = new ArrayList<>();
+                    list.add(r);
+                    list.add(c);
+                    result.add(list);
+                }
+            }
+        }
+
+        return result;
+
+    }
+
+    private static void findMaxTowardsOceanBfs(int[][] heights, Queue<int[]> q, boolean[][] visited) {
+        int row = visited.length;
+        int col = visited[0].length;
+        int[][] directions = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+        while (!q.isEmpty()) {
+            int[] cur = q.remove();
+            for (int[] d : directions) {
+                int rr = d[0] + cur[0];
+                int cc = d[1] + cur[1];
+
+                if (rr < row && rr >= 0 && cc < col && cc >= 0 &&
+                        !visited[rr][cc] && heights[rr][cc] >= heights[cur[0]][cur[1]]) {
+                    q.add(new int[]{rr, cc});
+                    visited[rr][cc] = true;
+                }
+            }
+
+        }
+
+    }
+
+    public static String alienOrder(String[] words) {
+        Map<Character,List<Character>> graph = new HashMap<>();
+        Map<Character,Integer> indegree = new HashMap<>();
+
+        for (String word : words) {
+            for (Character w : word.toCharArray()) {
+                graph.putIfAbsent(w, new ArrayList<Character>());
+                indegree.putIfAbsent(w, 0);
+            }
+        }
+
+        for (int i = 0; i < words.length - 1; i++) {
+            String parent = words[i];
+            String child = words[i + 1];
+
+            if (parent.length() > child.length() && parent.startsWith(child)) {
+                return "";
+            }
+
+            for (int j = 0; j < Math.min(parent.length(), child.length()); j++) {
+                Character p = parent.charAt(j);
+                Character c = child.charAt(j);
+                if (p != c) {
+                    graph.get(p).add(c);
+                    indegree.put(c, indegree.get(c) + 1);
+                    break;
+                }
+            }
+
+        }
+
+        Queue<Character> queue = new LinkedList<>();
+        for (Character c : indegree.keySet()) {
+            if (indegree.get(c) == 0) {
+                queue.offer(c);
+            }
+        }
+
+        StringBuilder s = new StringBuilder();
+        while (!queue.isEmpty()) {
+            Character c = queue.poll();
+            s.append(c);
+
+            for (Character neighbour : graph.get(c)) {
+                indegree.put(neighbour, indegree.get(neighbour) - 1);
+                if (indegree.get(neighbour) == 0) {
+                    queue.offer(neighbour);
+                }
+            }
+        }
+
+        String result = s.toString();
+        if (s.length() < indegree.size()) {
+            return "";
+        }
+
+        return result;
+    }
+
+    public static List<Integer> findMinHeightTrees(int n, int[][] edges) {
+        if (n == 1) {
+            return Collections.singletonList(0);
+        }
+        List<Set<Integer>> graph = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            graph.add(new HashSet<>());
+        }
+
+        /* initialize an undirected graph */
+        for (int i = 0; i < edges.length; i++) {
+            int[] edge = edges[i];
+            graph.get(edge[0]).add(edge[1]);
+            graph.get(edge[1]).add(edge[0]);
+        }
+
+        List<Integer> leaves = new ArrayList<>();
+        for (int i = 0; i < graph.size(); i++) {
+            if (graph.get(i).size() == 1) {
+                leaves.add(i);
+            }
+        }
+
+        //remove leave nodes from the graph
+        while (n > 2) {
+            n = n - leaves.size();
+            List<Integer> newLeaves = new ArrayList<>();
+            for (int leaf : leaves) {
+                //you can do this, remember the leaves contain only one leaf node
+                int neigh = graph.get(leaf).iterator().next();
+                graph.get(neigh).remove(leaf);
+                //when the leaf node has been reduced to one, add it to a new Leaves
+                if (graph.get(neigh).size() == 1) {
+                    newLeaves.add(neigh);
+                }
+            }
+
+            leaves = newLeaves;
+        }
+
+        return leaves;
+    }
+
+    public static int longestIncreasingPath(int[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int[][] cache = new int[m][n];
+        int ans = 0;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                ans = Math.max(ans, dfsIncreasingPath(matrix, cache, i, j));
+
+            }
+        }
+        return ans;
+    }
+
+    private static int dfsIncreasingPath(int[][] matrix, int[][] cache, int m, int n) {
+        if (cache[m][n] != 0) {
+            return cache[m][n];
+        }
+        int[][] directions = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
+        int ans = 0;
+        for (int[] d : directions) {
+            int x = d[0] + m;
+            int y = d[1] + n;
+
+            if (x >= 0 && x < matrix.length &&
+                    y >= 0 && y < matrix[0].length &&
+                    matrix[x][y] > matrix[m][n]) {
+                cache[m][n] = Math.max(cache[m][n], dfsIncreasingPath(matrix, cache, x, y));
+            }
+
+        }
+
+        return ++cache[m][n];
+    }
+
+    public static int longestIncreasingPathII(int[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int result = 0;
+
+        int[][] directions = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
+
+        Map<Integer,List<int[]>> graph = new HashMap<>();
+        int[][] indegree = new int[m][n];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                graph.putIfAbsent((i * m) + j, new ArrayList<>());
+                for (int[] d : directions) {
+                    int x = d[0] + i;
+                    int y = d[1] + j;
+                    if (x >= 0 && x < matrix.length && y >= 0 && y < matrix[0].length && matrix[x][y] > matrix[i][j]) {
+                        graph.get((i * m) + j).add(new int[]{x, y});
+                        indegree[x][y]++;
+                    }
+                }
+
+            }
+        }
+
+        Queue<int[]> queue = new LinkedList<>();
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (indegree[i][j] == 0) {
+                    queue.offer(new int[]{i, j});
+                }
+            }
+        }
+
+        while (!queue.isEmpty()) {
+            int k = queue.size();
+            result++;
+            for (int i = 0; i < k; i++) {
+                int[] cur = queue.poll();
+                int r = cur[0];
+                int c = cur[1];
+                for (int[] neigh : graph.get((r * m) + c)) {
+                    int row = neigh[0];
+                    int col = neigh[1];
+                    indegree[row][col]--;
+                    if (indegree[row][col] == 0) {
+                        queue.offer(new int[]{row, col});
+                    }
+                }
+            }
+
+        }
+
+        return result;
+
+    }
+
+    /**
+     * this is a typical dynamic programming questiuoin that uses recurrence
+     * relation
+     * learn recurrence relation and you can unlock the key to understanding dynamic
+     * programming
+     */
+    public static int rob(int[] nums) {
+
+        int firstRob = 0;
+        int secondRob = 0;
+        // [firstRob, secondRob, n, n+1]
+        for (int i = 0; i < nums.length; i++) {
+            int temp = Math.max(firstRob + nums[i], secondRob);
+            firstRob = secondRob;
+            secondRob = temp;
+        }
+
+        return Math.max(firstRob, secondRob);
+    }
+    /*
+     * use dfs and backtracking technique, for bfs technique check
+     * neecode_150.BasicAlgo.java
+     */
+
+    public static int fibRecurrenceRelation(int n) {
+        if (n <= 1) {
+            return n;
+        }
+
+        int[] dp = {0, 1};
+        for (int i = 2; i <= n; ++i) {
+            int temp = dp[1];
+            dp[1] = dp[0] + dp[1];
+            dp[0] = temp;
+        }
+
+        return dp[1];
+    }
+
+    public static int factorial(int n, int k) {
+        /*
+         * nCk = n! /(k! * (n -k)!)
+         */
+        if (k < 0 || k > n) {
+            return 0;
+        }
+
+        int fN = getFactorial(n);
+
+        int fK = getFactorial(k);
+
+        int fNK = getFactorial(n - k);
+        return fN / (fK * fNK);
+    }
+
+    public static int getFactorial(int num) {
+        int res = 1;
+        if (num == 0) {
+            return res;
+        }
+        for (int i = 1; i <= num; i++) {
+            res = res * i;
+        }
+
+        return res;
+    }
+
+    /**
+     * rearrange array ar a1<a2>a3<a4
+     */
+
+    public static void rearrange(int[] nums) {
+        Arrays.sort(nums);
+
+        for (int i = 1; i < nums.length - 1; i += 2) {
+            swapIndex(nums, i, i + 1);
+        }
+    }
+
+    private static void swapIndex(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+
+    }
+
+    public static int[] findRedundantConnection(int[][] edges) {
+        UnionFind graph = new UnionFind(edges.length);
+        int[] res = null;
+        for (int[] arr : edges) {
+            if (!graph.union(arr[0], arr[1])) {
+                res = arr;
+            }
+        }
+
+        return res;
+    }
+
+    public static List<List<String>> accountsMerge(List<List<String>> accounts) {
+        HashMap<String,Integer> emailToId = new HashMap<>();
+        HashMap<String,String> emailToName = new HashMap<>();
+        int uniqEmailCount = 0;
+        for (List<String> account : accounts) {
+            String name = account.get(0);
+            for (int i = 1; i < account.size(); i++) {
+                String email = account.get(i);
+                if (!emailToId.containsKey(email)) {
+                    emailToId.put(email, uniqEmailCount++);
+                    emailToName.put(email, name);
+
+                }
+            }
+        }
+
+        UnionFind uf = new UnionFind(uniqEmailCount);
+        for (List<String> account : accounts) {
+            int firstEmailIndex = emailToId.get(account.get(1));
+            for (int i = 2; i < account.size(); i++) {
+                int emailIndexInGroup = emailToId.get(account.get(i));
+                uf.union(firstEmailIndex, emailIndexInGroup);
+
+            }
+        }
+
+        HashMap<Integer,List<String>> IdToEmails = new HashMap<>();
+        for (String email : emailToId.keySet()) {
+            int idEmail = emailToId.get(email);
+            int index = uf.findRoot(idEmail);
+            IdToEmails.computeIfAbsent(index, x -> new ArrayList<>()).add(email);
+        }
+
+        List<List<String>> mergedList = new ArrayList<>();
+        for (List<String> emailList : IdToEmails.values()) {
+            Collections.sort(emailList);
+            String name = emailToName.get(emailList.get(0));
+            List<String> account = new ArrayList<>();
+            account.add(name);
+            account.addAll(emailList);
+            mergedList.add(account);
+        }
+
+        return mergedList;
+
+    }
+
+    public static int countComponents(int n, int[][] edges) {
+        UnionFind uf = new UnionFind(n);
+        for (int[] edge : edges) {
+            uf.union(edge[0], edge[1]);
+        }
+
+        Set<Integer> set = new HashSet<>();
+        for (int i = 0; i < n; i++) {
+            int root = uf.findRoot(i);
+            set.add(root);
+        }
+
+        return set.size();
+
+    }
+
+    public boolean containsDuplicate(int[] nums) {
+        Set<Integer> set = new HashSet<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (set.contains(Integer.valueOf(nums[i]))) {
+                return true;
+            } else {
+                set.add(nums[i]);
+
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * This algorithm uses a bucket sort technique
+     */
+    public void sortColors(int[] nums) {
+        // elements are between 0 1, 2
+        int[] colorTypes = {0, 0, 0};
+        for (int i = 0; i < nums.length; i++) {
+            colorTypes[nums[i]]++;
+        }
+
+        int i = 0;
+        for (int j = 0; j < colorTypes.length; j++) {
+            int k = 0;
+            while (k < colorTypes[j]) {
+                nums[i] = j;
+                k++;
+                i++;
+            }
+        }
+    }
+
+    public boolean searchMatrix(int[][] matrix, int target) {
+        int[] arr = Arrays.stream(matrix)
+                .flatMapToInt(x -> Arrays.stream(x)).toArray();
+        int l = 0;
+        int r = arr.length - 1;
+
+        while (l <= r) {
+            int mid = l + (r - l) / 2;
+            if (target > arr[mid]) {
+                l = mid + 1;
+            } else if (target < arr[mid]) {
+                r = mid - 1;
+            } else {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> ans = new ArrayList<>();
+        if (root == null) {
+            return ans;
+        }
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+
+        while (!queue.isEmpty()) {
+            List<Integer> list = new ArrayList<>();
+            int len = queue.size();
+            for (int i = 0; i < len; i++) {
+                TreeNode current = queue.remove();
+                list.add(current.val);
+                if (current.left != null) {
+                    queue.add(current.left);
+                }
+
+                if (current.right != null) {
+                    queue.add(current.right);
+                }
+            }
+
+            ans.add(list);
+        }
+
+        return ans;
+    }
+
+    public static class Encoder {
+        // Encodes a list of strings to a single string.
+        public String encode(List<String> strs) {
+            StringBuilder builder = new StringBuilder();
+            for (String s : strs) {
+                builder.append(String.valueOf(s.length()) + "#" + s);
+            }
+            return builder.toString();
+        }
+
+        // Decodes a single string to a list of strings.
+        public List<String> decode(String s) {
+            List<String> res = new ArrayList<>();
+            int i = 0;
+            while (i < s.length()) {
+                int j = i;
+                while (s.charAt(j) != '#') {
+                    j++;
+                }
+                int len = Integer.valueOf(s.substring(i, j));
+                String word = s.substring(j + 1, j + len + 1);
+                res.add(word);
+                i = j + 1 + 1 + len;
+
+            }
+
+            return res;
+        }
+    }
+
+    public static class MinStack {
+        private Stack<Integer> arr;
+        private Stack<Integer> minArr;
+
+        public MinStack() {
+            arr = new Stack<>();
+            minArr = new Stack<>();
+        }
+
+        public void push(int val) {
+            arr.push(val);
+            int minimum = val;
+            if (!minArr.isEmpty()) {
+                minimum = Math.min(val, minArr.peek());
+            }
+            minArr.push(minimum);
+        }
+
+        public void pop() {
+            arr.pop();
+            minArr.pop();
+        }
+
+        public int getMin() {
+            return minArr.peek();
+        }
+    }
+
+    public static class MyStack {
+        private Deque<Integer> firstQueue;
+        private Deque<Integer> secondQueue;
+        private int count;
+        private boolean isPeek = false;
+
+        public MyStack() {
+            firstQueue = new LinkedList<>();
+            secondQueue = new LinkedList<>();
+            count = 0;
+        }
+
+        public void push(int x) {
+            firstQueue.add(x);
+            count++;
+        }
+
+        public int pop() {
+            if (!firstQueue.isEmpty()) {
+                while (!firstQueue.isEmpty()) {
+                    secondQueue.addFirst(firstQueue.remove());
+
+                }
+            }
+
+            if (!secondQueue.isEmpty()) {
+                if (isPeek) {
+                    isPeek = false;
+                    return secondQueue.peek();
+                } else {
+                    isPeek = false;
+                    count--;
+                    return secondQueue.remove();
+                }
+            }
+
+            return -1;
+        }
+
+        public int top() {
+            isPeek = true;
+            return pop();
+        }
+
+        public boolean empty() {
+            if (count > 0) {
+                return false;
+            }
+
+            return true;
+        }
 
     }
 
@@ -2023,55 +2510,6 @@ public class NeetCode {
 
     }
 
-    public static int lastStoneWeight(int[] stones) {
-        PriorityQueue<Integer> pQueue = new PriorityQueue<>(Collections.reverseOrder());
-        Arrays.stream(stones).forEach(pQueue::add);
-
-        while (pQueue.size() > 1) {
-            int x = pQueue.poll();
-            int y = pQueue.poll();
-
-            int newWeight = Math.abs(y - x);
-            if (newWeight > 0) {
-                pQueue.add(newWeight);
-
-            }
-        }
-        if (pQueue.size() > 0) {
-            return pQueue.peek();
-        }
-
-        return 0;
-
-    }
-
-    public static int[][] kClosest(int[][] points, int k) {
-        int[][] ans = new int[k][];
-        PriorityQueue<int[]> pQueue = new PriorityQueue<>(
-                (a, b) -> Integer.compare((a[0] * a[0]) + (a[1] * a[1]), (b[0] * b[0]) + (b[1] * b[1])));
-        for (int i = 0; i < points.length; i++) {
-            pQueue.add(points[i]);
-        }
-
-        for (int i = 0; i < k; i++) {
-            ans[i] = pQueue.poll();
-        }
-
-        return ans;
-
-    }
-
-    public static int findKthLargest(int[] nums, int k) {
-        PriorityQueue<Integer> pQueue = new PriorityQueue<>(Collections.reverseOrder());
-        Arrays.stream(nums).forEach(pQueue::add);
-        int ans = 0;
-        for (int i = 0; i < k; i++) {
-            ans = pQueue.poll();
-        }
-
-        return ans;
-    }
-
     /**
      * This LRU cache us not optimized the placeInfrontOfStack method uses o(n),
      * it can be optimized using double linkedlist, created a LinkNode
@@ -2080,7 +2518,7 @@ public class NeetCode {
     public static class LRUCache {
 
         private Deque<Integer> stack;
-        private HashMap<Integer, Integer> map;
+        private HashMap<Integer,Integer> map;
         private int capacity;
 
         public LRUCache(int capacity) {
@@ -2132,61 +2570,18 @@ public class NeetCode {
         }
     }
 
+    /*
+     * create a graph and perform a dfs traversal
+     */
+
     public static class LRUCacheII {
-
-        public static class Node {
-            private int key;
-            private int val;
-            private Node prev;
-            private Node next;
-
-            public Node(int key, int val) {
-                this.key = key;
-                this.val = val;
-                this.prev = null;
-                this.next = null;
-            }
-
-            @Override
-            public int hashCode() {
-                final int prime = 31;
-                int result = 1 * prime;
-                result = prime * result + (prev == null ? 0 : prev.hashCode());
-                result = prime * result + (next == null ? 0 : next.hashCode());
-                result = prime * result + key;
-                result = prime * result + val;
-                return result;
-            }
-
-            @Override
-            public boolean equals(Object obj) {
-                if (this == obj)
-                    return true;
-                if (obj == null)
-                    return false;
-                if (this.getClass() != obj.getClass())
-                    return false;
-                Node castNode = (Node) obj;
-                if (prev == null) {
-                    if (castNode.prev != null)
-                        return false;
-
-                } else if (!prev.equals(castNode.prev))
-                    return false;
-
-                /** continue the pattern */
-                return true;
-            }
-
-        }
 
         /* this give the less recently used Node */
         private Node left;
         /* this gives the most recently used Node */
         private Node right;
         private int capacity;
-        private HashMap<Integer, Node> map;
-
+        private HashMap<Integer,Node> map;
         public LRUCacheII(int capacity) {
             this.left = new Node(0, 0);
             this.right = new Node(0, 0);
@@ -2240,62 +2635,55 @@ public class NeetCode {
             }
         }
 
-    }
-    /*
-     * use dfs and backtracking technique, for bfs technique check
-     * neecode_150.BasicAlgo.java
-     */
+        public static class Node {
+            private int key;
+            private int val;
+            private Node prev;
+            private Node next;
 
-    public static int numIslands(char[][] grid) {
-        int count = 0;
-        int[][] visit = new int[grid.length][grid[0].length];
-        for (int r = 0; r < grid.length; r++) {
-            for (int c = 0; c < grid[0].length; c++) {
-                if (grid[r][c] == '1' && visit[r][c] == 0) {
-                    numberIslandDfsHelper(grid, r, c, visit);
-                    count++;
-                }
+            public Node(int key, int val) {
+                this.key = key;
+                this.val = val;
+                this.prev = null;
+                this.next = null;
             }
+
+            @Override
+            public int hashCode() {
+                final int prime = 31;
+                int result = 1 * prime;
+                result = prime * result + (prev == null ? 0 : prev.hashCode());
+                result = prime * result + (next == null ? 0 : next.hashCode());
+                result = prime * result + key;
+                result = prime * result + val;
+                return result;
+            }
+
+            @Override
+            public boolean equals(Object obj) {
+                if (this == obj)
+                    return true;
+                if (obj == null)
+                    return false;
+                if (this.getClass() != obj.getClass())
+                    return false;
+                Node castNode = (Node) obj;
+                if (prev == null) {
+                    if (castNode.prev != null)
+                        return false;
+
+                } else if (!prev.equals(castNode.prev))
+                    return false;
+
+                /** continue the pattern */
+                return true;
+            }
+
         }
-        return count;
 
-    }
-
-    public static void numberIslandDfsHelper(char[][] grid, int r, int c, int[][] visit) {
-        int row = grid.length;
-        int col = grid[0].length;
-
-        if ((r < 0 || c < 0) || (r >= row || c >= col) || grid[r][c] == '0' || visit[r][c] == 1) {
-            return;
-        }
-        // once visited, we would not be visiting it again
-        visit[r][c] = 1;
-        numberIslandDfsHelper(grid, r + 1, c, visit);
-        numberIslandDfsHelper(grid, r - 1, c, visit);
-        numberIslandDfsHelper(grid, r, c + 1, visit);
-        numberIslandDfsHelper(grid, r, c - 1, visit);
     }
 
     public static class GraphMaxArea {
-
-        public static class Point {
-            private int r;
-            private int c;
-            private int l;
-            private boolean visited = false;
-            private boolean isWaterEscaped = false;
-
-            public Point(int row, int col, int len) {
-                this.r = row;
-                this.c = col;
-                this.l = len;
-            }
-
-            public Point(boolean visited, boolean isWaterEscaped) {
-                this.visited = visited;
-                this.isWaterEscaped = isWaterEscaped;
-            }
-        }
 
         public static int maxAreaOfIsland(int[][] grid) {
             int maximum = 0;
@@ -2322,7 +2710,7 @@ public class NeetCode {
             queue.add(p);
             while (!queue.isEmpty()) {
                 Point x = queue.remove();
-                int[][] directions = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
+                int[][] directions = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
                 for (int[] d : directions) {
                     int rr = x.r + d[0];
                     int cc = x.c + d[1];
@@ -2367,9 +2755,9 @@ public class NeetCode {
                     return x.l;
                 }
 
-                int[][] directions = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 },
-                        { 1, 1 }, { -1, -1 }, { 1, -1 },
-                        { -1, 1 } };
+                int[][] directions = {{1, 0}, {-1, 0}, {0, 1}, {0, -1},
+                        {1, 1}, {-1, -1}, {1, -1},
+                        {-1, 1}};
                 for (int[] d : directions) {
                     int rr = x.r + d[0];
                     int cc = x.c + d[1];
@@ -2408,7 +2796,7 @@ public class NeetCode {
                     }
                 }
             }
-            int[][] directions = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
+            int[][] directions = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
             while (!queue.isEmpty() && freshOranges > 0) {
                 times++;
                 int len = queue.size();
@@ -2433,74 +2821,26 @@ public class NeetCode {
             return -1;
         }
 
-    }
+        public static class Point {
+            private int r;
+            private int c;
+            private int l;
+            private boolean visited = false;
+            private boolean isWaterEscaped = false;
 
-    public static List<List<Integer>> pacificAtlantic(int[][] heights) {
-        List<List<Integer>> result = new ArrayList<>();
-        int row = heights.length;
-        int col = heights[0].length;
-        Queue<int[]> pacificQueue = new LinkedList<>();
-        Queue<int[]> atlanticQueue = new LinkedList<>();
-        boolean[][] pacificVisited = new boolean[row][col];
-        boolean[][] atlanticVisited = new boolean[row][col];
+            public Point(int row, int col, int len) {
+                this.r = row;
+                this.c = col;
+                this.l = len;
+            }
 
-        /*
-         * add border of pacific to pacificQueue and initialize it to be visited, same
-         * for atlantic queue
-         */
-        for (int r = 0; r < row; r++) {
-            pacificQueue.add(new int[] { r, 0 });
-            atlanticQueue.add(new int[] { r, col - 1 });
-            pacificVisited[r][0] = true;
-            atlanticVisited[r][col - 1] = true;
-        }
-
-        for (int c = 0; c < col; c++) {
-            pacificQueue.add(new int[] { 0, c });
-            atlanticQueue.add(new int[] { row - 1, c });
-            pacificVisited[0][c] = true;
-            atlanticVisited[row - 1][c] = true;
-        }
-
-        findMaxTowardsOceanBfs(heights, pacificQueue, pacificVisited);
-        findMaxTowardsOceanBfs(heights, atlanticQueue, atlanticVisited);
-
-        for (int r = 0; r < row; r++) {
-            for (int c = 0; c < col; c++) {
-                if (pacificVisited[r][c] && atlanticVisited[r][c]) {
-                    List<Integer> list = new ArrayList<>();
-                    list.add(r);
-                    list.add(c);
-                    result.add(list);
-                }
+            public Point(boolean visited, boolean isWaterEscaped) {
+                this.visited = visited;
+                this.isWaterEscaped = isWaterEscaped;
             }
         }
 
-        return result;
-
     }
-
-    private static void findMaxTowardsOceanBfs(int[][] heights, Queue<int[]> q, boolean[][] visited) {
-        int row = visited.length;
-        int col = visited[0].length;
-        int[][] directions = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
-        while (!q.isEmpty()) {
-            int[] cur = q.remove();
-            for (int[] d : directions) {
-                int rr = d[0] + cur[0];
-                int cc = d[1] + cur[1];
-
-                if (rr < row && rr >= 0 && cc < col && cc >= 0 &&
-                        !visited[rr][cc] && heights[rr][cc] >= heights[cur[0]][cur[1]]) {
-                    q.add(new int[] { rr, cc });
-                    visited[rr][cc] = true;
-                }
-            }
-
-        }
-
-    }
-
 
     public static class Node {
         public int val;
@@ -2516,37 +2856,9 @@ public class NeetCode {
             neighbors = new ArrayList<Node>();
         }
 
-        public Node(int _val, ArrayList<Node> _neighbors) {
-            val = _val;
-            neighbors = _neighbors;
-        }
-
-        public Node cloneGraph(Node node) {
-            HashMap<Node, Node> map = new HashMap<>();
-
-            if (node == null) {
-                return null;
-            }
-            return cloneDfs(node, map);
-        }
-
-        /** fully undertsand this problem */
-
-        public Node cloneDfs(Node oldNode, HashMap<Node, Node> map) {
-            Node newNode;
-            if (map.containsKey(oldNode)) {
-                return map.get(oldNode);
-            } else {
-                newNode = new Node(oldNode.val);
-                map.put(oldNode, newNode);
-            }
-
-            for (Node childNode : oldNode.neighbors) {
-                Node node = cloneDfs(childNode, map);
-                newNode.neighbors.add(node);
-            }
-
-            return newNode;
+        public Node(int val, ArrayList<Node> neighbors) {
+            this.val = val;
+            this.neighbors = neighbors;
         }
 
         /**
@@ -2554,8 +2866,8 @@ public class NeetCode {
          * where the key is the node and value is a list containing
          * it's neighbours (vertex)
          */
-        public static HashMap<String, List<String>> buildGraph(String[][] arrs) {
-            HashMap<String, List<String>> map = new HashMap<>();
+        public static HashMap<String,List<String>> buildGraph(String[][] arrs) {
+            HashMap<String,List<String>> map = new HashMap<>();
             for (String[] arr : arrs) {
                 if (!map.containsKey(arr[0])) {
                     List<String> neighbours = new ArrayList<>();
@@ -2576,12 +2888,12 @@ public class NeetCode {
         /**
          * using dfs we can find the count between start and end
          */
-        public static int countToDestination(HashMap<String, List<String>> map, String start, String end) {
+        public static int countToDestination(HashMap<String,List<String>> map, String start, String end) {
             HashSet<String> visited = new HashSet<>();
             return countToDestinationBfs(map, start, end);
         }
 
-        private static int countToDestinationBfs(HashMap<String, List<String>> map, String start, String end) {
+        private static int countToDestinationBfs(HashMap<String,List<String>> map, String start, String end) {
             int count = 0;
             Queue<String> queue = new LinkedList<>();
             HashSet<String> visit = new HashSet<>();
@@ -2729,317 +3041,36 @@ public class NeetCode {
             return empty;
         }
 
-    }
+        public Node cloneGraph(Node node) {
+            HashMap<Node,Node> map = new HashMap<>();
 
-    public static String alienOrder(String[] words) {
-        Map<Character, List<Character>> graph = new HashMap<>();
-        Map<Character, Integer> indegree = new HashMap<>();
-
-        for (String word : words) {
-            for (Character w : word.toCharArray()) {
-                graph.putIfAbsent(w, new ArrayList<Character>());
-                indegree.putIfAbsent(w, 0);
+            if (node == null) {
+                return null;
             }
+            return cloneDfs(node, map);
         }
 
-        for (int i = 0; i < words.length - 1; i++) {
-            String parent = words[i];
-            String child = words[i + 1];
-
-            if (parent.length() > child.length() && parent.startsWith(child)) {
-                return "";
-            }
-
-            for (int j = 0; j < Math.min(parent.length(), child.length()); j++) {
-                Character p = parent.charAt(j);
-                Character c = child.charAt(j);
-                if (p != c) {
-                    graph.get(p).add(c);
-                    indegree.put(c, indegree.get(c) + 1);
-                    break;
-                }
-            }
-
-        }
-
-        Queue<Character> queue = new LinkedList<>();
-        for (Character c : indegree.keySet()) {
-            if (indegree.get(c) == 0) {
-                queue.offer(c);
-            }
-        }
-
-        StringBuilder s = new StringBuilder();
-        while (!queue.isEmpty()) {
-            Character c = queue.poll();
-            s.append(c);
-
-            for (Character neighbour : graph.get(c)) {
-                indegree.put(neighbour, indegree.get(neighbour) - 1);
-                if (indegree.get(neighbour) == 0) {
-                    queue.offer(neighbour);
-                }
-            }
-        }
-
-        String result = s.toString();
-        if (s.length() < indegree.size()) {
-            return "";
-        }
-
-        return result;
-    }
-
-    public static List<Integer> findMinHeightTrees(int n, int[][] edges) {
-        if (n == 1) {
-            return Collections.singletonList(0);
-        }
-        List<Set<Integer>> graph = new ArrayList<>();
-        for (int i = 0; i < n; i++) {
-           graph.add(new HashSet<>());
-        }
-        
-        /* initialize an undirected graph */
-        for (int i = 0; i < edges.length; i++) {
-            int[] edge = edges[i];
-            graph.get(edge[0]).add(edge[1]);
-            graph.get(edge[1]).add(edge[0]);
-        }
-        
-        List<Integer> leaves = new ArrayList<>();
-        for (int i = 0; i < graph.size(); i++) {
-            if (graph.get(i).size() == 1) {
-               leaves.add(i);
-            }
-        }
-        
-        //remove leave nodes from the graph
-        while (n > 2) {
-            n = n - leaves.size();
-            List<Integer> newLeaves = new ArrayList<>();
-            for (int leaf : leaves) {
-                //you can do this, remember the leaves contain only one leaf node
-                int neigh = graph.get(leaf).iterator().next();
-                graph.get(neigh).remove(leaf);
-                //when the leaf node has been reduced to one, add it to a new Leaves
-                if (graph.get(neigh).size() == 1) {
-                    newLeaves.add(neigh);
-                }
-            }
-
-            leaves = newLeaves;
-        }
-
-        return leaves;                           
-    }
-
-    public static int longestIncreasingPath(int[][] matrix) {
-        int m = matrix.length;
-        int n = matrix[0].length;
-        int[][] cache = new int[m][n];
-        int ans = 0;
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                ans = Math.max(ans, dfsIncreasingPath(matrix, cache, i,j));
-            
-            }
-        }
-        return ans;
-    }
-
-    private static int dfsIncreasingPath(int[][] matrix, int[][] cache, int m, int n) {
-        if (cache[m][n] != 0) {
-            return cache[m][n];
-        }
-        int[][] directions = { { 1, 0 }, { 0, 1 }, { -1, 0 }, { 0, -1 } };
-        int ans = 0;
-        for (int[] d : directions) {
-            int x = d[0] + m;
-            int y = d[1] + n;
-
-            if (x >= 0 && x < matrix.length &&
-                    y >= 0 && y < matrix[0].length &&
-                    matrix[x][y] > matrix[m][n]) {
-                        cache[m][n] = Math.max(cache[m][n], dfsIncreasingPath(matrix, cache, x, y));
-            }
-
-        }
-
-        return ++cache[m][n];
-    }
-
-    public static int longestIncreasingPathII(int[][] matrix) {
-        int m = matrix.length;
-        int n = matrix[0].length;
-        int result = 0;
-
-        int[][] directions = { { 1, 0 }, { 0, 1 }, { -1, 0 }, { 0, -1 } };
-
-        Map<Integer, List<int[]>> graph = new HashMap<>();
-        int[][] indegree = new int[m][n];
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                graph.putIfAbsent((i * m) + j, new ArrayList<>());
-                for (int[] d : directions) {
-                    int x = d[0] + i;
-                    int y = d[1] + j;
-                    if (x >= 0 && x < matrix.length && y >= 0 && y < matrix[0].length && matrix[x][y] > matrix[i][j]) {
-                        graph.get((i * m) + j).add(new int[] { x, y });
-                        indegree[x][y]++;
-                    }
-                }
-
-            }
-        }
-
-        Queue<int[]> queue = new LinkedList<>();
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (indegree[i][j] == 0) {
-                    queue.offer(new int[] { i, j });
-                }
-            }
-        }
-
-        while (!queue.isEmpty()) {
-            int k = queue.size();
-            result++;
-            for (int i = 0; i < k; i++) {
-                int[] cur = queue.poll();
-                int r = cur[0];
-                int c = cur[1];
-                for (int[] neigh : graph.get((r * m) + c)) {
-                    int row = neigh[0];
-                    int col = neigh[1];
-                    indegree[row][col]--;
-                    if (indegree[row][col] == 0) {
-                        queue.offer(new int[] { row, col });
-                    }
-                }
-            }
-
-        }
-
-        return result;
-
-    }
-
-    /**
-     * this is a typical dynamic programming questiuoin that uses recurrence
-     * relation
-     * learn recurrence relation and you can unlock the key to understanding dynamic
-     * programming
-     */
-    public static int rob(int[] nums) {
-
-        int firstRob = 0;
-        int secondRob = 0;
-        // [firstRob, secondRob, n, n+1]
-        for (int i = 0; i < nums.length; i++) {
-            int temp = Math.max(firstRob + nums[i], secondRob);
-            firstRob = secondRob;
-            secondRob = temp;
-        }
-
-        return Math.max(firstRob, secondRob);
-    }
-
-    public static int fibRecurrenceRelation(int n) {
-        if (n <= 1) {
-            return n;
-        }
-
-        int[] dp = { 0, 1 };
-        for (int i = 2; i <= n; ++i) {
-            int temp = dp[1];
-            dp[1] = dp[0] + dp[1];
-            dp[0] = temp;
-        }
-
-        return dp[1];
-    }
-
-    public static int factorial(int n, int k) {
-        /*
-         * nCk = n! /(k! * (n -k)!)
+        /**
+         * fully undertsand this problem
          */
-        if (k < 0 || k > n) {
-            return 0;
-        }
 
-        int fN = getFactorial(n);
-
-        int fK = getFactorial(k);
-
-        int fNK = getFactorial(n - k);
-        return fN / (fK * fNK);
-    }
-
-    public static int getFactorial(int num) {
-        int res = 1;
-        if (num == 0) {
-            return res;
-        }
-        for (int i = 1; i <= num; i++) {
-            res = res * i;
-        }
-
-        return res;
-    }
-
-    /**
-     * rearrange array ar a1<a2>a3<a4
-     */
-
-    public static void rearrange(int[] nums) {
-        Arrays.sort(nums);
-
-        for (int i = 1; i < nums.length - 1; i += 2) {
-            swapIndex(nums, i, i + 1);
-        }
-    }
-
-    private static void swapIndex(int[] nums, int i, int j) {
-        int temp = nums[i];
-        nums[i] = nums[j];
-        nums[j] = temp;
-
-    }
-
-    /*
-     * create a graph and perform a dfs traversal
-     */
-
-    public class Graph {
-        public Integer vertex;
-        public List<Integer>[] adj;
-
-        public Graph(Integer vertex) {
-            for (int i = 0; i < vertex; i++) {
-                adj[i] = new ArrayList<Integer>();
+        public Node cloneDfs(Node oldNode, HashMap<Node,Node> map) {
+            Node newNode;
+            if (map.containsKey(oldNode)) {
+                return map.get(oldNode);
+            } else {
+                newNode = new Node(oldNode.val);
+                map.put(oldNode, newNode);
             }
-        }
 
-        public void add(int source, int dest) {
-            adj[source].add(dest);
-
-        }
-
-        public void dfs(int start) {
-            boolean[] visited = new boolean[vertex];
-            dfsTraversal(start, visited);
-        }
-
-        public void dfsTraversal(int vertex, boolean[] visited) {
-            visited[vertex] = true;
-            System.out.println(vertex + " -> ");
-
-            for (int neighbours : adj[vertex]) {
-                if (!visited[neighbours]) {
-                    dfsTraversal(neighbours, visited);
-                }
+            for (Node childNode : oldNode.neighbors) {
+                Node node = cloneDfs(childNode, map);
+                newNode.neighbors.add(node);
             }
+
+            return newNode;
         }
+
     }
 
     public static class UnionFind {
@@ -3092,79 +3123,36 @@ public class NeetCode {
 
     }
 
-    public static int[] findRedundantConnection(int[][] edges) {
-        UnionFind graph = new UnionFind(edges.length);
-        int[] res = null;
-        for (int[] arr : edges) {
-            if (!graph.union(arr[0], arr[1])) {
-                res = arr;
+    public class Graph {
+        public Integer vertex;
+        public List<Integer>[] adj;
+
+        public Graph(Integer vertex) {
+            for (int i = 0; i < vertex; i++) {
+                adj[i] = new ArrayList<Integer>();
             }
         }
 
-        return res;
-    }
+        public void add(int source, int dest) {
+            adj[source].add(dest);
 
-    public static List<List<String>> accountsMerge(List<List<String>> accounts) {
-        HashMap<String, Integer> emailToId = new HashMap<>();
-        HashMap<String, String> emailToName = new HashMap<>();
-        int uniqEmailCount = 0;
-        for (List<String> account : accounts) {
-            String name = account.get(0);
-            for (int i = 1; i < account.size(); i++) {
-                String email = account.get(i);
-                if (!emailToId.containsKey(email)) {
-                    emailToId.put(email, uniqEmailCount++);
-                    emailToName.put(email, name);
-             
+        }
+
+        public void dfs(int start) {
+            boolean[] visited = new boolean[vertex];
+            dfsTraversal(start, visited);
+        }
+
+        public void dfsTraversal(int vertex, boolean[] visited) {
+            visited[vertex] = true;
+            System.out.println(vertex + " -> ");
+
+            for (int neighbours : adj[vertex]) {
+                if (!visited[neighbours]) {
+                    dfsTraversal(neighbours, visited);
                 }
             }
         }
-
-        UnionFind uf = new UnionFind(uniqEmailCount);
-        for (List<String> account : accounts) {
-            int firstEmailIndex = emailToId.get(account.get(1));
-            for (int i = 2; i < account.size(); i++) {
-                int emailIndexInGroup = emailToId.get(account.get(i));
-                uf.union(firstEmailIndex, emailIndexInGroup);
-
-            }
-        }
-
-        HashMap<Integer, List<String>> IdToEmails = new HashMap<>();
-        for (String email : emailToId.keySet()) {
-            int idEmail = emailToId.get(email);
-            int index = uf.findRoot(idEmail);
-            IdToEmails.computeIfAbsent(index, x -> new ArrayList<>()).add(email);
-        }
-
-        List<List<String>> mergedList = new ArrayList<>();
-        for (List<String> emailList : IdToEmails.values()) {
-            Collections.sort(emailList);
-            String name = emailToName.get(emailList.get(0));
-            List<String> account = new ArrayList<>();
-            account.add(name);
-            account.addAll(emailList);
-            mergedList.add(account);
-        }
-        
-        return mergedList;
-        
-    }
-
-    public static int countComponents(int n, int[][] edges) {
-        UnionFind uf = new UnionFind(n);
-        for (int[] edge : edges) {
-            uf.union(edge[0], edge[1]);
-        }
-
-        Set<Integer> set = new HashSet<>();
-        for (int i = 0; i < n; i++) {
-            int root = uf.findRoot(i);
-            set.add(root);
-        }
-
-        return set.size();
-
     }
 
 }

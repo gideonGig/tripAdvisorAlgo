@@ -1,69 +1,12 @@
 package neecode_150;
 
-import java.math.BigDecimal;
-import java.util.*;
-
 import utilities.ListNode;
 import utilities.TreeNode;
 
+import java.math.BigDecimal;
+import java.util.*;
+
 public class BasicAlgo {
-
-    public static class MyQueue {
-        private Stack<Integer> list1;
-        private Stack<Integer> list2;
-
-        public MyQueue() {
-            list1 = new Stack();
-            list2 = new Stack();
-        }
-
-        // always append to list1 and pop from list2
-        public void append(Integer value) {
-            list1.add(value);
-        }
-
-        // efficient algorithm is using 2 stacks for Enqueue and Dequeue Operation..we
-        // wuld always pop from list2
-        // firt check that list2 is empyy, if it is empty, remove all elements from
-        // list1 to list2
-        // second always pop from list2
-        public Integer dequeue() {
-            Integer ans = -1;
-            if (list2.isEmpty()) {
-                // move all elemets from list1 to list2
-                while (!list1.isEmpty()) {
-                    list2.add(list1.pop());
-                }
-
-            }
-
-            if (!list2.isEmpty()) {
-                ans = list2.pop();
-            }
-            return ans;
-        }
-
-    }
-
-    public static class Points {
-        private Integer number1;
-        private Integer number2;
-
-        public Points(Integer number1, Integer number2) {
-            this.number1 = number1;
-            this.number2 = number2;
-        }
-    }
-
-    public static class XPoint {
-        private String val1;
-        private int val2;
-
-        public XPoint(String val1, int val2) {
-            this.val1 = val1;
-            this.val2 = val2;
-        }
-    }
 
     /**
      * >><<
@@ -284,7 +227,7 @@ public class BasicAlgo {
             Points position = queue.remove();
             Integer r = position.number1;
             Integer c = position.number2;
-            Integer[][] directions = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
+            Integer[][] directions = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
             for (Integer[] points : directions) {
                 Integer rr = r + points[0];
                 Integer cc = c + points[1];
@@ -325,7 +268,7 @@ public class BasicAlgo {
         while (!queue.isEmpty()) {
             Points p = queue.remove();
             fishCash = grid[p.number1][p.number2] + fishCash;
-            int[][] directions = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
+            int[][] directions = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
             for (int[] d : directions) {
                 int r = p.number1 + d[0];
                 int c = p.number2 + d[1];
@@ -364,11 +307,11 @@ public class BasicAlgo {
     }
 
     public static String convertIntToRoman(int number) {
-        XPoint[] maps = { new XPoint("M", 1000),
+        XPoint[] maps = {new XPoint("M", 1000),
                 new XPoint("CM", 900), new XPoint("D", 500), new XPoint("CD", 400), new XPoint("C", 100),
                 new XPoint("XC", 90), new XPoint("L", 50), new XPoint("XL", 40), new XPoint("X", 10),
                 new XPoint("IX", 9),
-                new XPoint("V", 5), new XPoint("IV", 4), new XPoint("I", 1) };
+                new XPoint("V", 5), new XPoint("IV", 4), new XPoint("I", 1)};
 
         StringBuilder ans = new StringBuilder();
         for (XPoint p : maps) {
@@ -387,7 +330,7 @@ public class BasicAlgo {
 
     public static boolean validParathensis(String str) {
         char[] strArr = str.toCharArray();
-        HashMap<Character, Character> map = new HashMap<>();
+        HashMap<Character,Character> map = new HashMap<>();
         map.put('[', ']');
         map.put('{', '}');
         map.put('(', ')');
@@ -828,7 +771,7 @@ public class BasicAlgo {
      * ListNode dummy = new ListNode(0, head);
      * ListNode prev = dummy;
      * ListNode cur = head;
-     * 
+     * <p>
      * if (cur.next != null && cur.next.val == cur.val) {
      * while (cur.next != null && cur.next.val == cur.val) {
      * cur = cur.next;
@@ -1034,30 +977,6 @@ public class BasicAlgo {
         return result;
     }
 
-    // study thgis longestValidParenthesis again, know how it works
-
-    public int longestValidParentheses(String s) {
-        if (s.isEmpty())
-            return 0;
-        Stack<Integer> stack = new Stack<>();
-        stack.push(-1);
-        Integer maxLen = 0;
-        for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) == '(') {
-                stack.push(i);
-            } else {
-                stack.pop();
-                if (stack.isEmpty()) {
-                    stack.push(i);
-                } else {
-                    int length = stack.peek();
-                    maxLen = Math.max(maxLen, length);
-                }
-            }
-        }
-        return maxLen;
-    }
-
     public static int findKthLargest(int[] nums, int k) {
         // sort the arr, using QuickSort
         nums = quickSort(nums, 0, nums.length - 1);
@@ -1090,10 +1009,151 @@ public class BasicAlgo {
         return nums;
     }
 
+    public int longestValidParentheses(String s) {
+        if (s.isEmpty())
+            return 0;
+        Stack<Integer> stack = new Stack<>();
+        stack.push(-1);
+        Integer maxLen = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '(') {
+                stack.push(i);
+            } else {
+                stack.pop();
+                if (stack.isEmpty()) {
+                    stack.push(i);
+                } else {
+                    int length = stack.peek();
+                    maxLen = Math.max(maxLen, length);
+                }
+            }
+        }
+        return maxLen;
+    }
+
+    // study thgis longestValidParenthesis again, know how it works
+
+    /**
+     * not finished yet
+     **/
+    public int leastInterval(char[] tasks, int n) {
+        HashMap<Character,Integer> map = new HashMap<>();
+        for (int i = 0; i < tasks.length; i++) {
+            Character val = Character.valueOf(tasks[i]);
+            if (map.containsValue(val)) {
+                map.put(val, map.get(val) + 1);
+            } else {
+                map.put(val, 1);
+            }
+        }
+
+        return n;
+
+    }
+
+    /* use topological sort for clarity */
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+        int visit = 0;
+        int[] result = new int[numCourses];
+        Queue<Integer> queue = new LinkedList<>();
+        int[] freq = new int[numCourses];
+        List<Integer>[] adj = new ArrayList[numCourses];
+        for (int i = 0; i < adj.length; i++) {
+            adj[i] = new ArrayList<>();
+        }
+
+        for (int[] pre : prerequisites) {
+            adj[pre[1]].add(pre[0]);
+            freq[pre[0]]++;
+        }
+
+        for (int i = 0; i < freq.length; i++) {
+            if (freq[i] == 0) {
+                queue.add(i);
+            }
+        }
+
+        while (!queue.isEmpty()) {
+            int cur = queue.poll();
+            result[visit++] = cur;
+            for (int neigh : adj[cur]) {
+                freq[neigh]--;
+                if (freq[neigh] == 0) {
+                    queue.add(neigh);
+                }
+            }
+        }
+
+        if (visit == numCourses) {
+            return result;
+
+        }
+
+        result = new int[0];
+        return result;
+    }
+
+    public static class MyQueue {
+        private Stack<Integer> list1;
+        private Stack<Integer> list2;
+
+        public MyQueue() {
+            list1 = new Stack();
+            list2 = new Stack();
+        }
+
+        // always append to list1 and pop from list2
+        public void append(Integer value) {
+            list1.add(value);
+        }
+
+        // efficient algorithm is using 2 stacks for Enqueue and Dequeue Operation..we
+        // wuld always pop from list2
+        // firt check that list2 is empyy, if it is empty, remove all elements from
+        // list1 to list2
+        // second always pop from list2
+        public Integer dequeue() {
+            Integer ans = -1;
+            if (list2.isEmpty()) {
+                // move all elemets from list1 to list2
+                while (!list1.isEmpty()) {
+                    list2.add(list1.pop());
+                }
+
+            }
+
+            if (!list2.isEmpty()) {
+                ans = list2.pop();
+            }
+            return ans;
+        }
+
+    }
+
+    public static class Points {
+        private Integer number1;
+        private Integer number2;
+
+        public Points(Integer number1, Integer number2) {
+            this.number1 = number1;
+            this.number2 = number2;
+        }
+    }
+
+    public static class XPoint {
+        private String val1;
+        private int val2;
+
+        public XPoint(String val1, int val2) {
+            this.val1 = val1;
+            this.val2 = val2;
+        }
+    }
+
     public static class QuickUnion {
         private int[] arr;
         /*
-         * for optimization, we can introducing a union by rank
+         * for optimization, we can introduce a union by rank
          * which reduces the find time complexity from o(n) to 0(logn)
          */
         private int[] rank;
@@ -1190,64 +1250,6 @@ public class BasicAlgo {
             return quickFind(a) == quickFind(b);
         }
 
-    }
-
-    /** not finished yet **/
-    public int leastInterval(char[] tasks, int n) {
-        HashMap<Character, Integer> map = new HashMap<>();
-        for (int i = 0; i < tasks.length; i++) {
-            Character val = Character.valueOf(tasks[i]);
-            if (map.containsValue(val)) {
-                map.put(val, map.get(val) + 1);
-            } else {
-                map.put(val, 1);
-            }
-        }
-
-        return n;
-
-    }
-    
-    /* use topological sort for clarity */
-    public int[] findOrder(int numCourses, int[][] prerequisites) {
-        int visit = 0;
-        int[] result = new int[numCourses];
-        Queue<Integer>  queue = new LinkedList<>();
-        int[] freq = new int[numCourses];
-        List<Integer>[] adj = new ArrayList[numCourses];
-        for (int i = 0; i < adj.length; i++) {
-            adj[i] = new ArrayList<>();
-        }
-
-        for (int[] pre : prerequisites) {
-            adj[pre[1]].add(pre[0]);
-            freq[pre[0]]++;
-        }
-
-        for (int i = 0; i < freq.length; i++) {
-            if (freq[i] == 0) {
-                queue.add(i);
-            }
-        }
-
-        while(!queue.isEmpty()) {
-            int cur = queue.poll();
-            result[visit++] = cur;
-            for (int neigh : adj[cur]) {
-                freq[neigh]--;
-                if (freq[neigh] == 0) {
-                    queue.add(neigh);
-                }
-            }
-        }
-
-        if (visit == numCourses) {
-            return result;
-
-        }
-
-        result = new int[0];
-        return result;
     }
 
 }

@@ -13,7 +13,9 @@ public class Person {
         this.address = address;
     }
 
-    public void setAddress(Address address) {this.address = address;}
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 
     public class Address {
         private String street;

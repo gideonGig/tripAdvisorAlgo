@@ -4,16 +4,6 @@ import java.util.HashMap;
 
 public class Trie {
 
-    public static class TrieNode {
-        public HashMap<Character, TrieNode> children;
-        public boolean isEnd;
-
-        public TrieNode() {
-            children = new HashMap<>();
-            isEnd = false;
-        }
-    }
-
     public TrieNode root;
 
     public Trie() {
@@ -54,6 +44,16 @@ public class Trie {
             cur = cur.children.get(c);
         }
         return true;
+    }
+
+    public static class TrieNode {
+        public HashMap<Character,TrieNode> children;
+        public boolean isEnd;
+
+        public TrieNode() {
+            children = new HashMap<>();
+            isEnd = false;
+        }
     }
 }
 

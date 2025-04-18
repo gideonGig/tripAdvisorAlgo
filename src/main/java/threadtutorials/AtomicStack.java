@@ -4,6 +4,7 @@ import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.locks.LockSupport;
+
 public class AtomicStack {
     public static void main(String[] args) throws InterruptedException {
         //StandardStack<Integer> stack = new StandardStack<>();
@@ -91,7 +92,7 @@ public class AtomicStack {
         }
     }
 
-    
+
     private static class StackNode<T> {
         public T value;
         public StackNode<T> next;

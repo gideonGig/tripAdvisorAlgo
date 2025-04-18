@@ -4,20 +4,9 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class TicTac {
-    public static class Points {
-        private int row;
-        private int col;
-
-        public Points(int row, int col) {
-            this.row = row;
-            this.col = col;
-        }
-    }
-
     private char[][] board = new char[3][3];
-    private HashMap<Integer, Points> map = new HashMap<>();
+    private HashMap<Integer,Points> map = new HashMap<>();
     private char player = 'X';
-
     public TicTac() {
         loadMap();
         initializeBoard();
@@ -129,5 +118,15 @@ public class TicTac {
 
     public char getPlayer() {
         return player;
+    }
+
+    public static class Points {
+        private int row;
+        private int col;
+
+        public Points(int row, int col) {
+            this.row = row;
+            this.col = col;
+        }
     }
 }

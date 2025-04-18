@@ -1,16 +1,19 @@
 package neecode_150;
 
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LRUCache<K, V> {
     private final int capacity;
     private final Deque<K> queue;
-    private final Map<K, V> map;
+    private final Map<K,V> map;
 
     public LRUCache(int capacity) {
         this.capacity = capacity;
         this.queue = new ArrayDeque<>();
-        this.map = new HashMap<K, V>();
+        this.map = new HashMap<K,V>();
     }
 
     public V get(K key) {

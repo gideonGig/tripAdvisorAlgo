@@ -1,13 +1,14 @@
 package threadtutorials;
 
 import java.util.*;
-import java.util.concurrent.locks.*;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class ReentranReadWriteLockExample {
 
     public static class ProductReviewsService {
-               
-        private final HashMap<Integer, List<String>> productIdToReviews;
+
+        private final HashMap<Integer,List<String>> productIdToReviews;
 
         // Create your member variables here
 
@@ -15,10 +16,10 @@ public class ReentranReadWriteLockExample {
         ReentrantReadWriteLock reentrantReadWriteLock = new ReentrantReadWriteLock();
         Lock readLock = reentrantReadWriteLock.readLock();
         Lock writeLock = reentrantReadWriteLock.writeLock();
-     
+
         public ProductReviewsService() {
             this.productIdToReviews = new HashMap<>();
-                
+
         }
 
         /**
@@ -57,7 +58,7 @@ public class ReentranReadWriteLockExample {
 
         /**
          * Adds a new review to a product
-         * 
+         *
          * @param productId - existing or new product ID
          * @param review    - text containing the product review
          */
@@ -126,7 +127,7 @@ public class ReentranReadWriteLockExample {
 
             try {
                 Set<Integer> productsWithReviews = new HashSet<>();
-                for (Map.Entry<Integer, List<String>> productEntry : productIdToReviews.entrySet()) {
+                for (Map.Entry<Integer,List<String>> productEntry : productIdToReviews.entrySet()) {
                     if (!productEntry.getValue().isEmpty()) {
                         productsWithReviews.add(productEntry.getKey());
                     }
@@ -138,7 +139,7 @@ public class ReentranReadWriteLockExample {
         }
 
         /********* END OF UNMODIFIABLE SECTION **************/
- 
+
         Lock getLockForAddProduct() {
             // Add code here
             return writeLock;
@@ -166,9 +167,9 @@ public class ReentranReadWriteLockExample {
 
         Lock getLockForGetAllProductIdsWithReviews() {
             // add code here
-              return readLock;
+            return readLock;
         }
-        
+
     }
 
 }

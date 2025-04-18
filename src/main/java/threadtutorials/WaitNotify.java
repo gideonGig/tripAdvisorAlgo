@@ -1,7 +1,28 @@
 package threadtutorials;
 
-public class WaitNotify  {
+public class WaitNotify {
     private final Object lock = new Object();
+
+    public static void main(String[] args) throws InterruptedException {
+        WaitNotify waitNotify = new WaitNotify();
+
+        Thread t1 = new Thread(() -> {
+            waitNotify.waitForThread();
+        }, "Wait thread 1");
+
+        Thread t2 = new Thread(() -> {
+            waitNotify.waitForThread();
+        }, "Wait Thread 2");
+
+        Thread t3 = new Thread(() -> {
+            waitNotify.notifyThread();
+        }, "Wait Thread 3");
+
+        t1.start();
+        t2.start();
+        Thread.sleep(1000);
+        t3.start();
+    }
 
     public void waitForThread() {
         synchronized (lock) {
@@ -28,26 +49,5 @@ public class WaitNotify  {
 
             }
         }
-    }
-
-    public static void main(String[] args) throws InterruptedException {
-        WaitNotify waitNotify = new WaitNotify();
-
-        Thread t1 = new Thread(() -> {
-            waitNotify.waitForThread();
-        }, "Wait thread 1");
-
-        Thread t2 = new Thread(() ->{
-            waitNotify.waitForThread();
-        }, "Wait Thread 2" );
-
-        Thread t3 = new Thread(() ->{
-            waitNotify.notifyThread();
-        }, "Wait Thread 3" );
-
-        t1.start();
-        t2.start();
-        Thread.sleep(1000);
-        t3.start();
     }
 }

@@ -8,9 +8,10 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Generics<T> {
-    public Generics(){}
+    public Generics() {
+    }
 
-    public static <T, G> List<G> convertArr(T[] arr, Function<T, G> mapperFunc) {
+    public static <T, G> List<G> convertArr(T[] arr, Function<T,G> mapperFunc) {
         return Arrays.stream(arr).map(mapperFunc).collect(Collectors.toList());
     }
 

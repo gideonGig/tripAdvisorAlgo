@@ -11,7 +11,7 @@ public class Thread2 extends Thread {
         System.out.println();
     }
 
-    public  void createThread2() throws InterruptedException {
+    public void createThread2() throws InterruptedException {
         Thread2 thread2 = new Thread2();
 
 
@@ -36,7 +36,7 @@ public class Thread2 extends Thread {
 
     public static class Task2 implements Runnable {
         @Override
-        public void run(){
+        public void run() {
             System.out.println("Hello from new thread");
         }
     }

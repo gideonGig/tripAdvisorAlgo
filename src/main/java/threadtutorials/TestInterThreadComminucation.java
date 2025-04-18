@@ -5,29 +5,50 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-/** still learning intyer thread communication */
+/**
+ * still learning intyer thread communication
+ */
 public class TestInterThreadComminucation {
     public final Lock lock = new ReentrantLock();
     public final Condition lockCondition = lock.newCondition();
+    private final TestCache cache;
     public String userName;
     public String password;
     public boolean isAuthenticated = false;
-    private final TestCache cache;
 
     public TestInterThreadComminucation(TestCache cache) {
         this.cache = cache;
+    }
+
+    public static void main(String[] args) {
+        TestCache testCache = new TestCache("gideon", "Gidiziz");
+        TestInterThreadComminucation testInterThreadComminucation = new TestInterThreadComminucation(testCache);
+
+
+        TestUI testUI = new TestUI(testInterThreadComminucation);
+
+        TestBackGround testBackGround = new TestBackGround(testInterThreadComminucation);
+
+
+        testUI.setName("UI-Thread");
+        testUI.start();
+
+
+        testBackGround.setName("BackGround-Thread");
+        testBackGround.start();
+
     }
 
     public void checkAuthentication(String inputUserName, String inputPassword) throws InterruptedException {
         lock.lock();
         try {
             while ((inputUserName.equalsIgnoreCase(userName) && inputPassword.equalsIgnoreCase(password)) == false) {
-                        lockCondition.await();
+                lockCondition.await();
             }
-            
+
             isAuthenticated = true;
             System.out.println("valid user name and password");
-            
+
         } finally {
             lock.unlock();
         }
@@ -43,8 +64,8 @@ public class TestInterThreadComminucation {
 
                 System.out.println("Enter password");
                 password = scanner.nextLine();
-                
-                lockCondition.signal(); 
+
+                lockCondition.signal();
                 Thread.sleep(1000);
             }
         } finally {
@@ -71,12 +92,12 @@ public class TestInterThreadComminucation {
         }
 
         public void run() {
-          try {
-            testInterThreadComminucation.checkAuthentication("gideon", "Gidizi");
-        } catch (InterruptedException e) {
-          
-            e.printStackTrace();
-        }
+            try {
+                testInterThreadComminucation.checkAuthentication("gideon", "Gidizi");
+            } catch (InterruptedException e) {
+
+                e.printStackTrace();
+            }
         }
     }
 
@@ -86,31 +107,13 @@ public class TestInterThreadComminucation {
         public TestBackGround(TestInterThreadComminucation testInterThreadComminucation) {
             this.testInterThreadComminucation = testInterThreadComminucation;
         }
-         public void run() {
+
+        public void run() {
             try {
                 testInterThreadComminucation.setAuthentication();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-         }
-    }
-
-    public static void main(String[] args) {
-        TestCache testCache = new TestCache("gideon", "Gidiziz");
-        TestInterThreadComminucation testInterThreadComminucation = new TestInterThreadComminucation(testCache);
-
-
-        TestUI testUI = new TestUI(testInterThreadComminucation);
-
-        TestBackGround testBackGround = new TestBackGround(testInterThreadComminucation);
-
-        
-        testUI.setName("UI-Thread");
-        testUI.start();
-
-
-        testBackGround.setName("BackGround-Thread");
-        testBackGround.start();
-
+        }
     }
 }

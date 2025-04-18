@@ -13,7 +13,7 @@ public class TestSingleton {
 
     public static TestSingleton initialize() {
         if (singleton == null) {
-            synchronized(TestSingleton.class) {
+            synchronized (TestSingleton.class) {
                 if (singleton == null) {
                     singleton = new TestSingleton();
                 }

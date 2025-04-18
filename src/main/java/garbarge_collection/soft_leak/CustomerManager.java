@@ -12,7 +12,7 @@ public class CustomerManager {
     public void addCustomer(Customer customer) {
         synchronized (this) {
             customer.setId(nextAvalailbleId);
-            synchronized(customers) {
+            synchronized (customers) {
                 customers.add(customer);
             }
             nextAvalailbleId++;
@@ -21,7 +21,7 @@ public class CustomerManager {
     }
 
     public Optional<Customer> getNextCustomer() {
-        synchronized(customers) {
+        synchronized (customers) {
             if (customers.size() > 0) {
                 //return Optional.of(customers.remove(0));
                 return Optional.of(customers.get(0));

@@ -35,7 +35,7 @@ public class Basics {
             System.out.println("Wind their way up through the hills.");
         }
 
-        if (value3 == Integer.valueOf(7)){
+        if (value3 == Integer.valueOf(7)) {
             System.out.println("Forewarn of winter chills,");
         }
 
@@ -61,7 +61,7 @@ public class Basics {
                 break;
             default:
                 result = value1 + value2;
-            break;
+                break;
         }
         System.out.println(result);
         return result;

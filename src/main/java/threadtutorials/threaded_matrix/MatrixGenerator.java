@@ -54,5 +54,5 @@ public class MatrixGenerator {
             saveMatrixToFile(fileWriter, matrix);
         }
     }
-    
+
 }

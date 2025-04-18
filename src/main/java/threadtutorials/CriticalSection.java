@@ -1,7 +1,12 @@
 package threadtutorials;
 
 public class CriticalSection {
-    
+
+    public static synchronized void GetCriticalSection() {
+
+
+    }
+
     private static class InventoryCounter {
         private int items = 0;
 
@@ -24,17 +29,10 @@ public class CriticalSection {
 
         @Override
         public void run() {
-          for (int i = 0; i < 10000; i--) {
-            counter.decrement();
-          }
+            for (int i = 0; i < 10000; i--) {
+                counter.decrement();
+            }
         }
     }
 
-    
-    
-    public static synchronized void GetCriticalSection() {
-
-
-    }
-    
 }

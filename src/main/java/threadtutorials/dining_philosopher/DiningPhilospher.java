@@ -1,6 +1,8 @@
 package threadtutorials.dining_philosopher;
 
-import java.util.concurrent.*;
+import java.util.concurrent.CyclicBarrier;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class DiningPhilospher {
 

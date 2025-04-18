@@ -35,6 +35,18 @@ public class MatrixOperation {
             this.queue = queue;
         }
 
+        private static void saveMatrixToFile(FileWriter fileWriter, float[][] matrix) throws IOException {
+            for (int r = 0; r < N; r++) {
+                StringJoiner stringJoiner = new StringJoiner(", ");
+                for (int c = 0; c < N; c++) {
+                    stringJoiner.add(String.format("%.2f", matrix[r][c]));
+                }
+                fileWriter.write(stringJoiner.toString());
+                fileWriter.write('\n');
+            }
+            fileWriter.write('\n');
+        }
+
         @Override
         public void run() {
             while (true) {
@@ -70,18 +82,6 @@ public class MatrixOperation {
                 }
             }
             return result;
-        }
-
-        private static void saveMatrixToFile(FileWriter fileWriter, float[][] matrix) throws IOException {
-            for (int r = 0; r < N; r++) {
-                StringJoiner stringJoiner = new StringJoiner(", ");
-                for (int c = 0; c < N; c++) {
-                    stringJoiner.add(String.format("%.2f", matrix[r][c]));
-                }
-                fileWriter.write(stringJoiner.toString());
-                fileWriter.write('\n');
-            }
-            fileWriter.write('\n');
         }
     }
 
@@ -130,10 +130,10 @@ public class MatrixOperation {
     }
 
     private static class ThreadSafeQueue {
+        private static final int CAPACITY = 5;
         private Queue<MatricesPair> queue = new LinkedList<>();
         private boolean isEmpty = true;
         private boolean isTerminate = false;
-        private static final int CAPACITY = 5;
 
         public synchronized void add(MatricesPair matricesPair) {
             while (queue.size() == CAPACITY) {
@@ -183,5 +183,5 @@ public class MatrixOperation {
         public float[][] matrix1;
         public float[][] matrix2;
     }
-    
+
 }
