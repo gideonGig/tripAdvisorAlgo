@@ -6,12 +6,12 @@ import java.util.concurrent.CyclicBarrier;
 
 public class Philosopher implements Runnable {
 
-    private int id;
-    private Random random;
-    private Chopstick leftStick;
-    private Chopstick rightStick;
+    private final int id;
+    private final Random random;
+    private final Chopstick leftStick;
+    private final Chopstick rightStick;
     private boolean full;
-    private CyclicBarrier cyclicBarrier;
+    private final CyclicBarrier cyclicBarrier;
 
     private int counter;
 

@@ -48,12 +48,12 @@ public class AtomicStack {
 
         Thread.sleep(10000);
 
-        System.out.println(String.format("%,d operations were performed in 10 seconds ", stack.getCounter()));
+        System.out.printf("%,d operations were performed in 10 seconds %n", stack.getCounter());
     }
 
     public static class LockFreeStack<T> {
-        private AtomicReference<StackNode<T>> head = new AtomicReference<>();
-        private AtomicInteger counter = new AtomicInteger(0);
+        private final AtomicReference<StackNode<T>> head = new AtomicReference<>();
+        private final AtomicInteger counter = new AtomicInteger(0);
 
         public void push(T value) {
             StackNode<T> newHeadNode = new StackNode<>(value);

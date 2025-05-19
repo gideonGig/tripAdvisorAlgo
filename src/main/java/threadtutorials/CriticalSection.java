@@ -21,7 +21,7 @@ public class CriticalSection {
     }
 
     public static class DecrementThread extends Thread {
-        private InventoryCounter counter;
+        private final InventoryCounter counter;
 
         public DecrementThread(InventoryCounter counter) {
             this.counter = counter;

@@ -30,8 +30,8 @@ public class ComplexCalculation {
 
     private static class PowerCalculatingThread extends Thread {
         private BigInteger result = BigInteger.ONE;
-        private BigInteger base;
-        private BigInteger power;
+        private final BigInteger base;
+        private final BigInteger power;
 
         public PowerCalculatingThread(BigInteger base, BigInteger power) {
             this.base = base;

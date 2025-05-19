@@ -5,8 +5,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class LatchExample implements Runnable {
-    private int id;
-    private CountDownLatch latch;
+    private final int id;
+    private final CountDownLatch latch;
 
     public LatchExample(int id, CountDownLatch latch) {
         this.id = id;

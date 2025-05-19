@@ -1,7 +1,7 @@
 package joshua_bloch;
 
 public class ChPizza extends Pizza {
-    private int size;
+    private final int size;
 
     ChPizza(ChBuilder builder) {
         super(builder);
@@ -9,7 +9,7 @@ public class ChPizza extends Pizza {
     }
 
     public static class ChBuilder extends Pizza.Builder<ChBuilder> {
-        private int size;
+        private final int size;
 
         public ChBuilder(int size) {
             this.size = size;

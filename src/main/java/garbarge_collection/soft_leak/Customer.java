@@ -2,7 +2,7 @@ package garbarge_collection.soft_leak;
 
 public class Customer {
     private int id;
-    private String name;
+    private final String name;
 
     public Customer(String name) {
         super();

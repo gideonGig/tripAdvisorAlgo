@@ -32,8 +32,6 @@ public class WaitNotify {
                 System.out.println(Thread.currentThread().getName() + " has stopped waiting");
             } catch (InterruptedException ex) {
                 Thread.currentThread().interrupt();
-            } finally {
-
             }
 
         }
@@ -41,13 +39,9 @@ public class WaitNotify {
 
     public void notifyThread() {
         synchronized (lock) {
-            try {
-                System.out.println(Thread.currentThread().getName() + " begins to notify");
-                lock.notifyAll();
-                System.out.println(Thread.currentThread().getName() + " stops to notify");
-            } finally {
-
-            }
+            System.out.println(Thread.currentThread().getName() + " begins to notify");
+            lock.notifyAll();
+            System.out.println(Thread.currentThread().getName() + " stops to notify");
         }
     }
 }

@@ -5,12 +5,12 @@ import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 
 public class Student implements Runnable {
-    private int id;
-    private Book[] book;
-    private CyclicBarrier cyclicBarrier;
+    private final int id;
+    private final Book[] book;
+    private final CyclicBarrier cyclicBarrier;
     private boolean canRead;
     private int counter;
-    private Random random;
+    private final Random random;
 
     public Student(int id, Book[] book, CyclicBarrier cyclicBarrier) {
         this.id = id;
@@ -33,8 +33,6 @@ public class Student implements Runnable {
                 }
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
-            } finally {
-
             }
         }
 

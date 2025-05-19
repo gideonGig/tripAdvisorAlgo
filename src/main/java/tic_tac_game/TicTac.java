@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class TicTac {
-    private char[][] board = new char[3][3];
-    private HashMap<Integer,Points> map = new HashMap<>();
+    private final char[][] board = new char[3][3];
+    private final HashMap<Integer,Points> map = new HashMap<>();
     private char player = 'X';
     public TicTac() {
         loadMap();
@@ -83,15 +83,11 @@ public class TicTac {
             return true;
         }
 
-        if (board[0][2] == player && board[1][1] == player && board[2][0] == player) {
-            return true;
-        }
-
-        return false;
+        return board[0][2] == player && board[1][1] == player && board[2][0] == player;
     }
 
     public void chooseSpot() {
-        System.out.println(String.format("player " + player + " please select your spot between 1 - 9"));
+        System.out.printf("player " + player + " please select your spot between 1 - 9%n");
         Scanner scanner = new Scanner(System.in);
         int point;
         point = scanner.nextInt();
@@ -121,8 +117,8 @@ public class TicTac {
     }
 
     public static class Points {
-        private int row;
-        private int col;
+        private final int row;
+        private final int col;
 
         public Points(int row, int col) {
             this.row = row;

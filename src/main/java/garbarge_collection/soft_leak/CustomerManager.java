@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class CustomerManager {
-    private List<Customer> customers = new ArrayList<Customer>();
+    private final List<Customer> customers = new ArrayList<Customer>();
     private int nextAvalailbleId = 0;
 
     public void addCustomer(Customer customer) {
@@ -33,6 +33,6 @@ public class CustomerManager {
     public void howManyCustomers() {
         int size = 0;
         size = customers.size();
-        System.out.println("" + new Date() + " Customers in queue : " + size + " of " + nextAvalailbleId);
+        System.out.println(new Date() + " Customers in queue : " + size + " of " + nextAvalailbleId);
     }
 }

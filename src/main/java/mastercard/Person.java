@@ -1,9 +1,9 @@
 package mastercard;
 
 public class Person {
-    private String firstName;
-    private String lastName;
-    private boolean hideAddress;
+    private final String firstName;
+    private final String lastName;
+    private final boolean hideAddress;
     private Address address;
 
     public Person(String firstName, String lastName, boolean hideAddress) {
@@ -18,9 +18,9 @@ public class Person {
     }
 
     public class Address {
-        private String street;
-        private String city;
-        private int houseNumber;
+        private final String street;
+        private final String city;
+        private final int houseNumber;
 
         public Address(String street, String city, int houseNumber) {
             this.street = street;

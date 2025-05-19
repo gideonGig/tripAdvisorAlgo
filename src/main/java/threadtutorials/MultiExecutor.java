@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class MultiExecutor {
-    private List<Thread> threads;
+    private final List<Thread> threads;
 
     public MultiExecutor(List<Runnable> tasks) {
         threads = tasks.stream().map(Thread::new).collect(Collectors.toList());

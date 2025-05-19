@@ -47,7 +47,9 @@ public class Trie {
     }
 
     public static class TrieNode {
+
         public HashMap<Character,TrieNode> children;
+
         public boolean isEnd;
 
         public TrieNode() {

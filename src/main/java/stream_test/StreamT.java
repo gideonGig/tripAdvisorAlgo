@@ -8,8 +8,8 @@ import java.util.stream.Collectors;
 
 public class StreamT {
 
-    public static Employee[] employees = new Employee[]{new Employee(1, "Gideon", "Estate", true, new BigDecimal(9000.00)),
-            new Employee(3, "Gideon", "Estate", false, new BigDecimal(6000.00)), new Employee(2, "Gideon", "Estate", true, new BigDecimal(7000.00))};
+    public static Employee[] employees = new Employee[]{new Employee(1, "Gideon", "Estate", true, new BigDecimal("9000.00")),
+            new Employee(3, "Gideon", "Estate", false, new BigDecimal("6000.00")), new Employee(2, "Gideon", "Estate", true, new BigDecimal("7000.00"))};
     public static List<Employee> employeeList = Arrays.asList(employees);
     public static List<BigDecimal> salaryList = new ArrayList<BigDecimal>();
 
@@ -18,7 +18,7 @@ public class StreamT {
         System.out.println(numberOfEmployees);
 
         List<BigDecimal> salaryList = employeeList.stream().map(x -> x.salary).collect(Collectors.toList());
-        System.out.println(salaryList.toString());
+        System.out.println(salaryList);
 
 
         List<BigDecimal> salaryListGreaterThan500 = employeeList.stream().filter(x -> x.getSalary().compareTo(BigDecimal.valueOf(6500.00)) > 0)
@@ -114,11 +114,11 @@ public class StreamT {
     }
 
     public static class Employee {
-        private int id;
+        private final int id;
         private String name;
-        private String address;
-        private Boolean isContractor;
-        private BigDecimal salary;
+        private final String address;
+        private final Boolean isContractor;
+        private final BigDecimal salary;
 
         public Employee(int id, String name, String address, Boolean isContractor, BigDecimal salary) {
             this.id = id;
@@ -160,7 +160,7 @@ public class StreamT {
     }
 
     public static class EmployeePriorityQueue {
-        private PriorityQueue<Employee> employeeQueue;
+        private final PriorityQueue<Employee> employeeQueue;
 
         public EmployeePriorityQueue() {
             employeeQueue = new PriorityQueue<>(new EmployeeComparator());
@@ -186,7 +186,7 @@ public class StreamT {
     }
 
     public static class EmployeeAtomicPriorirtyQueue {
-        private AtomicReference<PriorityQueue<Employee>> atomicEmployeeQueue;
+        private final AtomicReference<PriorityQueue<Employee>> atomicEmployeeQueue;
 
         public EmployeeAtomicPriorirtyQueue() {
             atomicEmployeeQueue = new AtomicReference<>(new PriorityQueue<>(new EmployeeComparator()));

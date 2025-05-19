@@ -3,7 +3,7 @@ package garbarge_collection.soft_leak;
 import java.util.UUID;
 
 public class GenerateCustomerTask implements Runnable {
-    private CustomerManager cm;
+    private final CustomerManager cm;
 
     public GenerateCustomerTask(CustomerManager cm) {
         this.cm = cm;

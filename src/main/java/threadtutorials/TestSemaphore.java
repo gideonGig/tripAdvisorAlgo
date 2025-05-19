@@ -6,7 +6,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class TestSemaphore {
 
-    private Barrier barrier;
+    private final Barrier barrier;
 
     public TestSemaphore(Barrier barrier) {
         this.barrier = barrier;
@@ -31,18 +31,18 @@ public class TestSemaphore {
 
     public void testOrderedTaskWithSemaphore() throws InterruptedException {
 
-        System.out.println(String.format("Task 1 is currently using thread %s", Thread.currentThread().getName()));
+        System.out.printf("Task 1 is currently using thread %s%n", Thread.currentThread().getName());
 
         barrier.blockThread();
 
-        System.out.println(String.format("Task 2 is currently using thread %s", Thread.currentThread().getName()));
+        System.out.printf("Task 2 is currently using thread %s%n", Thread.currentThread().getName());
     }
 
     public static class Barrier {
         private final Lock lock = new ReentrantLock();
         private final Semaphore semaphore = new Semaphore(0);
         private int counter = 0;
-        private int numThreads;
+        private final int numThreads;
 
         public Barrier(int numThreads) {
             this.numThreads = numThreads;

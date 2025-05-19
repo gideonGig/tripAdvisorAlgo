@@ -4,10 +4,10 @@ enum Element {
     HELIUM("He", "Gas"),
     MAGNESIUM("Mg", "Solid");
 
-    private String chemicalSymbol;
-    private String naturalState;
+    private final String chemicalSymbol;
+    private final String naturalState;
 
-    private Element(String newChemicalSymbol, String naturalState) {
+    Element(String newChemicalSymbol, String naturalState) {
         chemicalSymbol = newChemicalSymbol;
         this.naturalState = naturalState;
     }

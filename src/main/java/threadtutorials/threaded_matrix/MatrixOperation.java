@@ -27,8 +27,8 @@ public class MatrixOperation {
     }
 
     private static class MatricesMultiplierConsumer extends Thread {
-        private ThreadSafeQueue queue;
-        private FileWriter fileWriter;
+        private final ThreadSafeQueue queue;
+        private final FileWriter fileWriter;
 
         public MatricesMultiplierConsumer(FileWriter fileWriter, ThreadSafeQueue queue) {
             this.fileWriter = fileWriter;
@@ -86,8 +86,8 @@ public class MatrixOperation {
     }
 
     private static class MatricesReaderProducer extends Thread {
-        private Scanner scanner;
-        private ThreadSafeQueue queue;
+        private final Scanner scanner;
+        private final ThreadSafeQueue queue;
 
         public MatricesReaderProducer(FileReader reader, ThreadSafeQueue queue) {
             this.scanner = new Scanner(reader);
@@ -131,7 +131,7 @@ public class MatrixOperation {
 
     private static class ThreadSafeQueue {
         private static final int CAPACITY = 5;
-        private Queue<MatricesPair> queue = new LinkedList<>();
+        private final Queue<MatricesPair> queue = new LinkedList<>();
         private boolean isEmpty = true;
         private boolean isTerminate = false;
 

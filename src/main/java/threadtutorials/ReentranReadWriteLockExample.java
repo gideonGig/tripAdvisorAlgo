@@ -48,9 +48,7 @@ public class ReentranReadWriteLockExample {
             lock.lock();
 
             try {
-                if (productIdToReviews.containsKey(productId)) {
-                    productIdToReviews.remove(productId);
-                }
+                productIdToReviews.remove(productId);
             } finally {
                 lock.unlock();
             }

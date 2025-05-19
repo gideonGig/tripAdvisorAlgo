@@ -28,7 +28,7 @@ public class MatrixGenerator {
     }
 
     private static float[][] createMatrix(Random random) {
-        float matrix[][] = new float[N][N];
+        float[][] matrix = new float[N][N];
         for (int i = 0; i < N; i++) {
             matrix[i] = createRow(random);
         }

@@ -4,7 +4,7 @@ import java.util.Optional;
 
 public class ProcessCustomerTask implements Runnable {
 
-    private CustomerManager cm;
+    private final CustomerManager cm;
 
     public ProcessCustomerTask(CustomerManager cm) {
         this.cm = cm;

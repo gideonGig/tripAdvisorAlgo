@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.concurrent.RecursiveAction;
 
 public class SimpleRecurisiveTasks extends RecursiveAction {
-    private List<Integer> result;
-    private List<Integer> arr;
+    private final List<Integer> result;
+    private final List<Integer> arr;
 
     public SimpleRecurisiveTasks(List<Integer> arr, List<Integer> result) {
         this.arr = arr;
@@ -20,6 +20,7 @@ public class SimpleRecurisiveTasks extends RecursiveAction {
                 for (int j = 2; j <= 9; j++) {
                     if (val % j == 0) {
                         isPrime = false;
+                        break;
                     }
                 }
                 if (isPrime) {

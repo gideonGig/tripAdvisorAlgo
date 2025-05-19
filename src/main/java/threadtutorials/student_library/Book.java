@@ -6,9 +6,9 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Book {
-    private int id;
-    private Lock lock;
-    private Random random;
+    private final int id;
+    private final Lock lock;
+    private final Random random;
 
     public Book(int id) {
         this.id = id;

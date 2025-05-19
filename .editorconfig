@@ -1,0 +1,43 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 4
+
+[*.java]
+indent_style = space
+indent_size = 4
+continuation_indent_size = 8
+
+# Fix whitespace issues
+ij_java_space_after_comma = true
+ij_java_space_before_colon = false
+ij_java_space_after_colon = true
+ij_java_space_around_operators = true
+ij_java_space_within_parentheses = false
+ij_java_space_within_method_call_parentheses = false
+ij_java_space_within_method_parentheses = false
+ij_java_space_within_if_parentheses = false
+ij_java_space_within_for_parentheses = false
+ij_java_space_within_while_parentheses = false
+ij_java_space_before_method_call_parentheses = false
+ij_java_space_before_method_parentheses = false
+
+# Braces style
+ij_java_brace_style = end_of_line
+
+# Import rules
+ij_java_imports_layout = *
+ij_java_imports_layout_static_imports_last = true
+ij_java_imports_layout_blank_lines_after_package = 1
+ij_java_imports_layout_blank_lines_between_groups = 1
+
+# Blank lines
+ij_java_blank_lines_after_class_header = 1
+ij_java_blank_lines_before_class_end = 1
+ij_java_blank_lines_around_method = 1
+ij_java_blank_lines_around_field = 1

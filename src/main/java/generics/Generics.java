@@ -23,7 +23,7 @@ public class Generics<T> {
 
     }
 
-    public static interface TestInterface {
+    public interface TestInterface {
 
     }
 }

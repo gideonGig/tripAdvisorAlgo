@@ -25,17 +25,13 @@ public class MySingleton implements Serializable {
 
     public static MySingleton getInstanceWithDoubleLock() throws InterruptedException {
         if (getInstance == null) {
-            try {
-                synchronized (MySingleton.class) {
-                    if (getInstance == null) {
-                        Thread.sleep(1000);
-                        getInstance = new MySingleton();
-                    }
+            synchronized (MySingleton.class) {
+                if (getInstance == null) {
+                    Thread.sleep(1000);
+                    getInstance = new MySingleton();
                 }
-
-            } finally {
-
             }
+
         }
 
         return getInstance;

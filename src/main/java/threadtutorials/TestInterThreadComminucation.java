@@ -42,7 +42,7 @@ public class TestInterThreadComminucation {
     public void checkAuthentication(String inputUserName, String inputPassword) throws InterruptedException {
         lock.lock();
         try {
-            while ((inputUserName.equalsIgnoreCase(userName) && inputPassword.equalsIgnoreCase(password)) == false) {
+            while (!(inputUserName.equalsIgnoreCase(userName) && inputPassword.equalsIgnoreCase(password))) {
                 lockCondition.await();
             }
 
@@ -58,7 +58,7 @@ public class TestInterThreadComminucation {
         lock.lock();
         try {
             Scanner scanner = new Scanner(System.in);
-            while (isAuthenticated == false) {
+            while (!isAuthenticated) {
                 System.out.println("Enter User name");
                 userName = scanner.nextLine();
 
@@ -75,8 +75,8 @@ public class TestInterThreadComminucation {
     }
 
     public static class TestCache {
-        private String name;
-        private String password;
+        private final String name;
+        private final String password;
 
         public TestCache(String name, String password) {
             this.name = name;
@@ -85,7 +85,7 @@ public class TestInterThreadComminucation {
     }
 
     public static class TestUI extends Thread {
-        private TestInterThreadComminucation testInterThreadComminucation;
+        private final TestInterThreadComminucation testInterThreadComminucation;
 
         public TestUI(TestInterThreadComminucation testInterThreadComminucation) {
             this.testInterThreadComminucation = testInterThreadComminucation;
@@ -102,7 +102,7 @@ public class TestInterThreadComminucation {
     }
 
     public static class TestBackGround extends Thread {
-        private TestInterThreadComminucation testInterThreadComminucation;
+        private final TestInterThreadComminucation testInterThreadComminucation;
 
         public TestBackGround(TestInterThreadComminucation testInterThreadComminucation) {
             this.testInterThreadComminucation = testInterThreadComminucation;

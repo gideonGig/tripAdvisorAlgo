@@ -4,7 +4,7 @@ public class GraphUtils {
 
     public static void searchGraph(Graph graph, Integer s) {
         Integer count = 0;
-        boolean[] marked = new boolean[graph.getVertex()];
+        boolean[] marked = new boolean[graph.getNumOfVertex()];
         count = depthFirstSearch(graph, s, marked);
         System.out.println(count);
     }

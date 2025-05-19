@@ -7,9 +7,9 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 public class CyclicBarrierExample implements Runnable {
-    private Random random;
-    private CyclicBarrier barrier;
-    private int id;
+    private final Random random;
+    private final CyclicBarrier barrier;
+    private final int id;
 
     public CyclicBarrierExample(int id, CyclicBarrier barrier) {
         this.id = id;

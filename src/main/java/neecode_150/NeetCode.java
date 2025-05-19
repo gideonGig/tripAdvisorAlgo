@@ -455,12 +455,7 @@ public class NeetCode {
                 }
             }
         }
-        if (!stack.isEmpty()) {
-            return false;
-
-        }
-
-        return true;
+        return stack.isEmpty();
 
     }
 
@@ -832,9 +827,7 @@ public class NeetCode {
             temp[k++] = nums[j++];
         }
 
-        for (int x = start; x <= end; x++) {
-            nums[x] = temp[x - start];
-        }
+        if (end + 1 - start >= 0) System.arraycopy(temp, 0, nums, start, end + 1 - start);
     }
 
     public static void insertionSort(int[] arr) {
@@ -1242,11 +1235,7 @@ public class NeetCode {
             return true;
         }
 
-        if (hasPathSum(root.right, targetSum)) {
-            return true;
-        }
-
-        return false;
+        return hasPathSum(root.right, targetSum);
     }
 
     public static List<TreeNode> generateTrees(int n) {
@@ -1469,7 +1458,6 @@ public class NeetCode {
         if (target == 0) {
             result.add(new ArrayList<>(list));
         } else if (target < 0 || start >= candidate.length) {
-            return;
         } else {
             int element = candidate[start];
             list.add(element);
@@ -1494,9 +1482,7 @@ public class NeetCode {
                                               int k, int target, int[] contains) {
         if (target == 0 && list.size() == k) {
             result.add(new ArrayList<>(list));
-            ;
         } else if (list.size() > k || target < 0 || start >= contains.length) {
-            return;
         } else {
             int element = contains[start];
             list.add(element);
@@ -2312,7 +2298,7 @@ public class NeetCode {
         public String encode(List<String> strs) {
             StringBuilder builder = new StringBuilder();
             for (String s : strs) {
-                builder.append(String.valueOf(s.length()) + "#" + s);
+                builder.append(s.length() + "#" + s);
             }
             return builder.toString();
         }
@@ -2338,8 +2324,8 @@ public class NeetCode {
     }
 
     public static class MinStack {
-        private Stack<Integer> arr;
-        private Stack<Integer> minArr;
+        private final Stack<Integer> arr;
+        private final Stack<Integer> minArr;
 
         public MinStack() {
             arr = new Stack<>();
@@ -2366,8 +2352,8 @@ public class NeetCode {
     }
 
     public static class MyStack {
-        private Deque<Integer> firstQueue;
-        private Deque<Integer> secondQueue;
+        private final Deque<Integer> firstQueue;
+        private final Deque<Integer> secondQueue;
         private int count;
         private boolean isPeek = false;
 
@@ -2410,19 +2396,15 @@ public class NeetCode {
         }
 
         public boolean empty() {
-            if (count > 0) {
-                return false;
-            }
-
-            return true;
+            return count <= 0;
         }
 
     }
 
     public static class KthLargest {
 
-        private List<Integer> arr = new ArrayList<Integer>();
-        private int n;
+        private final List<Integer> arr = new ArrayList<Integer>();
+        private final int n;
 
         public KthLargest(int k, int[] nums) {
             arr.add(-1);
@@ -2517,9 +2499,9 @@ public class NeetCode {
 
     public static class LRUCache {
 
-        private Deque<Integer> stack;
-        private HashMap<Integer,Integer> map;
-        private int capacity;
+        private final Deque<Integer> stack;
+        private final HashMap<Integer,Integer> map;
+        private final int capacity;
 
         public LRUCache(int capacity) {
             stack = new ArrayDeque<Integer>();
@@ -2568,6 +2550,7 @@ public class NeetCode {
             stack.add(key);
 
         }
+
     }
 
     /*
@@ -2577,11 +2560,15 @@ public class NeetCode {
     public static class LRUCacheII {
 
         /* this give the less recently used Node */
-        private Node left;
+        private final Node left;
+
         /* this gives the most recently used Node */
-        private Node right;
-        private int capacity;
-        private HashMap<Integer,Node> map;
+        private final Node right;
+
+        private final int capacity;
+
+        private final HashMap<Integer,Node> map;
+
         public LRUCacheII(int capacity) {
             this.left = new Node(0, 0);
             this.right = new Node(0, 0);
@@ -2636,9 +2623,13 @@ public class NeetCode {
         }
 
         public static class Node {
-            private int key;
-            private int val;
+
+            private final int key;
+
+            private final int val;
+
             private Node prev;
+
             private Node next;
 
             public Node(int key, int val) {
@@ -2651,7 +2642,7 @@ public class NeetCode {
             @Override
             public int hashCode() {
                 final int prime = 31;
-                int result = 1 * prime;
+                int result = prime;
                 result = prime * result + (prev == null ? 0 : prev.hashCode());
                 result = prime * result + (next == null ? 0 : next.hashCode());
                 result = prime * result + key;
@@ -2669,14 +2660,11 @@ public class NeetCode {
                     return false;
                 Node castNode = (Node) obj;
                 if (prev == null) {
-                    if (castNode.prev != null)
-                        return false;
+                    return castNode.prev == null;
 
-                } else if (!prev.equals(castNode.prev))
-                    return false;
+                } else return prev.equals(castNode.prev);
 
                 /** continue the pattern */
-                return true;
             }
 
         }
@@ -2822,10 +2810,15 @@ public class NeetCode {
         }
 
         public static class Point {
+
             private int r;
+
             private int c;
+
             private int l;
+
             private boolean visited = false;
+
             private boolean isWaterEscaped = false;
 
             public Point(int row, int col, int len) {
@@ -2838,12 +2831,15 @@ public class NeetCode {
                 this.visited = visited;
                 this.isWaterEscaped = isWaterEscaped;
             }
+
         }
 
     }
 
     public static class Node {
+
         public int val;
+
         public List<Node> neighbors;
 
         public Node() {
@@ -2879,7 +2875,7 @@ public class NeetCode {
                     map.put(arr[1], neighbours);
                 }
 
-                map.get(arr[0].toString()).add(arr[1]);
+                map.get(arr[0]).add(arr[1]);
 
             }
             return map;
@@ -3074,9 +3070,12 @@ public class NeetCode {
     }
 
     public static class UnionFind {
-        private int[] root;
-        private int[] rank;
-        private int numEdges;
+
+        private final int[] root;
+
+        private final int[] rank;
+
+        private final int numEdges;
 
         public UnionFind(int numEdges) {
             this.numEdges = numEdges;
@@ -3124,7 +3123,9 @@ public class NeetCode {
     }
 
     public class Graph {
+
         public Integer vertex;
+
         public List<Integer>[] adj;
 
         public Graph(Integer vertex) {
@@ -3153,6 +3154,7 @@ public class NeetCode {
                 }
             }
         }
+
     }
 
 }

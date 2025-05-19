@@ -3,8 +3,8 @@ package threadtutorials;
 import java.math.BigDecimal;
 
 public class InteruptThread {
-    private BigDecimal base;
-    private int n;
+    private final BigDecimal base;
+    private final int n;
 
     private BigDecimal result;
 

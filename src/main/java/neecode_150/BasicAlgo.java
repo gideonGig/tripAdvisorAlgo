@@ -350,10 +350,7 @@ public class BasicAlgo {
             }
         }
 
-        if (!stack.isEmpty()) {
-            return false;
-        }
-        return true;
+        return stack.isEmpty();
     }
 
     public static ListNode mergeTwoSortedList(ListNode nodeA, ListNode nodeB) {
@@ -1094,8 +1091,8 @@ public class BasicAlgo {
     }
 
     public static class MyQueue {
-        private Stack<Integer> list1;
-        private Stack<Integer> list2;
+        private final Stack<Integer> list1;
+        private final Stack<Integer> list2;
 
         public MyQueue() {
             list1 = new Stack();
@@ -1131,8 +1128,8 @@ public class BasicAlgo {
     }
 
     public static class Points {
-        private Integer number1;
-        private Integer number2;
+        private final Integer number1;
+        private final Integer number2;
 
         public Points(Integer number1, Integer number2) {
             this.number1 = number1;
@@ -1141,8 +1138,8 @@ public class BasicAlgo {
     }
 
     public static class XPoint {
-        private String val1;
-        private int val2;
+        private final String val1;
+        private final int val2;
 
         public XPoint(String val1, int val2) {
             this.val1 = val1;
@@ -1151,12 +1148,12 @@ public class BasicAlgo {
     }
 
     public static class QuickUnion {
-        private int[] arr;
+        private final int[] arr;
         /*
          * for optimization, we can introduce a union by rank
          * which reduces the find time complexity from o(n) to 0(logn)
          */
-        private int[] rank;
+        private final int[] rank;
 
         public QuickUnion(int[] numArr) {
             arr = numArr;
@@ -1220,7 +1217,7 @@ public class BasicAlgo {
     }
 
     public static class QuickFind {
-        private int[] arr;
+        private final int[] arr;
 
         public QuickFind(int[] numArr) {
             arr = numArr;

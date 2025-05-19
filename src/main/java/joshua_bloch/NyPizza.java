@@ -3,7 +3,6 @@ package joshua_bloch;
 public class NyPizza extends Pizza {
     private Size size;
 
-    ;
     NyPizza(NyBuilder builder) {
         super(builder);
     }
@@ -20,6 +19,7 @@ public class NyPizza extends Pizza {
         public void removeToppings(Topping topping) {
             if (super.toppings.contains(topping)) {
                 toppings.remove(topping);
+                self();
             }
         }
 
