@@ -325,7 +325,6 @@ public class DynamicAlgo {
             return 1;
         }
 
-
         if (hashMap.containsKey(position)) {
             return hashMap.get(position);
         }
@@ -411,7 +410,6 @@ public class DynamicAlgo {
                 found.addAll(listOfArr);
             }
         }
-
         found.addAll(getAllCommonSubsequence(s1, s2, i + 1, j, map));
         found.addAll(getAllCommonSubsequence(s2, s2, i, j + 1, map));
 
@@ -448,11 +446,196 @@ public class DynamicAlgo {
         return dp[m][n];
     }
 
+    private static int[][] editDistancePattern(String s1, String s2) {
+        int m = s1.length();
+        int n = s2.length();
+
+        int[][] dp = new int[m + 1][n + 1];
+        int[][] pathWay = new int[m + 1][n + 1];
+
+        for (int i = 0; i <= n; i++) {
+            dp[0][i] = i;
+        }
+
+        for (int j = 0; j <= m; j++) {
+            dp[j][0] = j;
+        }
+
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                int deleteCost = 1 + dp[i - 1][j];
+                int insertCost = 1 + dp[i][j - 1];
+                int replacementCost = 1 + dp[i - 1][j - 1];
+
+                if (s1.charAt(i - 1) == s2.charAt(j - 1)) {
+                    dp[i][j] = dp[i - 1][j - 1];
+                    pathWay[i][j] = 0;
+                } else {
+                    dp[i][j] = Math.min(replacementCost, Math.min(deleteCost, insertCost));
+                    if (dp[i][j] == replacementCost) {
+                        pathWay[i][j] = 3;
+                    } else if (dp[i][j] == insertCost) {
+                        pathWay[i][j] = 1;
+                    } else if (dp[i][j] == deleteCost) {
+                        pathWay[i][j] = 2;
+                    }
+                }
+            }
+        }
+
+        return pathWay;
+    }
+
+    private static String pathWayOfEditDistance(String s1, String s2) {
+        int m = s1.length();
+        int n = s2.length();
+
+        int[][] dp = editDistancePattern(s1, s2);
+
+        for (int i = 0; i <= n; i++) {
+            dp[0][i] = 1;
+        }
+
+        for (int j = 0; j <= m; j++) {
+            dp[j][0] = 2;
+        }
+
+        dp[0][0] = -1;
+        StringBuilder path = new StringBuilder();
+        reconstructPath(s1, s2, m, n, dp, path);
+        return path.reverse().toString();
+    }
+
+    private static void reconstructPath(String s1, String s2, int i, int j, int[][] dp, StringBuilder path) {
+        if (dp[i][j] == -1 || (i == 0 && j == 0)) {
+            return;
+        }
+
+        if (dp[i][j] == 0) {
+            path.append("M");
+            reconstructPath(s1, s2, i - 1, j - 1, dp, path);
+        }
+        if (dp[i][j] == 1) {
+            path.append("I");
+            reconstructPath(s1, s2, i, j - 1, dp, path);
+        }
+
+        if (dp[i][j] == 2) {
+            path.append("D");
+            reconstructPath(s1, s2, i - 1, j, dp, path);
+        }
+
+        if (dp[i][j] == 3) {
+            path.append("S");
+            reconstructPath(s1, s2, i - 1, j - 1, dp, path);
+        }
+    }
+
+    private static int longestCommonSubsequenceDP(String s1, String s2) {
+        int m = s1.length();
+        int n = s2.length();
+
+        int[][] dp = new int[m + 1][n + 1];
+
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                int costOfDelete = dp[i - 1][j];
+                int costOfInsert = dp[i][j - 1];
+
+                if (s1.charAt(i - 1) == s2.charAt(j - 1)) {
+                    dp[i][j] = 1 + dp[i - 1][j - 1];
+                } else {
+                    dp[i][j] = Math.min(costOfInsert, costOfDelete);
+                }
+            }
+        }
+
+        return dp[m][n];
+    }
+
+    private static int maximumMonotoneSubsequence(int[] arr) {
+        int m = arr.length;
+        int[] dp = new int[m];
+
+        dp[0] = 1;
+        int maxSubSequence = 1;
+
+        for (int i = 1; i < m; i++) {
+            int maxOfCurrentIndex = 0;
+            for (int j = 0; j < i; j++) {
+                if (arr[i] > arr[j]) {
+                    maxOfCurrentIndex = Math.max(maxOfCurrentIndex, dp[j]);
+                }
+            }
+
+            dp[i] = maxOfCurrentIndex + 1;
+            maxSubSequence = Math.max(maxSubSequence, dp[i]);
+        }
+
+        return maxSubSequence;
+    }
+
+    private static Map<Integer,List<Integer>> partitionProblem(int[] arr, int k) {
+        int n = arr.length;
+        int[] prefix = new int[n + 1];
+
+        for (int i = 0; i < n; i++) {
+            prefix[i + 1] = prefix[i] + arr[i];
+        }
+
+        int[][] dp = new int[n + 1][k + 1];
+
+        int[][] split = new int[n + 1][k + 1];
+
+        /*  base case when the partition is 1, get the prefix sum at each point */
+        for (int i = 1; i <= n; i++) {
+            dp[i][1] = prefix[i];
+        }
+
+        for (int p = 2; p <= k; p++) {
+            for (int i = 1; i <= n; i++) {
+                int minCost = Integer.MAX_VALUE;
+                for (int j = 1; j < i; j++) {
+                    int left = dp[j][p - 1];
+                    int right = prefix[i] - prefix[j];
+                    int cost = Math.max(left, right);
+                    minCost = Math.min(cost, minCost);
+                    split[i][p] = j;
+                }
+
+                dp[i][p] = minCost;
+            }
+
+        }
+
+        int i = n;
+        int j = k;
+
+        List<Integer> splitPoints = new ArrayList<>();
+        while (j > 0) {
+            int m = split[i][j];
+            int point = prefix[i] - prefix[m];
+            splitPoints.add(point);
+            i = m;
+            j--;
+        }
+
+        var res = new HashMap<Integer,List<Integer>>();
+        res.put(dp[n][k], splitPoints);
+
+        return res;
+
+    }
+
 
     public static void main(String[] args) {
-        int[] arr = new int[]{10, 15, 20};
-        var resp = allCommonSubsequenceDP("ABCDE", "BCDE");
-        System.out.println(resp);
+        int[] arr = new int[]{10, 20, 30, 40};
+        var ans = partitionProblem(arr, 2);
+        System.out.println(String.format("Max subsequence is : %s", maximumMonotoneSubsequence(arr)));
+        String s1 = "democrat";
+        String s2 = "republican";
+        var path = longestCommonSubsequenceDP(s1, s2);
+        System.out.println(path);
     }
 
 }

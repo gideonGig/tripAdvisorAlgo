@@ -1214,9 +1214,13 @@ public class BasicAlgo {
         public boolean isConnected(int a, int b) {
             return find(a) == find(b);
         }
+
+
+
     }
 
     public static class QuickFind {
+
         private final int[] arr;
 
         public QuickFind(int[] numArr) {
