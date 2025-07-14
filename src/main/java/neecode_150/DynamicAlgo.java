@@ -605,7 +605,6 @@ public class DynamicAlgo {
 
                 dp[i][p] = minCost;
             }
-
         }
 
         int i = n;
@@ -614,7 +613,7 @@ public class DynamicAlgo {
         List<Integer> splitPoints = new ArrayList<>();
         while (j > 0) {
             int m = split[i][j];
-            int point = prefix[i] - prefix[m];
+            int point = prefix[i] - prefix[j];
             splitPoints.add(point);
             i = m;
             j--;
@@ -627,8 +626,132 @@ public class DynamicAlgo {
 
     }
 
+    private static int minimumTriangulationCost(int[] arr) {
+        int n = arr.length;
+        int[][] dp = new int[n][n];
+
+        for (int i = n - 1; i >= 0; i--) {
+            for (int j = i + 2; j < n; j++) {
+                int previousCost = Integer.MAX_VALUE;
+                for (int k = i + 1; k < j; k++) {
+                    int cost = dp[i][k] + dp[k][j] + calculateLengthOFVertex(i, j, k);
+                    previousCost = Math.min(cost, previousCost);
+                }
+                dp[i][j] = previousCost;
+            }
+        }
+
+        return dp[0][n - 1];
+    }
+
+    private static int calculateLengthOFVertex(int i, int j, int k) {
+        return i * j * k;
+    }
+
+
+    /** Assignments on Dynamic Programming from the Algorithm
+     * design manual by Steven Skiena
+     */
+
+    /**
+     * 8-2. [4] Suppose you are given three strings of characters: X, Y , and Z, where |X| = n,
+     * |Y | = m, and |Z| = n + m. Z is said to be a shuffle of X and Y iff Z can be
+     * formed by interleaving the characters from X and Y in a way that maintains the
+     * left-to-right ordering of the characters from each string.
+     * (a) Show that cchocohilaptes is a shuffle of chocolate and chips, but chocochilatspe
+     * is not.
+     * (b) Give an efficient dynamic-programming algorithm that determines whether Z
+     * is a shuffle of X and Y . Hint: the values of the dynamic programming matrix
+     * you construct should be Boolean, not numeric.
+     */
+    public static boolean interleavingShuffle(String X, String Y, String Z) {
+        int n = X.length();
+        int m = Y.length();
+
+        boolean[][] dp = new boolean[n + 1][m + 1];
+        dp[0][0] = true;
+
+        // Fill the first row
+        for (int i = 1; i <= m; i++) {
+            dp[i][0] = dp[i - 1][0] && X.charAt(i - 1) == Z.charAt(i - 1);
+        }
+
+        // Fill the first column
+        for (int j = 1; j <= n; j++) {
+            dp[0][j] = dp[0][j - 1] && Y.charAt(j - 1) == Z.charAt(j - 1);
+        }
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= m; j++) {
+                dp[i][j] = (X.charAt(i - 1) == Z.charAt(i + j - 1) && dp[i - 1][j]) ||
+                        (Y.charAt(j - 1) == Z.charAt(i + j - 1) && dp[i][j - 1]);
+            }
+        }
+
+        return dp[n][m];
+    }
+
+
+    /**
+     * The longest common substring (not subsequence) of two strings X and Y is
+     * the longest string that appears as a run of consecutive letters in both strings. For
+     * example, the longest common substring of photograph and tomography is ograph.
+     * 8.10 EXERCISES 311
+     * (a) Let n = |X| and m = |Y |. Give a Θ(nm) dynamic programming algorithm
+     * for longest common substring based on the longest common subsequence/edit
+     * distance algorithm.
+     */
+
+    public static int longestCommonSubString(String X, String Y) {
+        int m = X.length();
+        int n = Y.length();
+
+        int maxLength = 0;
+        int[][] dp = new int[m + 1][n + 1];
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                if (X.charAt(i - 1) == Y.charAt(j - 1)) {
+                    dp[i][j] = 1 + dp[i - 1][j - 1];
+                    maxLength = Math.max(maxLength, dp[i][j]);
+                } else {
+                    dp[i][j] = 0;
+                }
+            }
+        }
+
+        return maxLength;
+    }
+
+
+    public static String longestCommonSubStringValue(String X, String Y) {
+        int m = X.length();
+        int n = Y.length();
+
+        String longestString = "";
+        String[][] dp = new String[m + 1][n + 1];
+
+        for (int i = 0; i <= m; i++) {
+            for (int j = 0; j <= n; j++) {
+                dp[i][j] = "";
+            }
+        }
+
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                if (X.charAt(i - 1) == Y.charAt(j - 1)) {
+                    dp[i][j] = dp[i - 1][j - 1] + X.charAt(i - 1) ;
+                    if (dp[i][j].length() > longestString.length()) {
+                        longestString = dp[i][j];
+                    }
+                }
+            }
+        }
+
+        return longestString;
+    }
 
     public static void main(String[] args) {
+
+        System.out.println(longestCommonSubStringValue("chocolate", "mocolaui"));
         int[] arr = new int[]{10, 20, 30, 40};
         var ans = partitionProblem(arr, 2);
         System.out.println(String.format("Max subsequence is : %s", maximumMonotoneSubsequence(arr)));
